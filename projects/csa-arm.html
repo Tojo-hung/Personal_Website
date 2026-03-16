@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CSA Robotic Arm — Thomas Hung</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="container">
+      <a href="../index.html" class="nav-logo">T<span>.</span>Hung</a>
+      <ul class="nav-links">
+        <li><a href="../index.html#projects" class="active">Projects</a></li>
+        <li><a href="../index.html#experience">Experience</a></li>
+        <li><a href="../index.html#skills">Skills</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+      <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="project-hero">
+    <div class="container">
+      <div class="project-hero-eyebrow">
+        <a href="../index.html">Home</a>
+        <span class="sep">/</span>
+        <a href="../index.html#projects">Projects</a>
+        <span class="sep">/</span>
+        CSA Robotic Arm
+      </div>
+      <h1>CSA Robotic Arm<br><em>End-Effector</em></h1>
+      <p class="subtitle">
+        A prototype robotic arm end-effector designed in collaboration with the
+        Canadian Space Agency — optimized for additive manufacturing through
+        FEA-driven iteration.
+      </p>
+      <div class="project-meta">
+        <div class="project-meta-item">
+          <span class="project-meta-label">Client</span>
+          <span class="project-meta-value">Canadian Space Agency</span>
+        </div>
+        <div class="project-meta-item">
+          <span class="project-meta-label">Timeline</span>
+          <span class="project-meta-value">Winter 2025</span>
+        </div>
+        <div class="project-meta-item">
+          <span class="project-meta-label">Context</span>
+          <span class="project-meta-value">Queen's University Design Course</span>
+        </div>
+        <div class="project-meta-item">
+          <span class="project-meta-label">Tools</span>
+          <span class="project-meta-value">SolidWorks · FEA · TPU</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BANNER IMAGE -->
+  <div class="container">
+    <div class="project-banner">
+      <!-- ADD HERO IMAGE:
+           1. Drop your photo into /images/
+           2. Add class="has-image" to the div above
+           3. Uncomment the img tag below
+      -->
+      <!-- <img src="../images/csa-arm-hero.jpg" alt="CSA end-effector prototype"> -->
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="container" style="padding-bottom: 40px;">
+    <div class="project-layout">
+
+      <!-- LEFT: Body copy -->
+      <div class="project-content reveal">
+
+        <h2>Overview</h2>
+        <p>
+          As part of a Queen's University engineering design course, our team partnered directly
+          with the Canadian Space Agency to design a robotic arm end-effector prototype. The CSA
+          provided the design requirements and acted as a real client throughout the project,
+          reviewing milestones and providing feedback at each stage.
+        </p>
+        <p>
+          The end-effector needed to interface with a standard robotic arm mounting flange, provide
+          a compliant gripping surface for irregular payloads, and be manufacturable using desktop
+          additive manufacturing tools — making TPU (thermoplastic polyurethane) a key material choice.
+        </p>
+
+        <h2>Design Process</h2>
+        <p>
+          We began with a requirements analysis session with the CSA stakeholders, translating mission
+          objectives into quantitative design parameters: grip force, jaw travel, payload geometry,
+          and mass budget.
+        </p>
+        <ul>
+          <li>Concept ideation using morphological charts and Pugh matrices to down-select to two final candidates</li>
+          <li>Parametric CAD models in SolidWorks for rapid iteration</li>
+          <li>FEA on structural members to identify and remove material where stress was low, reducing mass</li>
+          <li>Flexible jaw pads printed in TPU to conform to irregular surfaces without marring them</li>
+        </ul>
+
+        <div class="callout">
+          <p>
+            FEA-guided topology optimization reduced the jaw assembly mass by approximately 23%
+            while maintaining a safety factor above 3.0 under maximum grip load.
+          </p>
+        </div>
+
+        <h2>Fabrication &amp; Testing</h2>
+        <p>
+          The structural components were printed in PLA+ for rigidity, with TPU finger pads
+          co-assembled onto the jaw arms. The full prototype was assembled, mounted to a test
+          fixture, and evaluated against the CSA's acceptance criteria.
+        </p>
+        <ul>
+          <li>Print tolerances tuned for slip-fit joints — no post-processing required for assembly</li>
+          <li>Grip force measured with a load cell at multiple jaw positions</li>
+          <li>Payload retention tested with simulated irregular objects at varying orientations</li>
+        </ul>
+
+        <h2>Outcome</h2>
+        <p>
+          The prototype met all primary CSA requirements and was delivered on schedule.
+          The project was a strong introduction to working within real client constraints and
+          using simulation tools to drive design decisions rather than relying on intuition alone.
+        </p>
+
+        <!-- PHOTO GALLERY -->
+        <h2>Photos</h2>
+        <div class="photo-gallery">
+          <div>
+            <div class="photo-gallery-item">
+              <!-- <img src="../images/csa-cad.jpg" alt="SolidWorks CAD model"> -->
+            </div>
+            <p class="photo-caption">CAD model</p>
+          </div>
+          <div>
+            <div class="photo-gallery-item">
+              <!-- <img src="../images/csa-fea.jpg" alt="FEA stress analysis"> -->
+            </div>
+            <p class="photo-caption">FEA stress analysis</p>
+          </div>
+          <div>
+            <div class="photo-gallery-item">
+              <!-- <img src="../images/csa-print.jpg" alt="Printed components"> -->
+            </div>
+            <p class="photo-caption">Printed components</p>
+          </div>
+          <div>
+            <div class="photo-gallery-item">
+              <!-- <img src="../images/csa-assembled.jpg" alt="Assembled prototype"> -->
+            </div>
+            <p class="photo-caption">Assembled prototype</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: Sidebar -->
+      <div class="project-sidebar reveal">
+        <div class="specs-card">
+          <div class="specs-card-title">Project Specs</div>
+          <div class="spec-row">
+            <span class="spec-key">Client</span>
+            <span class="spec-val">Canadian Space Agency</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-key">Structural Material</span>
+            <span class="spec-val">PLA+</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-key">Grip Pads</span>
+            <span class="spec-val">TPU (flexible)</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-key">Analysis</span>
+            <span class="spec-val">SolidWorks FEA</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-key">Mass Reduction</span>
+            <span class="spec-val">~23% vs baseline</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-key">Safety Factor</span>
+            <span class="spec-val">&gt; 3.0</span>
+          </div>
+        </div>
+
+        <div class="specs-card">
+          <div class="specs-card-title">Technologies</div>
+          <div class="pill-row" style="flex-direction:column; gap:8px;">
+            <span class="pill" style="width:fit-content;">SolidWorks 2024</span>
+            <span class="pill" style="width:fit-content;">FEA Simulation</span>
+            <span class="pill" style="width:fit-content;">FDM 3D Printing</span>
+            <span class="pill" style="width:fit-content;">TPU / PLA+</span>
+            <span class="pill" style="width:fit-content;">DFM Principles</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <a href="../index.html#projects" class="back-link reveal">← Back to Projects</a>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Thomas Hung · Built from scratch with HTML, CSS &amp; JS</p>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+  </script>
+
+</body>
+</html>

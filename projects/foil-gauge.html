@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Windsurf Foil Gauge — Thomas Hung</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="container">
+      <a href="../index.html" class="nav-logo">T<span>.</span>Hung</a>
+      <ul class="nav-links">
+        <li><a href="../index.html#projects" class="active">Projects</a></li>
+        <li><a href="../index.html#experience">Experience</a></li>
+        <li><a href="../index.html#skills">Skills</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+      <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="project-hero">
+    <div class="container">
+      <div class="project-hero-eyebrow">
+        <a href="../index.html">Home</a>
+        <span class="sep">/</span>
+        <a href="../index.html#projects">Projects</a>
+        <span class="sep">/</span>
+        Foil Angle Gauge
+      </div>
+      <h1>Windsurf Foil<br><em>Angle Gauge</em></h1>
+      <p class="subtitle">
+        Designed, prototyped, and brought to market a precision angle-of-attack gauge
+        for Olympic iQFOiL windsurfers — born from a real problem I faced competing at the
+        international level.
+      </p>
+      <div class="project-meta">
+        <div class="project-meta-item">
+          <span class="project-meta-label">Type</span>
+          <span class="project-meta-value">Product Design + Business</span>
+        </div>
+        <div class="project-meta-item">
+          <span class="project-meta-label">Status</span>
+          <span class="project-meta-value">Sold to athletes</span>
+        </div>
+        <div class="project-meta-item">
+          <span class="project-meta-label">Sport</span>
+          <span class="project-meta-value">iQFOiL Windsurfing</span>
+        </div>
+        <div class="project-meta-item">
+          <span class="project-meta-label">Tools</span>
+          <span class="project-meta-value">3D Scanning · CAD · FDM</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BANNER IMAGE -->
+  <div class="container">
+    <div class="project-banner">
+      <!-- ADD HERO IMAGE:
+           1. Drop your photo into /images/
+           2. Add class="has-image" to the div above
+           3. Uncomment the img tag below
+      -->
+      <!-- <img src="../images/foil-gauge-hero.jpg" alt="Foil angle gauge on iQFOiL wing"> -->
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="container" style="padding-bottom: 40px;">
+    <div class="project-layout">
+
+      <!-- LEFT: Body copy -->
+      <div class="project-content reveal">
+
+        <h2>The Problem</h2>
+        <p>
+          The iQFOiL is an Olympic windsurfing discipline where athletes race on hydrofoils at speeds
+          exceeding 30 knots. The wing angle of attack (AoA) — the angle of the front wing relative
+          to the mast base — is a critical tuning parameter that affects lift, drag, and ride height.
+        </p>
+        <p>
+          Elite athletes set this angle during equipment preparation, but no purpose-built tool existed.
+          Sailors were using improvised methods — phone inclinometers, homemade wooden jigs — none of
+          which were repeatable, weather-resistant, or specific to the iQFOiL's geometry.
+        </p>
+
+        <h2>Design &amp; Prototyping</h2>
+        <p>
+          Having competed at two ISAF Youth Sailing World Championships on the iQFOiL, I understood
+          the problem firsthand. I used 3D scanning to capture the exact mast base and wing root
+          geometry, then built the gauge around those surfaces so it locates repeatably without
+          the user needing to align anything.
+        </p>
+        <ul>
+          <li>3D scanned the mast base fitting to capture the true locating surface geometry</li>
+          <li>Designed a two-part gauge in Fusion 360 — reference body + rotating protractor arm</li>
+          <li>FDM printed in PETG for durability and UV resistance on the water</li>
+          <li>Integrated a bubble level vial for quick zero-reference verification</li>
+          <li>Angular scale laser-engraved directly on the print — no stickers to peel</li>
+        </ul>
+
+        <div class="callout">
+          <p>
+            The gauge reduces AoA setup time from several minutes of trial-and-error to under
+            30 seconds, and eliminates session-to-session variability entirely.
+          </p>
+        </div>
+
+        <h2>Iteration &amp; Refinement</h2>
+        <p>
+          The first prototype was tested at a national training camp. Feedback from other athletes
+          drove two major design revisions: a wider reference foot for stability on the angled mast
+          base, and a detachable arm that folds flat for storage in a sail bag.
+        </p>
+        <ul>
+          <li>V1 → V2: Wider contact foot, tighter fit tolerances</li>
+          <li>V2 → V3: Foldable arm, lanyard attachment point, revised scale markings</li>
+          <li>Print settings optimized for 0.2 mm layer height — readable scale detail without post-processing</li>
+        </ul>
+
+        <h2>To Market</h2>
+        <p>
+          After V3 was validated by several national-level athletes, I produced a small batch and
+          sold units to the Canadian iQFOiL fleet and several international contacts made through
+          the World Championship circuit. This was my first experience taking a product from
+          an idea all the way to a paying customer.
+        </p>
+
+        <!-- PHOTO GALLERY -->
+        <h2>Photos</h2>
+        <div class="photo-gallery">
+          <div>
+            <div class="photo-gallery-item">
+              <!-- <img src="../images/gauge-scan.jpg" alt="3D scanning setup"> -->
+            </div>
+            <p class="photo-caption">3D scanning the mast base</p>
+          </div>
+          <div>
+            <div class="photo-gallery-item">
+              <!-- <img src="../images/gauge-cad.jpg" alt="Fusion 360 CAD model"> -->
+            </div>
+            <p class="photo-caption">Fusion 360 CAD</p>
+          </div>
+          <div>
+            <div class="photo-gallery-item">
+              <!-- <img src="../images/gauge-print.jpg" alt="PETG prototype"> -->
+            </div>
+            <p class="photo-caption">PETG prototype</p>
+          </div>
+          <div>
+            <div class="photo-gallery-item">
+              <!-- <img src="../images/gauge-in-use.jpg" alt="In use on iQFOiL"> -->
+            </div>
+            <p class="photo-caption">In use at training camp</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: Sidebar -->
+      <div class="project-sidebar reveal">
+        <div class="specs-card">
+          <div class="specs-card-title">Product Specs</div>
+          <div class="spec-row">
+            <span class="spec-key">Material</span>
+            <span class="spec-val">PETG</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-key">Process</span>
+            <span class="spec-val">FDM, 0.2 mm layers</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-key">Geometry Source</span>
+            <span class="spec-val">3D Scan</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-key">Resolution</span>
+            <span class="spec-val">0.5° increments</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-key">Versions</span>
+            <span class="spec-val">V1 → V3</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-key">Status</span>
+            <span class="spec-val">Sold to athletes</span>
+          </div>
+        </div>
+
+        <div class="specs-card">
+          <div class="specs-card-title">Technologies</div>
+          <div class="pill-row" style="flex-direction:column; gap:8px;">
+            <span class="pill" style="width:fit-content;">3D Scanning</span>
+            <span class="pill" style="width:fit-content;">Fusion 360</span>
+            <span class="pill" style="width:fit-content;">FDM Printing</span>
+            <span class="pill" style="width:fit-content;">PETG</span>
+            <span class="pill" style="width:fit-content;">Product Iteration</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <a href="../index.html#projects" class="back-link reveal">← Back to Projects</a>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Thomas Hung · Built from scratch with HTML, CSS &amp; JS</p>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+  </script>
+
+</body>
+</html>

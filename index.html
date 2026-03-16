@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thomas Hung — Engineering Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ==================== NAV ==================== -->
+  <nav>
+    <div class="container">
+      <a href="index.html" class="nav-logo">T<span>.</span>Hung</a>
+      <ul class="nav-links">
+        <li><a href="#projects" class="active">Projects</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-eyebrow">ENGINEERING PHYSICS · QUEEN'S UNIVERSITY</div>
+        <h1>Thomas Hung<br><em>builds things</em></h1>
+        <p class="hero-desc">
+          Engineering Physics student specializing in mechanical design,
+          prototyping, and autonomous systems. From fiberglass hulls to
+          robotic end-effectors — I turn ideas into hardware.
+        </p>
+        <div style="display:flex; gap:14px; flex-wrap:wrap;">
+          <a href="#projects" class="btn">
+            VIEW PROJECTS
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l10-10M7 7h10v10"/></svg>
+          </a>
+          <a href="#contact" class="btn btn-outline">GET IN TOUCH</a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="stat-val">3.97</div>
+            <div class="stat-label">GPA</div>
+          </div>
+          <div>
+            <div class="stat-val">3+</div>
+            <div class="stat-label">Technical Projects</div>
+          </div>
+          <div>
+            <div class="stat-val">2×</div>
+            <div class="stat-label">ISAF Worlds</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PROJECTS ==================== -->
+  <section id="projects">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">Selected Work</div>
+        <h2 class="section-title">Projects</h2>
+      </div>
+      <div class="projects-grid stagger">
+
+        <a href="projects/aquatonomous.html" class="project-card reveal" style="--i:0">
+          <div class="project-card-img">
+            <!-- IMAGES: uncomment and set src when ready
+            <img src="images/aquatonomous-hero.jpg" alt="aQuatonomous ASV"> -->
+          </div>
+          <div class="project-card-body">
+            <div class="project-tag">Autonomous Systems · Team Lead</div>
+            <h3>aQuatonomous — RoboBoat 2026</h3>
+            <p>Mechanical team lead for Queen's autonomous surface vehicle. Engineered fiberglass hulls from FDM mold components.</p>
+            <div class="pill-row">
+              <span class="pill">SolidWorks</span>
+              <span class="pill">FDM</span>
+              <span class="pill">Fiberglass</span>
+            </div>
+            <div class="card-arrow">View project →</div>
+          </div>
+        </a>
+
+        <a href="projects/csa-arm.html" class="project-card reveal" style="--i:1">
+          <div class="project-card-img">
+            <!-- <img src="images/csa-arm-hero.jpg" alt="CSA robotic arm"> -->
+          </div>
+          <div class="project-card-body">
+            <div class="project-tag">Space · Robotics</div>
+            <h3>CSA Robotic Arm End-Effector</h3>
+            <p>Designed a robotic arm end-effector prototype in collaboration with the Canadian Space Agency.</p>
+            <div class="pill-row">
+              <span class="pill">SolidWorks</span>
+              <span class="pill">FEA</span>
+              <span class="pill">TPU</span>
+            </div>
+            <div class="card-arrow">View project →</div>
+          </div>
+        </a>
+
+        <a href="projects/foil-gauge.html" class="project-card reveal" style="--i:2">
+          <div class="project-card-img">
+            <!-- <img src="images/foil-gauge-hero.jpg" alt="Windsurf foil gauge"> -->
+          </div>
+          <div class="project-card-body">
+            <div class="project-tag">Product Design · Business</div>
+            <h3>Windsurf Foil Angle Gauge</h3>
+            <p>Designed, prototyped, and sold an FDM-printed gauge measuring wing angle of attack for Olympic windsurfing.</p>
+            <div class="pill-row">
+              <span class="pill">3D Scanning</span>
+              <span class="pill">CAD</span>
+              <span class="pill">FDM</span>
+            </div>
+            <div class="card-arrow">View project →</div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== EXPERIENCE ==================== -->
+  <section id="experience" style="background: var(--bg-raised);">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">Background</div>
+        <h2 class="section-title">Experience &amp; Athletics</h2>
+      </div>
+      <div class="timeline">
+
+        <div class="timeline-item reveal">
+          <div class="timeline-date">2024 — PRESENT</div>
+          <h3>Mechanical Team Lead</h3>
+          <h4>Queen's aQuatonomous Design Team · Kingston, ON</h4>
+          <p>Leading hull design, fabrication, and project coordination for an autonomous surface vehicle competing at RoboBoat 2026.</p>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-date">WINTER 2025</div>
+          <h3>Design Project — Canadian Space Agency</h3>
+          <h4>Queen's University · Kingston, ON</h4>
+          <p>Collaborated with the CSA to design a robotic arm end-effector, applying FEA-driven optimization for additive manufacturing.</p>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-date">2023 — 2024</div>
+          <h3>ISAF Youth Sailing Worlds</h3>
+          <h4>Sail Canada · Brazil &amp; Italy</h4>
+          <p>Represented Canada in iQFOiL windsurfing at the international level.</p>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-date">2021 — 2024</div>
+          <h3>FIS Alpine Ski Racer</h3>
+          <h4>Vancouver Ski Team · British Columbia</h4>
+          <p>Nationally ranked top five U18 in multiple disciplines. Competed at NORAM Finals in Downhill and Super-G.</p>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-date">2021 — 2025</div>
+          <h3>Sailing Instructor</h3>
+          <h4>Royal Vancouver Yacht Club</h4>
+          <p>Organized and coached summer camps for youth sailors in a high-performance dinghy program.</p>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-date">FALL 2025</div>
+          <h3>Orientation Leader</h3>
+          <h4>Queen's Engineering Society · Kingston, ON</h4>
+          <p>Mentored a cohort of 25 incoming students, facilitating their transition to engineering at Queen's.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SKILLS ==================== -->
+  <section id="skills">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">Toolkit</div>
+        <h2 class="section-title">Skills</h2>
+      </div>
+      <div class="skills-grid stagger">
+        <div class="skill-box reveal" style="--i:0">
+          <h3>Software &amp; Tools</h3>
+          <ul>
+            <li>SolidWorks 2024</li>
+            <li>Fusion 360</li>
+            <li>FEA &amp; CFD Analysis</li>
+          </ul>
+        </div>
+        <div class="skill-box reveal" style="--i:1">
+          <h3>Prototyping</h3>
+          <ul>
+            <li>FDM 3D Printing</li>
+            <li>Arduino / C++</li>
+            <li>Soldering</li>
+            <li>Fiberglass Fabrication</li>
+          </ul>
+        </div>
+        <div class="skill-box reveal" style="--i:2">
+          <h3>Languages &amp; Soft Skills</h3>
+          <ul>
+            <li>English &amp; French (Fluent)</li>
+            <li>Project Management</li>
+            <li>Team Leadership</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CONTACT ==================== -->
+  <section id="contact" style="background: var(--bg-raised);">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">Get In Touch</div>
+        <h2 class="section-title">Contact</h2>
+      </div>
+      <div class="contact-wrap reveal">
+        <div>
+          <p>
+            I'm looking for internship opportunities for Summer 2027.
+            If you're working on autonomous systems, mechanical design,
+            or aerospace — I'd love to hear from you.
+          </p>
+        </div>
+        <div class="contact-items">
+          <a href="mailto:23rfs3@queensu.ca" class="contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>
+            23rfs3@queensu.ca
+          </a>
+          <a href="https://linkedin.com/in/thomas-hung-8a3082299" target="_blank" class="contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            LinkedIn
+          </a>
+          <a href="tel:604-690-9358" class="contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.86 19.86 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.86 19.86 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.13.81.36 1.6.68 2.34a2 2 0 01-.45 2.11L8.09 9.42a16 16 0 006.5 6.5l1.25-1.25a2 2 0 012.11-.45c.74.32 1.53.55 2.34.68A2 2 0 0122 16.92z"/></svg>
+            604-690-9358
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Thomas Hung · Built from scratch with HTML, CSS &amp; JS</p>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+    // Mobile nav close on link click
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.querySelector('.nav-links').classList.remove('show');
+      });
+    });
+  </script>
+
+</body>
+</html>

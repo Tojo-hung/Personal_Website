@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>aQuatonomous — Thomas Hung</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="container">
+      <a href="../index.html" class="nav-logo">T<span>.</span>Hung</a>
+      <ul class="nav-links">
+        <li><a href="../index.html#projects" class="active">Projects</a></li>
+        <li><a href="../index.html#experience">Experience</a></li>
+        <li><a href="../index.html#skills">Skills</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+      <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="project-hero">
+    <div class="container">
+      <div class="project-hero-eyebrow">
+        <a href="../index.html">Home</a>
+        <span class="sep">/</span>
+        <a href="../index.html#projects">Projects</a>
+        <span class="sep">/</span>
+        aQuatonomous
+      </div>
+      <h1>aQuatonomous<br><em>RoboBoat 2026</em></h1>
+      <p class="subtitle">
+        Mechanical team lead for Queen's University autonomous surface vehicle —
+        engineering fiberglass hulls, structural systems, and hardware integration
+        for international competition.
+      </p>
+      <div class="project-meta">
+        <div class="project-meta-item">
+          <span class="project-meta-label">Role</span>
+          <span class="project-meta-value">Mechanical Team Lead</span>
+        </div>
+        <div class="project-meta-item">
+          <span class="project-meta-label">Timeline</span>
+          <span class="project-meta-value">2024 — Present</span>
+        </div>
+        <div class="project-meta-item">
+          <span class="project-meta-label">Competition</span>
+          <span class="project-meta-value">RoboBoat 2026</span>
+        </div>
+        <div class="project-meta-item">
+          <span class="project-meta-label">Tools</span>
+          <span class="project-meta-value">SolidWorks · FDM · Fiberglass</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BANNER IMAGE -->
+  <div class="container">
+    <div class="project-banner">
+      <!-- ADD HERO IMAGE:
+           1. Drop your photo into /images/
+           2. Add class="has-image" to the div above
+           3. Uncomment the img tag below
+      -->
+      <!-- <img src="../images/aquatonomous-hero.jpg" alt="aQuatonomous ASV on water"> -->
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="container" style="padding-bottom: 40px;">
+    <div class="project-layout">
+
+      <!-- LEFT: Body copy -->
+      <div class="project-content reveal">
+
+        <h2>Overview</h2>
+        <p>
+          aQuatonomous is Queen's University's student-run autonomous surface vehicle (ASV) team,
+          competing in the annual RoboBoat challenge hosted by RoboNation. As Mechanical Team Lead,
+          I own the full mechanical lifecycle — from concept and CAD through fabrication and on-water testing.
+        </p>
+        <p>
+          The vehicle must autonomously navigate a course of tasks including docking, path following,
+          and object avoidance, requiring a hull that is both hydrodynamically efficient and structurally
+          rigid enough to house sensitive electronics and propulsion hardware.
+        </p>
+
+        <h2>Hull Design &amp; Fabrication</h2>
+        <p>
+          The hulls were designed parametrically in SolidWorks, optimized for low drag and stability
+          at competition speeds. Rather than machining traditional foam plugs, I developed a process
+          using FDM-printed mold segments that bolt together into a full-scale mold surface.
+        </p>
+        <ul>
+          <li>Segmented FDM mold strategy to stay within bed size limits while maintaining dimensional accuracy</li>
+          <li>Wet fiberglass layup over printed molds — multiple plies of woven cloth for stiffness-to-weight ratio</li>
+          <li>Post-cure surface finishing, gelcoat, and hardware mounting inserts</li>
+          <li>Full waterproof electronics bay with gasketed access panels</li>
+        </ul>
+
+        <div class="callout">
+          <p>
+            The FDM-to-fiberglass workflow cut mold lead time by roughly 60% compared to traditional
+            foam-and-filler approaches, and allowed rapid design iteration between competition cycles.
+          </p>
+        </div>
+
+        <h2>Structural Integration</h2>
+        <p>
+          A custom aluminum crossbeam connects the two hulls, providing a mounting platform for the
+          electronics enclosure, sensor mast, and propulsion pods. Every joint was designed to be
+          disassembled for transport and reassembled in under 20 minutes.
+        </p>
+        <ul>
+          <li>Modular crossbeam with indexed mounting positions for payload flexibility</li>
+          <li>Vibration-isolated electronics tray to protect IMU and compute hardware</li>
+          <li>Cable management channels routed through hull walls to protect wiring from water ingress</li>
+        </ul>
+
+        <h2>Team Leadership</h2>
+        <p>
+          Beyond hands-on fabrication, the role involves coordinating a team of mechanical sub-leads,
+          managing the build schedule, and liaising with electrical and software teams to ensure
+          mechanical interfaces are defined and frozen before integration sprints.
+        </p>
+
+        <!-- PHOTO GALLERY -->
+        <h2>Build Photos</h2>
+        <div class="photo-gallery">
+          <div>
+            <div class="photo-gallery-item">
+              <!-- <img src="../images/aq-mold.jpg" alt="FDM mold segments"> -->
+            </div>
+            <p class="photo-caption">FDM mold segments</p>
+          </div>
+          <div>
+            <div class="photo-gallery-item">
+              <!-- <img src="../images/aq-layup.jpg" alt="Fiberglass layup"> -->
+            </div>
+            <p class="photo-caption">Fiberglass layup</p>
+          </div>
+          <div>
+            <div class="photo-gallery-item">
+              <!-- <img src="../images/aq-assembly.jpg" alt="Hull assembly"> -->
+            </div>
+            <p class="photo-caption">Hull assembly</p>
+          </div>
+          <div>
+            <div class="photo-gallery-item">
+              <!-- <img src="../images/aq-water.jpg" alt="Water testing"> -->
+            </div>
+            <p class="photo-caption">Water testing</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: Sidebar -->
+      <div class="project-sidebar reveal">
+        <div class="specs-card">
+          <div class="specs-card-title">Project Specs</div>
+          <div class="spec-row">
+            <span class="spec-key">Hull Material</span>
+            <span class="spec-val">Woven Fiberglass</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-key">Mold Process</span>
+            <span class="spec-val">FDM Printed</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-key">CAD Software</span>
+            <span class="spec-val">SolidWorks 2024</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-key">Configuration</span>
+            <span class="spec-val">Catamaran</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-key">Competition</span>
+            <span class="spec-val">RoboBoat 2026</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-key">Team Size</span>
+            <span class="spec-val">~20 members</span>
+          </div>
+        </div>
+
+        <div class="specs-card">
+          <div class="specs-card-title">Technologies</div>
+          <div class="pill-row" style="flex-direction:column; gap:8px;">
+            <span class="pill" style="width:fit-content;">SolidWorks</span>
+            <span class="pill" style="width:fit-content;">FDM 3D Printing</span>
+            <span class="pill" style="width:fit-content;">Fiberglass Fabrication</span>
+            <span class="pill" style="width:fit-content;">Structural Analysis</span>
+            <span class="pill" style="width:fit-content;">Aluminum Machining</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <a href="../index.html#projects" class="back-link reveal">← Back to Projects</a>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Thomas Hung · Built from scratch with HTML, CSS &amp; JS</p>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+  </script>
+
+</body>
+</html>
