@@ -137,11 +137,15 @@ nav .container {
 /* Two-column hero layout */
 .hero-split {
   display: grid;
-  grid-template-columns: 1fr 500px;
-  gap: 64px;
+  grid-template-columns: 1fr 460px;
+  gap: 48px;
   align-items: center;
   position: relative; z-index: 1;
   width: 100%;
+}
+@media (max-width: 1024px) {
+  .hero-split { grid-template-columns: 1fr; }
+  .hero-collage { display: none; }
 }
 .hero-inner { position: relative; z-index: 1; }
 
@@ -672,8 +676,6 @@ footer p {
   section { padding: 64px 0; }
   .container { padding: 0 16px; }
 
-  .hero-split { grid-template-columns: 1fr; }
-  .hero-collage { display: none; }
   .hero-stats { flex-direction: column; gap: 24px; }
   .contact-wrap { grid-template-columns: 1fr; }
   .projects-grid { grid-template-columns: 1fr; }
