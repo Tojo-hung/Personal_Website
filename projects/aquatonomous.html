@@ -66,13 +66,8 @@
 
   <!-- BANNER IMAGE -->
   <div class="container">
-    <div class="project-banner">
-      <!-- ADD HERO IMAGE:
-           1. Drop your photo into /images/
-           2. Add class="has-image" to the div above
-           3. Uncomment the img tag below
-      -->
-      <!-- <img src="../images/aquatonomous-hero.jpg" alt="aQuatonomous ASV on water"> -->
+    <div class="project-banner has-image">
+      <img src="../images/aquatonomous-hero.jpg" alt="aQuatonomous ASV on water">
     </div>
   </div>
 
@@ -138,26 +133,26 @@
         <h2>Build Photos</h2>
         <div class="photo-gallery">
           <div>
-            <div class="photo-gallery-item">
-              <!-- <img src="../images/aq-mold.jpg" alt="FDM mold segments"> -->
+            <div class="photo-gallery-item has-image">
+              <img src="../images/aq-mold.jpg" alt="FDM mold segments">
             </div>
             <p class="photo-caption">FDM mold segments</p>
           </div>
           <div>
-            <div class="photo-gallery-item">
-              <!-- <img src="../images/aq-layup.jpg" alt="Fiberglass layup"> -->
+            <div class="photo-gallery-item has-image">
+              <img src="../images/aq-layup.jpg" alt="Fiberglass layup">
             </div>
             <p class="photo-caption">Fiberglass layup</p>
           </div>
           <div>
-            <div class="photo-gallery-item">
-              <!-- <img src="../images/aq-assembly.jpg" alt="Hull assembly"> -->
+            <div class="photo-gallery-item has-image">
+              <img src="../images/aq-assembly.png" alt="Hull assembly">
             </div>
             <p class="photo-caption">Hull assembly</p>
           </div>
           <div>
-            <div class="photo-gallery-item">
-              <!-- <img src="../images/aq-water.jpg" alt="Water testing"> -->
+            <div class="photo-gallery-item has-image">
+              <img src="../images/aq-water.jpg" alt="Water testing">
             </div>
             <p class="photo-caption">Water testing</p>
           </div>
@@ -218,12 +213,33 @@
     </div>
   </footer>
 
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close">ESC / CLOSE ✕</button>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
   <script>
     const observer = new IntersectionObserver(
       (entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('visible'); }),
       { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
     );
     document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+    // Lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    document.querySelectorAll('.photo-gallery-item img').forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightbox.classList.add('open');
+      });
+    });
+    function closeLightbox() { lightbox.classList.remove('open'); }
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
   </script>
 
 </body>
