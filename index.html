@@ -279,7 +279,9 @@
   <!-- ==================== LIGHTBOX ==================== -->
   <div class="lightbox" id="lightbox">
     <button class="lightbox-close" id="lightbox-close">ESC / CLOSE ×</button>
+    <button class="lightbox-arrow lightbox-prev" id="lightbox-prev">&#8592;</button>
     <img id="lightbox-img" src="" alt="">
+    <button class="lightbox-arrow lightbox-next" id="lightbox-next">&#8594;</button>
   </div>
 
   <!-- ==================== FOOTER ==================== -->
@@ -296,19 +298,37 @@
     );
     document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 
-    // Lightbox for hero collage
+    // Lightbox for hero collage with arrow navigation
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
-    document.querySelectorAll('.hero-collage-img img').forEach(img => {
+    const imgs = Array.from(document.querySelectorAll('.hero-collage-img img'));
+    let current = 0;
+
+    function openLightbox(index) {
+      current = index;
+      lightboxImg.src = imgs[current].src;
+      lightbox.classList.add('open');
+    }
+    function closeLightbox() { lightbox.classList.remove('open'); }
+    function navigate(dir) {
+      current = (current + dir + imgs.length) % imgs.length;
+      lightboxImg.src = imgs[current].src;
+    }
+
+    imgs.forEach((img, i) => {
       img.style.cursor = 'zoom-in';
-      img.addEventListener('click', () => {
-        lightboxImg.src = img.src;
-        lightbox.classList.add('open');
-      });
+      img.addEventListener('click', () => openLightbox(i));
     });
-    document.getElementById('lightbox-close').addEventListener('click', () => lightbox.classList.remove('open'));
-    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lightbox.classList.remove('open'); });
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.classList.remove('open'); });
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    document.getElementById('lightbox-prev').addEventListener('click', (e) => { e.stopPropagation(); navigate(-1); });
+    document.getElementById('lightbox-next').addEventListener('click', (e) => { e.stopPropagation(); navigate(1); });
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') navigate(-1);
+      if (e.key === 'ArrowRight') navigate(1);
+    });
 
     // Mobile nav close on link click
     document.querySelectorAll('.nav-links a').forEach(link => {
