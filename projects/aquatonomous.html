@@ -216,7 +216,9 @@
   <!-- Lightbox -->
   <div class="lightbox" id="lightbox">
     <button class="lightbox-close" id="lightbox-close">ESC / CLOSE ✕</button>
+    <button class="lightbox-arrow lightbox-prev" id="lightbox-prev">&#8592;</button>
     <img id="lightbox-img" src="" alt="">
+    <button class="lightbox-arrow lightbox-next" id="lightbox-next">&#8594;</button>
   </div>
 
   <script>
@@ -226,20 +228,38 @@
     );
     document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 
-    // Lightbox
+    // Lightbox with arrow navigation
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
-    document.querySelectorAll('.photo-gallery-item img').forEach(img => {
-      img.addEventListener('click', () => {
-        lightboxImg.src = img.src;
-        lightboxImg.alt = img.alt;
-        lightbox.classList.add('open');
-      });
-    });
+    const imgs = Array.from(document.querySelectorAll('.photo-gallery-item img'));
+    let current = 0;
+
+    function openLightbox(index) {
+      current = index;
+      lightboxImg.src = imgs[current].src;
+      lightboxImg.alt = imgs[current].alt;
+      lightbox.classList.add('open');
+      document.getElementById('lightbox-prev').style.visibility = imgs.length > 1 ? 'visible' : 'hidden';
+      document.getElementById('lightbox-next').style.visibility = imgs.length > 1 ? 'visible' : 'hidden';
+    }
     function closeLightbox() { lightbox.classList.remove('open'); }
+    function navigate(dir) {
+      current = (current + dir + imgs.length) % imgs.length;
+      lightboxImg.src = imgs[current].src;
+      lightboxImg.alt = imgs[current].alt;
+    }
+
+    imgs.forEach((img, i) => img.addEventListener('click', () => openLightbox(i)));
     document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    document.getElementById('lightbox-prev').addEventListener('click', (e) => { e.stopPropagation(); navigate(-1); });
+    document.getElementById('lightbox-next').addEventListener('click', (e) => { e.stopPropagation(); navigate(1); });
     lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') navigate(-1);
+      if (e.key === 'ArrowRight') navigate(1);
+    });
   </script>
 
 </body>
