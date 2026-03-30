@@ -6,10 +6,13 @@
   <title>CSA Robotic Arm — Thomas Hung</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Nova+Square&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../style.css" />
 </head>
 <body>
+
+  <!-- CANVAS BACKGROUND -->
+  <canvas id="bg-canvas"></canvas>
 
   <!-- NAV -->
   <nav>
@@ -246,6 +249,59 @@
     document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
     lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+  </script>
+
+  <script>
+    (function () {
+      var canvas = document.getElementById('bg-canvas');
+      var ctx    = canvas.getContext('2d');
+      var CELL=110,JITTER=0.45,AMBIENT=0.30,DIFFUSE=0.68,Z_DEPTH=180,LERP=0.055;
+      var HUE=228,SAT=26,L_DARK=4,L_LIGHT=18,EDGE_A='rgba(255,255,255,0.028)';
+      var W,H,pts=[],tris=[],cols_buf=[],lx=-9999,ly=-9999,tx,ty;
+      function buildMesh(){
+        W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;
+        tx=W/2;ty=H/2;if(lx===-9999){lx=tx;ly=ty;}
+        var nc=Math.ceil(W/CELL)+2,nr=Math.ceil(H/CELL)+2,s=nc+1;
+        pts=[];tris=[];
+        for(var r=0;r<=nr;r++)for(var c=0;c<=nc;c++)
+          pts.push({x:(c-.5)*CELL+(Math.random()*2-1)*CELL*JITTER,y:(r-.5)*CELL+(Math.random()*2-1)*CELL*JITTER});
+        for(var r=0;r<nr;r++)for(var c=0;c<nc;c++){
+          var tl=r*s+c,tr=tl+1,bl=tl+s,br=bl+1;
+          tris.push([tl,tr,bl]);tris.push([tr,br,bl]);
+        }
+        cols_buf=new Array(tris.length);
+      }
+      function updateColours(){
+        for(var i=0;i<tris.length;i++){
+          var a=pts[tris[i][0]],b=pts[tris[i][1]],c=pts[tris[i][2]];
+          if(!a||!b||!c)continue;
+          var cx=(a.x+b.x+c.x)/3,cy=(a.y+b.y+c.y)/3;
+          var dist=Math.sqrt((lx-cx)*(lx-cx)+(ly-cy)*(ly-cy)+Z_DEPTH*Z_DEPTH);
+          var l=L_DARK+(L_LIGHT-L_DARK)*Math.min(1,AMBIENT+(Z_DEPTH/dist)*DIFFUSE);
+          cols_buf[i]='hsl('+HUE+','+SAT+'%,'+l.toFixed(1)+'%)';
+        }
+      }
+      function drawMesh(){
+        ctx.clearRect(0,0,W,H);
+        for(var i=0;i<tris.length;i++){
+          var a=pts[tris[i][0]],b=pts[tris[i][1]],c=pts[tris[i][2]];
+          if(!a||!b||!c)continue;
+          ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.lineTo(c.x,c.y);
+          ctx.closePath();ctx.fillStyle=cols_buf[i];ctx.fill();
+        }
+        ctx.beginPath();
+        for(var i=0;i<tris.length;i++){
+          var a=pts[tris[i][0]],b=pts[tris[i][1]],c=pts[tris[i][2]];
+          if(!a||!b||!c)continue;
+          ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.lineTo(c.x,c.y);ctx.closePath();
+        }
+        ctx.strokeStyle=EDGE_A;ctx.lineWidth=0.5;ctx.stroke();
+      }
+      function loop(){lx+=(tx-lx)*LERP;ly+=(ty-ly)*LERP;updateColours();drawMesh();requestAnimationFrame(loop);}
+      window.addEventListener('mousemove',function(e){tx=e.clientX;ty=e.clientY;});
+      window.addEventListener('resize',buildMesh);
+      buildMesh();loop();
+    }());
   </script>
 
 </body>

@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:pierrelouis.webflow.io)",
+      "Bash(for f:*)",
+      "Bash(do)",
+      "Bash(sed -i '/fonts.googleapis.com\\\\|fonts.gstatic.com/d' \"$f\")",
+      "Bash(done)",
+      "WebFetch(domain:elements.envato.com)"
+    ]
+  }
+}

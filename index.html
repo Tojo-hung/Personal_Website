@@ -6,10 +6,13 @@
   <title>Thomas Hung — Engineering Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Nova+Square&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
+  <!-- ==================== CANVAS BACKGROUND ==================== -->
+  <canvas id="bg-canvas"></canvas>
 
   <!-- ==================== NAV ==================== -->
   <nav>
@@ -30,60 +33,89 @@
   <!-- ==================== HERO ==================== -->
   <section class="hero">
     <div class="container">
-      <div class="hero-split">
 
-        <!-- LEFT: text -->
-        <div class="hero-inner">
-          <div class="hero-eyebrow">ENGINEERING PHYSICS · QUEEN'S UNIVERSITY</div>
-          <h1>Thomas Hung<br><em>Engineers the Unknown</em></h1>
-          <p class="hero-desc">
+      <div class="hero-inner">
+        <div class="hero-eyebrow">
+          <span class="hero-eyebrow-inner">ENGINEERING PHYSICS · QUEEN'S UNIVERSITY</span>
+        </div>
+
+        <h1>
+          <span class="hero-word-wrap"><span class="hero-word" style="animation-delay:0.35s">Thomas</span></span>
+          <span class="hero-word-wrap"><span class="hero-word" style="animation-delay:0.48s">Hung</span></span>
+          <br>
+          <em>
+            <span class="hero-word-wrap"><span class="hero-word" style="animation-delay:0.62s">Engineers</span></span>
+            <span class="hero-word-wrap"><span class="hero-word" style="animation-delay:0.73s">the</span></span>
+            <span class="hero-word-wrap"><span class="hero-word" style="animation-delay:0.84s">Unknown</span></span>
+          </em>
+        </h1>
+
+        <div class="hero-desc">
+          <div class="hero-desc-inner">
             Engineering Physics student specializing in mechanical design,
             prototyping, and material science. From fiberglass hulls to
             pure metals — I seek to be curious everyday.
-          </p>
-          <div style="display:flex; gap:14px; flex-wrap:wrap;">
-            <a href="#projects" class="btn">
+          </div>
+        </div>
+
+        <div class="hero-buttons">
+          <div class="hero-buttons-inner">
+            <a href="#projects" class="btn magnetic-btn">
               VIEW PROJECTS
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l10-10M7 7h10v10"/></svg>
             </a>
-            <a href="#contact" class="btn btn-outline">GET IN TOUCH</a>
-          </div>
-          <div class="hero-stats">
-            <div>
-              <div class="stat-val">3.97</div>
-              <div class="stat-label">GPA</div>
-            </div>
-            <div>
-              <div class="stat-val">10+</div>
-              <div class="stat-label">Technical Projects</div>
-            </div>
-            <div>
-              <div class="stat-val">End-to-End</div>
-              <div class="stat-label">Concept to Solution </div>
-            </div>
+            <a href="#contact" class="btn btn-outline magnetic-btn">GET IN TOUCH</a>
           </div>
         </div>
 
-        <!-- RIGHT: photo collage -->
-        <div class="hero-collage">
-          <div class="hero-collage-img hero-collage-img--1">
-            <!-- Drop a photo here, e.g. the boat or windsurfing -->
-            <img src="images/hero-1.jpg" alt="">
-            <span class="collage-placeholder">Boat / Windsurfing</span>
+        <div class="hero-stats">
+          <div>
+            <div class="stat-val" data-count="3.97" data-decimals="2">3.97</div>
+            <div class="stat-label">GPA</div>
           </div>
-          <div class="hero-collage-img hero-collage-img--2">
-            <!-- e.g. skiing or CSA arm -->
-            <img src="images/hero-2.JPG" alt="">
-            <span class="collage-placeholder">Skiing / CSA Arm</span>
+          <div>
+            <div class="stat-val" data-count="10" data-suffix="+">10+</div>
+            <div class="stat-label">Technical Projects</div>
           </div>
-          <div class="hero-collage-img hero-collage-img--3">
-            <!-- e.g. you at worlds or a fab shot -->
-            <!-- <img src="images/hero-3.jpg" alt=""> -->
-            <span class="collage-placeholder">Worlds / Workshop</span>
+          <div>
+            <div class="stat-val">End-to-End</div>
+            <div class="stat-label">Concept to Solution</div>
           </div>
         </div>
-
       </div>
+
+      <!-- Marquee image strip -->
+      <div class="hero-marquee reveal-fade">
+        <div class="hero-marquee-track">
+          <!-- First set -->
+          <div class="hero-marquee-item">
+            <img src="images/hero-1.jpg" alt="Photo 1">
+          </div>
+          <div class="hero-marquee-item">
+            <img src="images/hero-2.JPG" alt="Photo 2">
+          </div>
+          <div class="hero-marquee-item">
+            <img src="images/aquatonomous-hero.jpg" alt="aQuatonomous">
+          </div>
+          <div class="hero-marquee-item">
+            <img src="images/csa-arm-hero.jpg" alt="CSA Arm">
+          </div>
+          <!-- Second set — duplicated for seamless loop -->
+          <div class="hero-marquee-item">
+            <img src="images/hero-1.jpg" alt="Photo 1">
+          </div>
+          <div class="hero-marquee-item">
+            <img src="images/hero-2.JPG" alt="Photo 2">
+          </div>
+          <div class="hero-marquee-item">
+            <img src="images/aquatonomous-hero.jpg" alt="aQuatonomous">
+          </div>
+          <div class="hero-marquee-item">
+            <img src="images/csa-arm-hero.jpg" alt="CSA Arm">
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -158,44 +190,44 @@
         <div class="section-label">Background</div>
         <h2 class="section-title">Experience &amp; Athletics</h2>
       </div>
-      <div class="timeline">
+      <div class="timeline" id="timeline">
 
-        <div class="timeline-item reveal">
+        <div class="timeline-item reveal-left">
           <div class="timeline-date">2024 — PRESENT</div>
           <h3>Mechanical Team Lead</h3>
           <h4>Queen's aQuatonomous Design Team · Kingston, ON</h4>
           <p>Leading hull design, fabrication, and project coordination for an autonomous surface vehicle competing at RoboBoat 2026.</p>
         </div>
 
-        <div class="timeline-item reveal">
+        <div class="timeline-item reveal-left">
           <div class="timeline-date">WINTER 2025</div>
           <h3>Design Project — Canadian Space Agency</h3>
           <h4>Queen's University · Kingston, ON</h4>
           <p>Collaborated with the CSA to design a robotic arm end-effector, applying FEA-driven optimization for additive manufacturing.</p>
         </div>
 
-        <div class="timeline-item reveal">
+        <div class="timeline-item reveal-left">
           <div class="timeline-date">2023 — 2024</div>
           <h3>ISAF Youth Sailing Worlds</h3>
           <h4>Sail Canada · Brazil &amp; Italy</h4>
           <p>Represented Canada in iQFOiL windsurfing at the international level.</p>
         </div>
 
-        <div class="timeline-item reveal">
+        <div class="timeline-item reveal-left">
           <div class="timeline-date">2021 — 2024</div>
           <h3>FIS Alpine Ski Racer</h3>
           <h4>Vancouver Ski Team · British Columbia</h4>
           <p>Nationally ranked top five U18 in multiple disciplines. Competed at NORAM Finals in Downhill and Super-G.</p>
         </div>
 
-        <div class="timeline-item reveal">
+        <div class="timeline-item reveal-left">
           <div class="timeline-date">2021 — 2025</div>
           <h3>Sailing Instructor</h3>
           <h4>Royal Vancouver Yacht Club</h4>
           <p>Organized and coached summer camps for youth sailors in a high-performance dinghy program.</p>
         </div>
 
-        <div class="timeline-item reveal">
+        <div class="timeline-item reveal-left">
           <div class="timeline-date">FALL 2025</div>
           <h3>Orientation Leader</h3>
           <h4>Queen's Engineering Society · Kingston, ON</h4>
@@ -214,7 +246,7 @@
         <h2 class="section-title">Skills</h2>
       </div>
       <div class="skills-grid stagger">
-        <div class="skill-box reveal" style="--i:0">
+        <div class="skill-box reveal-scale" style="--i:0">
           <h3>Software &amp; Tools</h3>
           <ul>
             <li>SolidWorks 2024</li>
@@ -222,7 +254,7 @@
             <li>FEA &amp; CFD Analysis</li>
           </ul>
         </div>
-        <div class="skill-box reveal" style="--i:1">
+        <div class="skill-box reveal-scale" style="--i:1">
           <h3>Prototyping</h3>
           <ul>
             <li>FDM 3D Printing</li>
@@ -231,7 +263,7 @@
             <li>Fiberglass Fabrication</li>
           </ul>
         </div>
-        <div class="skill-box reveal" style="--i:2">
+        <div class="skill-box reveal-scale" style="--i:2">
           <h3>Languages &amp; Soft Skills</h3>
           <ul>
             <li>English &amp; French (Fluent)</li>
@@ -251,14 +283,14 @@
         <h2 class="section-title">Contact</h2>
       </div>
       <div class="contact-wrap reveal">
-        <div>
+        <div class="reveal-left">
           <p>
             I'm looking for internship opportunities for starting Summer 2027.
             If you're working on applied physics, mechanical design,
-            or areospace — I'd love to hear from you.
+            or aerospace — I'd love to hear from you.
           </p>
         </div>
-        <div class="contact-items">
+        <div class="contact-items reveal-right">
           <a href="mailto:23rfs3@queensu.ca" class="contact-item">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>
             23rfs3@queensu.ca
@@ -291,51 +323,332 @@
     </div>
   </footer>
 
+  <!-- ==================== JAVASCRIPT ==================== -->
   <script>
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('visible'); }),
-      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
-    );
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+  (function () {
+    'use strict';
 
-    // Lightbox for hero collage with arrow navigation
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    const imgs = Array.from(document.querySelectorAll('.hero-collage-img img'));
-    let current = 0;
+    /* ============================================================
+       1. FLAT SURFACE SHADER BACKGROUND
+       Triangulated mesh with dynamic point lighting — inspired by
+       matthew.wagerfield.com/flat-surface-shader/
+       ============================================================ */
+    const canvas = document.getElementById('bg-canvas');
+    const ctx    = canvas.getContext('2d');
+
+    // --- Config ---
+    var CELL    = 110;   // grid cell size (px) — larger = fewer triangles = faster
+    var JITTER  = 0.45;  // point randomness 0–1
+    var AMBIENT = 0.30;  // minimum brightness for unlit triangles
+    var DIFFUSE = 0.68;  // how much the light adds on top of ambient
+    var Z_DEPTH = 180;   // simulated depth of light source (higher = softer)
+    var LERP    = 0.055; // how fast light follows mouse (0–1)
+    var HUE     = 228;   // base hue for all triangles
+    var SAT     = 26;    // base saturation %
+    var L_DARK  = 4;     // lightness % when unlit
+    var L_LIGHT = 18;    // lightness % when fully lit
+    var EDGE_A  = 'rgba(255,255,255,0.028)'; // triangle edge colour
+
+    var W, H;
+    var pts  = [];   // [{x, y}]
+    var tris = [];   // [[i,j,k], ...]
+    var cols_buf = []; // pre-computed fill colours per triangle
+
+    // Light: current (lerped) and target positions
+    var lx = -9999, ly = -9999;
+    var tx, ty;
+
+    function buildMesh() {
+      W = canvas.width  = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+      tx = W / 2;
+      ty = H / 2;
+      if (lx === -9999) { lx = tx; ly = ty; }
+
+      var numCols = Math.ceil(W / CELL) + 2;
+      var numRows = Math.ceil(H / CELL) + 2;
+      var stride  = numCols + 1;
+
+      pts  = [];
+      tris = [];
+
+      // Grid points with random jitter
+      for (var r = 0; r <= numRows; r++) {
+        for (var c = 0; c <= numCols; c++) {
+          pts.push({
+            x: (c - 0.5) * CELL + (Math.random() * 2 - 1) * CELL * JITTER,
+            y: (r - 0.5) * CELL + (Math.random() * 2 - 1) * CELL * JITTER
+          });
+        }
+      }
+
+      // Each grid cell → 2 triangles
+      for (var r = 0; r < numRows; r++) {
+        for (var c = 0; c < numCols; c++) {
+          var tl = r * stride + c;
+          var tr = tl + 1;
+          var bl = tl + stride;
+          var br = bl + 1;
+          tris.push([tl, tr, bl]);
+          tris.push([tr, br, bl]);
+        }
+      }
+
+      cols_buf = new Array(tris.length);
+    }
+
+    // Recompute triangle colours based on current light position
+    function updateColours() {
+      for (var i = 0; i < tris.length; i++) {
+        var a = pts[tris[i][0]], b = pts[tris[i][1]], c = pts[tris[i][2]];
+        if (!a || !b || !c) continue;
+
+        var cx = (a.x + b.x + c.x) / 3;
+        var cy = (a.y + b.y + c.y) / 3;
+
+        var dx   = lx - cx;
+        var dy   = ly - cy;
+        var dist = Math.sqrt(dx * dx + dy * dy + Z_DEPTH * Z_DEPTH);
+
+        // nz = cosine of angle between face normal (0,0,1) and light vector
+        var nz        = Z_DEPTH / dist;
+        var intensity = AMBIENT + nz * DIFFUSE;
+        var l         = L_DARK  + (L_LIGHT - L_DARK) * Math.min(1, intensity);
+
+        cols_buf[i] = 'hsl(' + HUE + ',' + SAT + '%,' + l.toFixed(1) + '%)';
+      }
+    }
+
+    // Batched draw: fills first, then one stroke pass (much faster than per-tri stroke)
+    function drawMesh() {
+      ctx.clearRect(0, 0, W, H);
+
+      for (var i = 0; i < tris.length; i++) {
+        var a = pts[tris[i][0]], b = pts[tris[i][1]], c = pts[tris[i][2]];
+        if (!a || !b || !c) continue;
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.lineTo(c.x, c.y);
+        ctx.closePath();
+        ctx.fillStyle = cols_buf[i];
+        ctx.fill();
+      }
+
+      // Single batched stroke for all edges
+      ctx.beginPath();
+      for (var i = 0; i < tris.length; i++) {
+        var a = pts[tris[i][0]], b = pts[tris[i][1]], c = pts[tris[i][2]];
+        if (!a || !b || !c) continue;
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.lineTo(c.x, c.y);
+        ctx.closePath();
+      }
+      ctx.strokeStyle = EDGE_A;
+      ctx.lineWidth   = 0.5;
+      ctx.stroke();
+    }
+
+    function fssAnimate() {
+      lx += (tx - lx) * LERP;
+      ly += (ty - ly) * LERP;
+      updateColours();
+      drawMesh();
+      requestAnimationFrame(fssAnimate);
+    }
+
+    window.addEventListener('mousemove', function (e) { tx = e.clientX; ty = e.clientY; });
+    window.addEventListener('resize',    function ()  { buildMesh(); });
+
+    buildMesh();
+    fssAnimate();
+
+
+    /* ============================================================
+       3. MAGNETIC BUTTONS
+       ============================================================ */
+    document.querySelectorAll('.magnetic-btn').forEach(function (btn) {
+      btn.addEventListener('mousemove', function (e) {
+        const rect   = btn.getBoundingClientRect();
+        const cx     = rect.left + rect.width  / 2;
+        const cy     = rect.top  + rect.height / 2;
+        const dx     = e.clientX - cx;
+        const dy     = e.clientY - cy;
+        const strength = 0.3;
+        btn.style.transform = 'translate(' + (dx * strength) + 'px, ' + (dy * strength) + 'px)';
+      });
+      btn.addEventListener('mouseleave', function () {
+        btn.style.transform = '';
+      });
+    });
+
+    /* ============================================================
+       4. 3D CARD TILT
+       ============================================================ */
+    document.querySelectorAll('.project-card').forEach(function (card) {
+      card.addEventListener('mousemove', function (e) {
+        const rect   = card.getBoundingClientRect();
+        const x      = e.clientX - rect.left;
+        const y      = e.clientY - rect.top;
+        const cx     = rect.width  / 2;
+        const cy     = rect.height / 2;
+        const rotY   =  ((x - cx) / cx) * 7;  // max 7deg
+        const rotX   = -((y - cy) / cy) * 5;  // max 5deg
+        card.style.transform =
+          'perspective(900px) rotateX(' + rotX + 'deg) rotateY(' + rotY + 'deg)';
+      });
+      card.addEventListener('mouseleave', function () {
+        card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg)';
+      });
+    });
+
+    /* ============================================================
+       5. SCROLL REVEAL — IntersectionObserver
+       ============================================================ */
+    var revealSelectors = '.reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-fade';
+    var revealObserver = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            // Fire count-up on stat values when hero stats become visible
+            if (e.target.classList.contains('hero-stats') || e.target.closest('.hero-stats')) {
+              startCountUps();
+            }
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    document.querySelectorAll(revealSelectors).forEach(function (el) {
+      revealObserver.observe(el);
+    });
+
+    // Observe hero-stats specifically for count-up trigger
+    var heroStats = document.querySelector('.hero-stats');
+    if (heroStats) {
+      var statsObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            startCountUps();
+            statsObserver.disconnect();
+          }
+        });
+      }, { threshold: 0.5 });
+      statsObserver.observe(heroStats);
+    }
+
+    /* ============================================================
+       6. COUNT-UP STATS
+       ============================================================ */
+    var countsDone = false;
+
+    function startCountUps() {
+      if (countsDone) return;
+      countsDone = true;
+
+      document.querySelectorAll('.stat-val[data-count]').forEach(function (el) {
+        var target   = parseFloat(el.dataset.count);
+        var decimals = parseInt(el.dataset.decimals || '0', 10);
+        var suffix   = el.dataset.suffix || '';
+        var duration = 1400;
+        var start    = null;
+
+        function step(ts) {
+          if (!start) start = ts;
+          var progress = Math.min((ts - start) / duration, 1);
+          // ease out cubic
+          var ease = 1 - Math.pow(1 - progress, 3);
+          var value = target * ease;
+          el.textContent = value.toFixed(decimals) + suffix;
+          if (progress < 1) requestAnimationFrame(step);
+          else el.textContent = target.toFixed(decimals) + suffix;
+        }
+
+        requestAnimationFrame(step);
+      });
+    }
+
+    /* ============================================================
+       7. TIMELINE DRAW-DOWN (scroll-driven clip)
+       ============================================================ */
+    var timelineEl = document.getElementById('timeline');
+
+    function updateTimeline() {
+      if (!timelineEl) return;
+      var rect      = timelineEl.getBoundingClientRect();
+      var winH      = window.innerHeight;
+      var total     = rect.height;
+      var scrolled  = Math.max(0, winH * 0.6 - rect.top);
+      var progress  = Math.min(100, Math.max(0, (scrolled / total) * 100));
+      timelineEl.style.setProperty('--timeline-progress', progress + '%');
+    }
+
+    window.addEventListener('scroll', updateTimeline, { passive: true });
+    updateTimeline();
+
+    /* ============================================================
+       8. LIGHTBOX — marquee images + arrow nav + keyboard
+       ============================================================ */
+    var lightbox    = document.getElementById('lightbox');
+    var lightboxImg = document.getElementById('lightbox-img');
+    // Collect unique images (only first set of marquee items to avoid dupe indices)
+    var marqueeImgs = Array.from(
+      document.querySelectorAll('.hero-marquee-track .hero-marquee-item:nth-child(-n+4) img')
+    );
+    var current = 0;
 
     function openLightbox(index) {
       current = index;
-      lightboxImg.src = imgs[current].src;
-      lightbox.classList.add('open');
+      if (marqueeImgs[current]) {
+        lightboxImg.src = marqueeImgs[current].src;
+        lightbox.classList.add('open');
+      }
     }
-    function closeLightbox() { lightbox.classList.remove('open'); }
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+    }
     function navigate(dir) {
-      current = (current + dir + imgs.length) % imgs.length;
-      lightboxImg.src = imgs[current].src;
+      current = (current + dir + marqueeImgs.length) % marqueeImgs.length;
+      lightboxImg.src = marqueeImgs[current].src;
     }
 
-    imgs.forEach((img, i) => {
+    marqueeImgs.forEach(function (img, i) {
       img.style.cursor = 'zoom-in';
-      img.addEventListener('click', () => openLightbox(i));
-    });
-    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
-    document.getElementById('lightbox-prev').addEventListener('click', (e) => { e.stopPropagation(); navigate(-1); });
-    document.getElementById('lightbox-next').addEventListener('click', (e) => { e.stopPropagation(); navigate(1); });
-    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
-    document.addEventListener('keydown', (e) => {
-      if (!lightbox.classList.contains('open')) return;
-      if (e.key === 'Escape') closeLightbox();
-      if (e.key === 'ArrowLeft') navigate(-1);
-      if (e.key === 'ArrowRight') navigate(1);
+      img.addEventListener('click', function () { openLightbox(i); });
     });
 
-    // Mobile nav close on link click
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      link.addEventListener('click', () => {
+    var closeBtn = document.getElementById('lightbox-close');
+    var prevBtn  = document.getElementById('lightbox-prev');
+    var nextBtn  = document.getElementById('lightbox-next');
+
+    if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+    if (prevBtn)  prevBtn.addEventListener('click',  function (e) { e.stopPropagation(); navigate(-1); });
+    if (nextBtn)  nextBtn.addEventListener('click',  function (e) { e.stopPropagation(); navigate(1); });
+
+    lightbox.addEventListener('click', function (e) {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape')      closeLightbox();
+      if (e.key === 'ArrowLeft')   navigate(-1);
+      if (e.key === 'ArrowRight')  navigate(1);
+    });
+
+    /* ============================================================
+       9. MOBILE NAV — close on link click
+       ============================================================ */
+    document.querySelectorAll('.nav-links a').forEach(function (link) {
+      link.addEventListener('click', function () {
         document.querySelector('.nav-links').classList.remove('show');
       });
     });
+
+  }());
   </script>
 
 </body>
