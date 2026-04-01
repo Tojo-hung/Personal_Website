@@ -12,7 +12,7 @@
 <body>
 
   <!-- ==================== CANVAS BACKGROUND ==================== -->
-  <canvas id="bg-canvas"></canvas>
+  <div id="bg-canvas"></div>
 
   <!-- ==================== NAV ==================== -->
   <nav>
@@ -33,6 +33,7 @@
   <!-- ==================== HERO ==================== -->
   <section class="hero">
     <div class="container">
+      <div class="glass-panel">
 
       <div class="hero-inner">
         <div class="hero-eyebrow">
@@ -115,6 +116,7 @@
           </div>
         </div>
       </div>
+      </div>
 
     </div>
   </section>
@@ -122,6 +124,7 @@
   <!-- ==================== PROJECTS ==================== -->
   <section id="projects">
     <div class="container">
+      <div class="glass-panel">
       <div class="reveal">
         <div class="section-label">Selected Work</div>
         <h2 class="section-title">Projects</h2>
@@ -178,14 +181,15 @@
             <div class="card-arrow">View project →</div>
           </div>
         </a>
-
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ==================== EXPERIENCE ==================== -->
-  <section id="experience" style="background: var(--bg-raised);">
+  <section id="experience">
     <div class="container">
+      <div class="glass-panel">
       <div class="reveal">
         <div class="section-label">Background</div>
         <h2 class="section-title">Experience &amp; Athletics</h2>
@@ -233,7 +237,7 @@
           <h4>Queen's Engineering Society · Kingston, ON</h4>
           <p>Mentored a cohort of 25 incoming students, facilitating their transition to engineering at Queen's.</p>
         </div>
-
+        </div>
       </div>
     </div>
   </section>
@@ -241,6 +245,7 @@
   <!-- ==================== SKILLS ==================== -->
   <section id="skills">
     <div class="container">
+      <div class="glass-panel">
       <div class="reveal">
         <div class="section-label">Toolkit</div>
         <h2 class="section-title">Skills</h2>
@@ -270,14 +275,15 @@
             <li>Project Management</li>
             <li>Team Leadership</li>
           </ul>
-        </div>
+        </div>        </div>
       </div>
     </div>
   </section>
 
   <!-- ==================== CONTACT ==================== -->
-  <section id="contact" style="background: var(--bg-raised);">
+  <section id="contact">
     <div class="container">
+      <div class="glass-panel">
       <div class="reveal">
         <div class="section-label">Get In Touch</div>
         <h2 class="section-title">Contact</h2>
@@ -299,11 +305,15 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
             LinkedIn
           </a>
+          <a href="https://github.com/tojo-hung" target="_blank" class="contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+            GitHub
+          </a>
           <a href="tel:604-690-9358" class="contact-item">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.86 19.86 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.86 19.86 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.13.81.36 1.6.68 2.34a2 2 0 01-.45 2.11L8.09 9.42a16 16 0 006.5 6.5l1.25-1.25a2 2 0 012.11-.45c.74.32 1.53.55 2.34.68A2 2 0 0122 16.92z"/></svg>
             +1-604-690-9358
           </a>
-        </div>
+        </div>        </div>
       </div>
     </div>
   </section>
@@ -324,145 +334,33 @@
   </footer>
 
   <!-- ==================== JAVASCRIPT ==================== -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
   <script>
   (function () {
     'use strict';
 
     /* ============================================================
-       1. FLAT SURFACE SHADER BACKGROUND
-       Triangulated mesh with dynamic point lighting — inspired by
-       matthew.wagerfield.com/flat-surface-shader/
+       1. VANTA.JS INTERACTIVE BACKGROUND
        ============================================================ */
-    const canvas = document.getElementById('bg-canvas');
-    const ctx    = canvas.getContext('2d');
-
-    // --- Config ---
-    var CELL    = 110;   // grid cell size (px) — larger = fewer triangles = faster
-    var JITTER  = 0.45;  // point randomness 0–1
-    var AMBIENT = 0.30;  // minimum brightness for unlit triangles
-    var DIFFUSE = 0.68;  // how much the light adds on top of ambient
-    var Z_DEPTH = 180;   // simulated depth of light source (higher = softer)
-    var LERP    = 0.055; // how fast light follows mouse (0–1)
-    var HUE     = 228;   // base hue for all triangles
-    var SAT     = 26;    // base saturation %
-    var L_DARK  = 4;     // lightness % when unlit
-    var L_LIGHT = 18;    // lightness % when fully lit
-    var EDGE_A  = 'rgba(255,255,255,0.028)'; // triangle edge colour
-
-    var W, H;
-    var pts  = [];   // [{x, y}]
-    var tris = [];   // [[i,j,k], ...]
-    var cols_buf = []; // pre-computed fill colours per triangle
-
-    // Light: current (lerped) and target positions
-    var lx = -9999, ly = -9999;
-    var tx, ty;
-
-    function buildMesh() {
-      W = canvas.width  = window.innerWidth;
-      H = canvas.height = window.innerHeight;
-      tx = W / 2;
-      ty = H / 2;
-      if (lx === -9999) { lx = tx; ly = ty; }
-
-      var numCols = Math.ceil(W / CELL) + 2;
-      var numRows = Math.ceil(H / CELL) + 2;
-      var stride  = numCols + 1;
-
-      pts  = [];
-      tris = [];
-
-      // Grid points with random jitter
-      for (var r = 0; r <= numRows; r++) {
-        for (var c = 0; c <= numCols; c++) {
-          pts.push({
-            x: (c - 0.5) * CELL + (Math.random() * 2 - 1) * CELL * JITTER,
-            y: (r - 0.5) * CELL + (Math.random() * 2 - 1) * CELL * JITTER
-          });
-        }
-      }
-
-      // Each grid cell → 2 triangles
-      for (var r = 0; r < numRows; r++) {
-        for (var c = 0; c < numCols; c++) {
-          var tl = r * stride + c;
-          var tr = tl + 1;
-          var bl = tl + stride;
-          var br = bl + 1;
-          tris.push([tl, tr, bl]);
-          tris.push([tr, br, bl]);
-        }
-      }
-
-      cols_buf = new Array(tris.length);
+    if (window.VANTA) {
+      window.VANTA.NET({
+        el: "#bg-canvas",
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00,
+        color: 0x4e8fff,     // Matches --accent
+        backgroundColor: 0x07080f, // Matches --bg
+        points: 12.00,
+        maxDistance: 22.00,
+        spacing: 18.00,
+        showDots: true
+      });
     }
-
-    // Recompute triangle colours based on current light position
-    function updateColours() {
-      for (var i = 0; i < tris.length; i++) {
-        var a = pts[tris[i][0]], b = pts[tris[i][1]], c = pts[tris[i][2]];
-        if (!a || !b || !c) continue;
-
-        var cx = (a.x + b.x + c.x) / 3;
-        var cy = (a.y + b.y + c.y) / 3;
-
-        var dx   = lx - cx;
-        var dy   = ly - cy;
-        var dist = Math.sqrt(dx * dx + dy * dy + Z_DEPTH * Z_DEPTH);
-
-        // nz = cosine of angle between face normal (0,0,1) and light vector
-        var nz        = Z_DEPTH / dist;
-        var intensity = AMBIENT + nz * DIFFUSE;
-        var l         = L_DARK  + (L_LIGHT - L_DARK) * Math.min(1, intensity);
-
-        cols_buf[i] = 'hsl(' + HUE + ',' + SAT + '%,' + l.toFixed(1) + '%)';
-      }
-    }
-
-    // Batched draw: fills first, then one stroke pass (much faster than per-tri stroke)
-    function drawMesh() {
-      ctx.clearRect(0, 0, W, H);
-
-      for (var i = 0; i < tris.length; i++) {
-        var a = pts[tris[i][0]], b = pts[tris[i][1]], c = pts[tris[i][2]];
-        if (!a || !b || !c) continue;
-        ctx.beginPath();
-        ctx.moveTo(a.x, a.y);
-        ctx.lineTo(b.x, b.y);
-        ctx.lineTo(c.x, c.y);
-        ctx.closePath();
-        ctx.fillStyle = cols_buf[i];
-        ctx.fill();
-      }
-
-      // Single batched stroke for all edges
-      ctx.beginPath();
-      for (var i = 0; i < tris.length; i++) {
-        var a = pts[tris[i][0]], b = pts[tris[i][1]], c = pts[tris[i][2]];
-        if (!a || !b || !c) continue;
-        ctx.moveTo(a.x, a.y);
-        ctx.lineTo(b.x, b.y);
-        ctx.lineTo(c.x, c.y);
-        ctx.closePath();
-      }
-      ctx.strokeStyle = EDGE_A;
-      ctx.lineWidth   = 0.5;
-      ctx.stroke();
-    }
-
-    function fssAnimate() {
-      lx += (tx - lx) * LERP;
-      ly += (ty - ly) * LERP;
-      updateColours();
-      drawMesh();
-      requestAnimationFrame(fssAnimate);
-    }
-
-    window.addEventListener('mousemove', function (e) { tx = e.clientX; ty = e.clientY; });
-    window.addEventListener('resize',    function ()  { buildMesh(); });
-
-    buildMesh();
-    fssAnimate();
 
 
     /* ============================================================
