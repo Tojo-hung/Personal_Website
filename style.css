@@ -32,7 +32,7 @@
    2. RESET
    ---------------------------------------------------------------- */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; overflow-x: hidden; }
+html { scroll-behavior: smooth; overflow-x: hidden; width: 100%; }
 body {
   font-family: var(--font-body);
   background: var(--bg);
@@ -41,6 +41,7 @@ body {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  width: 100%;
 }
 img { max-width: 100%; display: block; }
 a { color: var(--accent); text-decoration: none; transition: opacity .2s; }
@@ -61,8 +62,8 @@ a:hover { opacity: .8; }
 /* ----------------------------------------------------------------
    5. LAYOUT UTILITIES
    ---------------------------------------------------------------- */
-.container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
-section    { padding: 80px 0; position: relative; z-index: 1; }
+.container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; box-sizing: border-box; width: 100%; }
+section    { padding: 80px 0; position: relative; z-index: 1; overflow-x: hidden; }
 
 .glass-panel {
   background: rgba(16, 20, 32, 0.50);
@@ -74,9 +75,14 @@ section    { padding: 80px 0; position: relative; z-index: 1; }
   padding: 64px 56px;
   position: relative;
   overflow: hidden;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 @media (max-width: 768px) {
-  .glass-panel { padding: 32px 20px; border-radius: 16px; margin: 0; }
+  .glass-panel { padding: 28px 16px; border-radius: 16px; margin: 0; }
+}
+@media (max-width: 480px) {
+  .glass-panel { padding: 24px 12px; }
 }
 
 .section-label {
@@ -157,6 +163,8 @@ nav .container {
 .hero-inner {
   position: relative; z-index: 1;
   max-width: 820px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .hero-eyebrow {
@@ -164,6 +172,7 @@ nav .container {
   font-size: 12px; color: var(--accent);
   letter-spacing: 3px; margin-bottom: 32px;
   overflow: hidden;
+  max-width: 100%;
 }
 .hero-eyebrow-inner {
   display: block;
@@ -178,6 +187,8 @@ nav .container {
   color: var(--text-strong);
   font-weight: 400; line-height: 1.05;
   margin-bottom: 32px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 .hero h1 em { font-style: italic; color: var(--accent); }
 
@@ -186,6 +197,7 @@ nav .container {
   overflow: hidden;
   vertical-align: bottom;
   margin-right: 0;
+  max-width: 100%;
 }
 .hero-word {
   display: inline-block;
@@ -197,7 +209,9 @@ nav .container {
   max-width: 520px; font-size: 17px;
   color: var(--muted); line-height: 1.85;
   margin-bottom: 44px;
-  overflow: hidden;
+  overflow: visible;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 .hero-desc-inner {
   transform: translateY(40px);
@@ -893,11 +907,15 @@ footer p {
   .nav-toggle { display: flex; }
 
   section { padding: 72px 0; }
-  .container { padding: 0 16px; }
+  .container { padding: 0 12px; }
 
-  .hero h1 { font-size: clamp(24px, 8vw, 64px); }
+  .hero h1 { font-size: clamp(24px, 7vw, 48px); }
+  .hero-desc { font-size: 15px; max-width: 100%; overflow: visible; }
+  .hero-desc-inner { max-width: 100%; }
+  .hero-eyebrow { font-size: 10px; letter-spacing: 1.5px; overflow: visible; }
   .hero-stats { flex-direction: column; gap: 24px; }
   .hero-marquee-item { width: 220px; height: 148px; }
+  .stat-val { font-size: 28px; }
 
   .contact-wrap { grid-template-columns: 1fr; }
   .projects-grid { grid-template-columns: 1fr; }
