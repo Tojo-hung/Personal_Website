@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thomas Hung — Engineering Portfolio</title>
+
+  <!-- Tab Icon (Favicon) -->
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nova+Square&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- ==================== CANVAS BACKGROUND ==================== -->
+  <div id="bg-canvas"></div>
+
+  <!-- ==================== NAV ==================== -->
+  <nav>
+    <div class="container">
+      <a href="index.html" class="nav-logo">T<span>.</span>Hung</a>
+      <ul class="nav-links">
+        <li><a href="#projects" class="active">Projects</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')"
+        aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero">
+    <div class="container">
+      <div class="glass-panel">
+
+        <div class="hero-inner">
+          <div class="hero-eyebrow">
+            <span class="hero-eyebrow-inner">ENGINEERING PHYSICS · QUEEN'S UNIVERSITY</span>
+          </div>
+
+          <h1>
+            <span class="hero-word-wrap"><span class="hero-word" style="animation-delay:0.35s">Thomas</span></span>
+            <span class="hero-word-wrap"><span class="hero-word" style="animation-delay:0.48s">Hung</span></span>
+            <br>
+            <em>
+              <span class="hero-word-wrap"><span class="hero-word" style="animation-delay:0.62s">Curiosity</span></span>
+              <span class="hero-word-wrap"><span class="hero-word" style="animation-delay:0.75s">everyday</span></span>
+            </em>
+          </h1>
+
+          <div class="hero-desc">
+            <div class="hero-desc-inner">
+              Engineering Physics student specializing in mechanical design,
+              prototyping, and material science. From fiberglass hulls to
+              pure metals — I seek to be curious every day.
+            </div>
+          </div>
+
+          <div class="hero-buttons">
+            <div class="hero-buttons-inner">
+              <a href="#projects" class="btn magnetic-btn">
+                VIEW PROJECTS
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M7 17l10-10M7 7h10v10" />
+                </svg>
+              </a>
+              <a href="#contact" class="btn btn-outline magnetic-btn">GET IN TOUCH</a>
+            </div>
+          </div>
+
+          <div class="hero-stats">
+            <div>
+              <div class="stat-val" data-count="3.97" data-decimals="2">3.97</div>
+              <div class="stat-label">GPA</div>
+            </div>
+            <div>
+              <div class="stat-val" data-count="10" data-suffix="+">10+</div>
+              <div class="stat-label">Technical Projects</div>
+            </div>
+            <div>
+              <div class="stat-val">End-to-End</div>
+              <div class="stat-label">Concept to Solution</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Marquee image strip (Lifestyle & Sports only) -->
+        <div class="hero-marquee reveal-fade">
+          <div class="hero-marquee-track">
+            <!-- First set -->
+            <div class="hero-marquee-item"><img src="images/hero-1.jpg" alt="Photo 1"></div>
+            <div class="hero-marquee-item"><img src="images/hero-2.JPG" alt="Photo 2"></div>
+            <div class="hero-marquee-item"><img src="images/hero-3.jpg" alt="Photo 3"></div>
+            <div class="hero-marquee-item"><img src="images/hero-4.jpg" alt="Photo 4"></div>
+            <div class="hero-marquee-item"><img src="images/hero-5.jpg" alt="Photo 5"></div>
+            <div class="hero-marquee-item"><img src="images/hero-6.jpg" alt="Photo 6"></div>
+            <!-- Second set — duplicated for seamless loop -->
+            <div class="hero-marquee-item"><img src="images/hero-1.jpg" alt="Photo 1"></div>
+            <div class="hero-marquee-item"><img src="images/hero-2.JPG" alt="Photo 2"></div>
+            <div class="hero-marquee-item"><img src="images/hero-3.jpg" alt="Photo 3"></div>
+            <div class="hero-marquee-item"><img src="images/hero-4.jpg" alt="Photo 4"></div>
+            <div class="hero-marquee-item"><img src="images/hero-5.jpg" alt="Photo 5"></div>
+            <div class="hero-marquee-item"><img src="images/hero-6.jpg" alt="Photo 6"></div>
+          </div>
+
+        </div>
+  </section>
+
+  <!-- ==================== PROJECTS ==================== -->
+  <section id="projects">
+    <div class="container">
+      <div class="glass-panel">
+        <div class="reveal">
+          <div class="section-label">Selected Work</div>
+          <h2 class="section-title">Projects</h2>
+        </div>
+        <div class="projects-grid stagger">
+
+          <a href="#" onclick="openModal('modal-aquafoil'); return false;" class="project-card reveal" style="--i:0">
+            <div class="project-card-img"
+              style="background: linear-gradient(135deg, #0f152a, #1a2544); display: flex; align-items: center; justify-content: center;">
+              <span
+                style="font-family: var(--font-mono); color: var(--accent); font-size: 14px; letter-spacing: 2px;">aquafoil-thumb.jpg</span>
+            </div>
+            <div class="project-card-body">
+              <div class="project-tag">Leadership · Composites</div>
+              <h3>aQuaFoil</h3>
+              <p>Co-founded a design team building a competition-grade foiling Moth for the SuMoth Challenge 2027.</p>
+              <div class="pill-row">
+                <span class="pill">Leadership</span>
+                <span class="pill">CFD</span>
+                <span class="pill">Composites</span>
+              </div>
+              <div class="card-arrow">View project →</div>
+            </div>
+          </a>
+
+          <a href="#" onclick="openModal('modal-aquatonomous'); return false;" class="project-card reveal"
+            style="--i:1">
+            <div class="project-card-img has-image">
+              <img src="images/aquatonomous-hero.jpg" alt="aQuatonomous ASV">
+            </div>
+            <div class="project-card-body">
+              <div class="project-tag">Autonomous Systems · Team Lead</div>
+              <h3>aQuatonomous — RoboBoat 2026</h3>
+              <p>Mechanical team lead for the Queen's autonomous surface vehicle. Designed and manufactured fiberglass
+                hulls using FDM mold components.</p>
+              <div class="pill-row">
+                <span class="pill">SolidWorks</span>
+                <span class="pill">FDM</span>
+                <span class="pill">Fiberglass</span>
+              </div>
+              <div class="card-arrow">View project →</div>
+            </div>
+          </a>
+
+          <a href="#" onclick="openModal('modal-csa-arm'); return false;" class="project-card reveal" style="--i:2">
+            <div class="project-card-img has-image">
+              <img src="images/csa-arm-hero.jpg" alt="CSA robotic arm">
+            </div>
+            <div class="project-card-body">
+              <div class="project-tag">Space · Robotics</div>
+              <h3>CSA Robotic Arm End-Effector</h3>
+              <p>Designed a robotic arm end-effector prototype in collaboration with the Canadian Space Agency.</p>
+              <div class="pill-row">
+                <span class="pill">SolidWorks</span>
+                <span class="pill">FEA</span>
+                <span class="pill">TPU</span>
+              </div>
+              <div class="card-arrow">View project →</div>
+            </div>
+          </a>
+
+          <a href="#" onclick="openModal('modal-foil-gauge'); return false;" class="project-card reveal" style="--i:3">
+            <div class="project-card-img">
+              <!-- <img src="images/foil-gauge-hero.jpg" alt="Windsurf foil gauge"> -->
+            </div>
+            <div class="project-card-body">
+              <div class="project-tag">Product Design · Business</div>
+              <h3>Windsurf Foil Angle Gauge</h3>
+              <p>Designed, prototyped, and sold an FDM-printed gauge to measure the wing angle of attack for Olympic
+                windsurfing.</p>
+              <div class="pill-row">
+                <span class="pill">3D Scanning</span>
+                <span class="pill">CAD</span>
+                <span class="pill">FDM</span>
+              </div>
+              <div class="card-arrow">View project →</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== EXPERIENCE ==================== -->
+  <section id="experience">
+    <div class="container">
+      <div class="glass-panel">
+        <div class="reveal">
+          <div class="section-label">Background</div>
+          <h2 class="section-title">Experience &amp; Athletics</h2>
+        </div>
+        <div class="timeline" id="timeline">
+
+          <div class="timeline-item reveal-left">
+            <div class="timeline-date">2024 — PRESENT</div>
+            <h3>Mechanical Team Lead</h3>
+            <h4>Queen's aQuatonomous Design Team · Kingston, ON</h4>
+            <p>Leading hull design, fabrication, and project coordination for an autonomous surface vehicle competing at
+              RoboBoat 2026.</p>
+          </div>
+
+          <div class="timeline-item reveal-left">
+            <div class="timeline-date">WINTER 2025</div>
+            <h3>Design Project — Canadian Space Agency</h3>
+            <h4>Queen's University · Kingston, ON</h4>
+            <p>Collaborated with the CSA to design a robotic arm end-effector, applying FEA-driven optimization for
+              additive manufacturing.</p>
+          </div>
+
+          <div class="timeline-item reveal-left">
+            <div class="timeline-date">2023 — 2024</div>
+            <h3>ISAF Youth Sailing Worlds</h3>
+            <h4>Sail Canada · Brazil &amp; Italy</h4>
+            <p>Represented Canada in iQFOiL windsurfing at the international level.</p>
+          </div>
+
+          <div class="timeline-item reveal-left">
+            <div class="timeline-date">2021 — 2024</div>
+            <h3>FIS Alpine Ski Racer</h3>
+            <h4>Vancouver Ski Team · British Columbia</h4>
+            <p>Achieved a national top-five U18 ranking across multiple disciplines and competed at the NORAM Finals in
+              Downhill and Super-G.</p>
+          </div>
+
+          <div class="timeline-item reveal-left">
+            <div class="timeline-date">2021 — 2025</div>
+            <h3>Sailing Instructor</h3>
+            <h4>Royal Vancouver Yacht Club</h4>
+            <p>Organized and coached summer camps for youth sailors in a high-performance dinghy program.</p>
+          </div>
+
+          <div class="timeline-item reveal-left">
+            <div class="timeline-date">FALL 2025</div>
+            <h3>Orientation Leader</h3>
+            <h4>Queen's Engineering Society · Kingston, ON</h4>
+            <p>Mentored a cohort of 25 incoming students, facilitating their transition into the Engineering program at
+              Queen's University.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SKILLS ==================== -->
+  <section id="skills">
+    <div class="container">
+      <div class="glass-panel">
+        <div class="reveal">
+          <div class="section-label">Toolkit</div>
+          <h2 class="section-title">Skills</h2>
+        </div>
+        <div class="skills-grid stagger">
+          <div class="skill-box reveal-scale" style="--i:0">
+            <h3>Software &amp; Tools</h3>
+            <ul>
+              <li>SolidWorks 2024</li>
+              <li>Fusion 360</li>
+              <li>FEA &amp; CFD Analysis</li>
+            </ul>
+          </div>
+          <div class="skill-box reveal-scale" style="--i:1">
+            <h3>Prototyping</h3>
+            <ul>
+              <li>FDM 3D Printing</li>
+              <li>Arduino / C++ / Python</li>
+              <li>Soldering</li>
+              <li>Fiberglass Fabrication</li>
+            </ul>
+          </div>
+          <div class="skill-box reveal-scale" style="--i:2">
+            <h3>Languages &amp; Soft Skills</h3>
+            <ul>
+              <li>English &amp; French (Fluent)</li>
+              <li>Project Management</li>
+              <li>Team Leadership</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CONTACT ==================== -->
+  <section id="contact">
+    <div class="container">
+      <div class="glass-panel">
+        <div class="reveal">
+          <div class="section-label">Get In Touch</div>
+          <h2 class="section-title">Contact</h2>
+        </div>
+        <div class="contact-wrap reveal">
+          <div class="reveal-left">
+            <p>
+              I'm looking for internship opportunities starting in Summer 2027.
+              If you're working on applied physics, mechanical design,
+              or aerospace — I'd love to hear from you.
+            </p>
+          </div>
+          <div class="contact-items reveal-right">
+            <a href="mailto:23rfs3@queensu.ca" class="contact-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="2" y="4" width="20" height="16" rx="2" />
+                <path d="M22 4L12 13 2 4" />
+              </svg>
+              23rfs3@queensu.ca
+            </a>
+            <a href="https://linkedin.com/in/thomas-hung-8a3082299" target="_blank" class="contact-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6z" />
+                <rect x="2" y="9" width="4" height="12" />
+                <circle cx="4" cy="4" r="2" />
+              </svg>
+              LinkedIn
+            </a>
+            <a href="https://github.com/tojo-hung" target="_blank" class="contact-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path
+                  d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                </path>
+              </svg>
+              GitHub
+            </a>
+            <a href="tel:604-690-9358" class="contact-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path
+                  d="M22 16.92v3a2 2 0 01-2.18 2 19.86 19.86 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.86 19.86 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.13.81.36 1.6.68 2.34a2 2 0 01-.45 2.11L8.09 9.42a16 16 0 006.5 6.5l1.25-1.25a2 2 0 012.11-.45c.74.32 1.53.55 2.34.68A2 2 0 0122 16.92z" />
+              </svg>
+              +1-604-690-9358
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PROJECT MODALS ==================== -->
+  <div class="project-modal" id="modal-aquafoil">
+    <div class="project-modal-backdrop" onclick="closeModal()"></div>
+    <div class="project-modal-content glass-panel">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-body">
+        <section class="project-hero">
+          <h1>aQuaFoil<br><em>Sustainable Performance</em></h1>
+          <p class="subtitle">
+            Co-founded Queen's University's sustainable-performance engineering design team. Building a
+            competition-grade foiling Moth for the SuMoth Challenge 2027.
+          </p>
+          <div class="project-meta">
+            <div class="project-meta-item"><span class="project-meta-label">Role</span><span
+                class="project-meta-value">Co-Founder</span></div>
+            <div class="project-meta-item"><span class="project-meta-label">Timeline</span><span
+                class="project-meta-value">2026 — 2027</span></div>
+            <div class="project-meta-item"><span class="project-meta-label">Competition</span><span
+                class="project-meta-value">SuMoth 2027</span></div>
+            <div class="project-meta-item"><span class="project-meta-label">Tools</span><span
+                class="project-meta-value">OpenFOAM · Composites · FEA</span></div>
+          </div>
+        </section>
+        <div class="project-banner"
+          style="background: linear-gradient(135deg, #0f152a, #1a2544); display: flex; align-items: center; justify-content: center;">
+          <span
+            style="font-family: var(--font-mono); color: var(--accent); font-size: 16px; letter-spacing: 2px;">aquafoil-banner.jpg</span>
+        </div>
+        <div class="project-layout">
+          <div class="project-content">
+            <h2>Overview &amp; Design Brief</h2>
+            <p>I co-founded aQuaFoil, operating at the intersection of environmental responsibility and elite
+              performance. We treat sustainability not as a constraint, but as the design brief. Our goal is to
+              demonstrate that engineering excellence and environmental responsibility are the same pursuit.</p>
+            <p>We are building a foiling Moth — one of sailing's most technically unforgiving vessels — utilizing
+              bio-composite construction. This involves sustainable reinforcement fibres and bio-based epoxy resin
+              systems.</p>
+            <h2>Engineering Scope</h2>
+            <ul>
+              <li>Leading a team of 30+ engineers across materials science, structures, hydrodynamics, and fabrication.
+              </li>
+              <li>Implementing a CFD-optimized OpenFOAM simulation pipeline for hydrofoil lift, drag, and cavitation
+                analysis.</li>
+              <li>Integrating full lifecycle material assessments and FEA structural validation into the core
+                manufacturing plan.</li>
+            </ul>
+            <h2>Photos</h2>
+            <div class="photo-gallery">
+              <div>
+                <div class="project-card-img"
+                  style="background: var(--bg-raised); height:200px; display:flex; align-items:center; justify-content:center;">
+                  <span style="color:var(--muted); font-size:12px">aquafoil-1.jpg</span>
+                </div>
+                <p class="photo-caption">Foil design</p>
+              </div>
+              <div>
+                <div class="project-card-img"
+                  style="background: var(--bg-raised); height:200px; display:flex; align-items:center; justify-content:center;">
+                  <span style="color:var(--muted); font-size:12px">aquafoil-2.jpg</span>
+                </div>
+                <p class="photo-caption">Hull rendering</p>
+              </div>
+              <div>
+                <div class="project-card-img"
+                  style="background: var(--bg-raised); height:200px; display:flex; align-items:center; justify-content:center;">
+                  <span style="color:var(--muted); font-size:12px">aquafoil-3.jpg</span>
+                </div>
+                <p class="photo-caption">Team setup</p>
+              </div>
+              <div>
+                <div class="project-card-img"
+                  style="background: var(--bg-raised); height:200px; display:flex; align-items:center; justify-content:center;">
+                  <span style="color:var(--muted); font-size:12px">aquafoil-4.jpg</span>
+                </div>
+                <p class="photo-caption">Testing</p>
+              </div>
+            </div>
+          </div>
+          <div class="project-sidebar">
+            <div class="specs-card">
+              <div class="specs-card-title">Project Specs</div>
+              <div class="spec-row"><span class="spec-key">Hull Material</span><span
+                  class="spec-val">Bio-Composite</span></div>
+              <div class="spec-row"><span class="spec-key">Analysis</span><span class="spec-val">OpenFOAM CFD</span>
+              </div>
+              <div class="spec-row"><span class="spec-key">Vessel</span><span class="spec-val">Foiling Moth</span></div>
+              <div class="spec-row"><span class="spec-key">Objective</span><span class="spec-val">SuMoth 2027</span>
+              </div>
+              <div class="spec-row"><span class="spec-key">Team Size</span><span class="spec-val">30+ engineers</span>
+              </div>
+            </div>
+            <div class="specs-card" style="margin-top: 24px;">
+              <div class="specs-card-title">Technologies</div>
+              <div class="pill-row" style="flex-direction:column; gap:8px;">
+                <span class="pill" style="width:fit-content;">Bio-Epoxy Resin</span>
+                <span class="pill" style="width:fit-content;">OpenFOAM CFD</span>
+                <span class="pill" style="width:fit-content;">FEA Simulation</span>
+                <span class="pill" style="width:fit-content;">Leadership</span>
+                <span class="pill" style="width:fit-content;">Systems Design</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-modal" id="modal-aquatonomous">
+    <div class="project-modal-backdrop" onclick="closeModal()"></div>
+    <div class="project-modal-content glass-panel">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-body">
+        <section class="project-hero">
+          <h1>aQuatonomous<br><em>RoboBoat 2026</em></h1>
+          <p class="subtitle">
+            Mechanical team lead for Queen's University autonomous surface vehicle —
+            engineering fiberglass hulls, structural systems, and hardware integration
+            for international competition.
+          </p>
+          <div class="project-meta">
+            <div class="project-meta-item"><span class="project-meta-label">Role</span><span
+                class="project-meta-value">Mechanical Director</span></div>
+            <div class="project-meta-item"><span class="project-meta-label">Timeline</span><span
+                class="project-meta-value">2024 — Present</span></div>
+            <div class="project-meta-item"><span class="project-meta-label">Competition</span><span
+                class="project-meta-value">RoboBoat 2026</span></div>
+            <div class="project-meta-item"><span class="project-meta-label">Tools</span><span
+                class="project-meta-value">SolidWorks · FDM · Fiberglass</span></div>
+          </div>
+        </section>
+        <div class="project-banner has-image"><img src="images/aquatonomous-hero.jpg" alt="aQuatonomous ASV on water">
+        </div>
+        <div class="project-layout">
+          <div class="project-content">
+            <h2>Overview &amp; Design</h2>
+            <p>As Mechanical Team Lead for Queen's University's autonomous surface vehicle (ASV) team, I managed the
+              full mechanical lifecycle for the RoboBoat challenge—from parametric CAD in SolidWorks to on-water
+              testing.</p>
+            <p>I developed a unique fabrication process utilizing FDM-printed mold segments bolted together for a
+              full-scale mold. This allowed rapid fiberglass layups, cutting mold lead time by 60% compared to
+              traditional methods.</p>
+            <h2>Structural Integration</h2>
+            <ul>
+              <li>Designed an optimized, segmented FDM hull mold strategy.</li>
+              <li>Manufactured a modular aluminum crossbeam platform for sensitive IMU, electronics, and propulsion
+                hardware.</li>
+              <li>Coordinated a multi-disciplinary team to integrate electrical interfaces securely.</li>
+            </ul>
+            <h2>Build Photos</h2>
+            <div class="photo-gallery">
+              <div>
+                <div class="photo-gallery-item has-image"><img src="images/aq-mold.jpg" alt="FDM mold segments"></div>
+                <p class="photo-caption">FDM mold segments</p>
+              </div>
+              <div>
+                <div class="photo-gallery-item has-image"><img src="images/aq-layup.jpg" alt="Fiberglass layup"></div>
+                <p class="photo-caption">Fiberglass layup</p>
+              </div>
+              <div>
+                <div class="photo-gallery-item has-image"><img src="images/aq-assembly.png" alt="Hull assembly"></div>
+                <p class="photo-caption">Hull assembly</p>
+              </div>
+              <div>
+                <div class="photo-gallery-item has-image"><img src="images/aq-water.jpg" alt="Water testing"></div>
+                <p class="photo-caption">Water testing</p>
+              </div>
+            </div>
+          </div>
+          <div class="project-sidebar">
+            <div class="specs-card">
+              <div class="specs-card-title">Project Specs</div>
+              <div class="spec-row"><span class="spec-key">Hull Material</span><span class="spec-val">Woven
+                  Fiberglass</span></div>
+              <div class="spec-row"><span class="spec-key">Mold Process</span><span class="spec-val">FDM Printed</span>
+              </div>
+              <div class="spec-row"><span class="spec-key">CAD Software</span><span class="spec-val">SolidWorks
+                  2024</span></div>
+              <div class="spec-row"><span class="spec-key">Configuration</span><span class="spec-val">Catamaran</span>
+              </div>
+              <div class="spec-row"><span class="spec-key">Competition</span><span class="spec-val">RoboBoat 2026</span>
+              </div>
+              <div class="spec-row"><span class="spec-key">Team Size</span><span class="spec-val">~40 members</span>
+              </div>
+            </div>
+            <div class="specs-card">
+              <div class="specs-card-title">Technologies</div>
+              <div class="pill-row" style="flex-direction:column; gap:8px;">
+                <span class="pill" style="width:fit-content;">SolidWorks</span>
+                <span class="pill" style="width:fit-content;">FDM 3D Printing</span>
+                <span class="pill" style="width:fit-content;">Fiberglass Fabrication</span>
+                <span class="pill" style="width:fit-content;">Structural Analysis</span>
+                <span class="pill" style="width:fit-content;">Aluminum Machining</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-modal" id="modal-csa-arm">
+    <div class="project-modal-backdrop" onclick="closeModal()"></div>
+    <div class="project-modal-content glass-panel">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-body">
+        <section class="project-hero">
+          <h1>CSA Robotic Arm<br><em>End-Effector</em></h1>
+          <p class="subtitle">A prototype robotic arm end-effector designed in collaboration with the Canadian Space
+            Agency — optimized for additive manufacturing through FEA-driven iteration.</p>
+          <div class="project-meta">
+            <div class="project-meta-item"><span class="project-meta-label">Client</span><span
+                class="project-meta-value">Canadian Space Agency</span></div>
+            <div class="project-meta-item"><span class="project-meta-label">Timeline</span><span
+                class="project-meta-value">Winter 2025</span></div>
+            <div class="project-meta-item"><span class="project-meta-label">Context</span><span
+                class="project-meta-value">Queen's University Design Course</span></div>
+            <div class="project-meta-item"><span class="project-meta-label">Tools</span><span
+                class="project-meta-value">SolidWorks · FEA · TPU</span></div>
+          </div>
+        </section>
+        <div class="project-banner"></div>
+        <div class="project-layout">
+          <div class="project-content">
+            <h2>Overview &amp; Design Process</h2>
+            <p>Partnering directly with the Canadian Space Agency, I helped design a robotic arm end-effector prototype
+              capable of handling irregular payloads. The CSA provided strict constraints regarding grip force, mass
+              budget, and 3D printability.</p>
+            <p>We translated mission objectives into parametric models utilizing SolidWorks, combining rigid PLA+
+              structural components with flexible TPU grip pads.</p>
+            <h2>Optimization &amp; Testing</h2>
+            <ul>
+              <li>Conducted extensive FEA simulation to optimize topology, reducing the jaw assembly mass by 23% while
+                yielding a 3.0 safety factor.</li>
+              <li>Tuned print layout for precise slip-fit joints, requiring zero post-processing.</li>
+              <li>Tested and successfully validated payload retention and grip force against CSA client acceptance
+                criteria.</li>
+            </ul>
+            <h2>Photos</h2>
+            <div class="photo-gallery">
+              <div>
+                <div class="photo-gallery-item"></div>
+                <p class="photo-caption">CAD model</p>
+              </div>
+              <div>
+                <div class="photo-gallery-item"></div>
+                <p class="photo-caption">FEA stress analysis</p>
+              </div>
+              <div>
+                <div class="photo-gallery-item"></div>
+                <p class="photo-caption">Printed components</p>
+              </div>
+              <div>
+                <div class="photo-gallery-item"></div>
+                <p class="photo-caption">Assembled prototype</p>
+              </div>
+            </div>
+          </div>
+          <div class="project-sidebar">
+            <div class="specs-card">
+              <div class="specs-card-title">Project Specs</div>
+              <div class="spec-row"><span class="spec-key">Client</span><span class="spec-val">Canadian Space
+                  Agency</span></div>
+              <div class="spec-row"><span class="spec-key">Structural Material</span><span class="spec-val">PLA+</span>
+              </div>
+              <div class="spec-row"><span class="spec-key">Grip Pads</span><span class="spec-val">TPU (flexible)</span>
+              </div>
+              <div class="spec-row"><span class="spec-key">Analysis</span><span class="spec-val">SolidWorks FEA</span>
+              </div>
+              <div class="spec-row"><span class="spec-key">Mass Reduction</span><span class="spec-val">~23% vs
+                  baseline</span></div>
+              <div class="spec-row"><span class="spec-key">Safety Factor</span><span class="spec-val">&gt; 3.0</span>
+              </div>
+            </div>
+            <div class="specs-card">
+              <div class="specs-card-title">Technologies</div>
+              <div class="pill-row" style="flex-direction:column; gap:8px;">
+                <span class="pill" style="width:fit-content;">SolidWorks 2024</span>
+                <span class="pill" style="width:fit-content;">FEA Simulation</span>
+                <span class="pill" style="width:fit-content;">FDM 3D Printing</span>
+                <span class="pill" style="width:fit-content;">TPU / PLA+</span>
+                <span class="pill" style="width:fit-content;">DFM Principles</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-modal" id="modal-foil-gauge">
+    <div class="project-modal-backdrop" onclick="closeModal()"></div>
+    <div class="project-modal-content glass-panel">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-body">
+        <section class="project-hero">
+          <h1>Windsurf Foil<br><em>Angle Gauge</em></h1>
+          <p class="subtitle">Designed, prototyped, and brought to market a precision angle-of-attack gauge for Olympic
+            iQFOiL windsurfers — born from a real problem I faced competing at the international level.</p>
+          <div class="project-meta">
+            <div class="project-meta-item"><span class="project-meta-label">Type</span><span
+                class="project-meta-value">Product Design + Business</span></div>
+            <div class="project-meta-item"><span class="project-meta-label">Status</span><span
+                class="project-meta-value">Sold to athletes</span></div>
+            <div class="project-meta-item"><span class="project-meta-label">Sport</span><span
+                class="project-meta-value">iQFOiL Windsurfing</span></div>
+            <div class="project-meta-item"><span class="project-meta-label">Tools</span><span
+                class="project-meta-value">3D Scanning · CAD · FDM</span></div>
+          </div>
+        </section>
+        <div class="project-banner"></div>
+        <div class="project-layout">
+          <div class="project-content">
+            <h2>The Problem &amp; Design</h2>
+            <p>In Olympic iQFOiL windsurfing, wing angle of attack is critical for tuning hydrofoil lift. Having
+              competed internationally, I realized athletes lacked a reliable tool for this, so I designed a
+              purpose-built precision gauge.</p>
+            <p>I captured the exact mast base geometry using 3D scanning, designing a bespoke PETG two-part gauge via
+              Fusion 360 that mounts automatically without user calibration.</p>
+            <h2>Iteration &amp; Delivery</h2>
+            <ul>
+              <li>Integrated an embedded bubble level and laser-engraved angular scale, reducing setup time to under 30
+                seconds.</li>
+              <li>Iterated prototype geometries using athlete feedback to ensure weather resistance, tight slip-fit
+                joint tolerances, and flat-folding storage.</li>
+              <li>Manufactured and sold commercial units to international fleets on the World Championship circuit.</li>
+            </ul>
+            <h2>Photos</h2>
+            <div class="photo-gallery">
+              <div>
+                <div class="photo-gallery-item"></div>
+                <p class="photo-caption">3D scanning the mast base</p>
+              </div>
+              <div>
+                <div class="photo-gallery-item"></div>
+                <p class="photo-caption">Fusion 360 CAD</p>
+              </div>
+              <div>
+                <div class="photo-gallery-item"></div>
+                <p class="photo-caption">PETG prototype</p>
+              </div>
+              <div>
+                <div class="photo-gallery-item"></div>
+                <p class="photo-caption">In use at training camp</p>
+              </div>
+            </div>
+          </div>
+          <div class="project-sidebar">
+            <div class="specs-card">
+              <div class="specs-card-title">Product Specs</div>
+              <div class="spec-row"><span class="spec-key">Material</span><span class="spec-val">PETG</span></div>
+              <div class="spec-row"><span class="spec-key">Process</span><span class="spec-val">FDM, 0.2 mm
+                  layers</span></div>
+              <div class="spec-row"><span class="spec-key">Geometry Source</span><span class="spec-val">3D Scan</span>
+              </div>
+              <div class="spec-row"><span class="spec-key">Resolution</span><span class="spec-val">0.5°
+                  increments</span></div>
+              <div class="spec-row"><span class="spec-key">Versions</span><span class="spec-val">V1 → V3</span></div>
+              <div class="spec-row"><span class="spec-key">Status</span><span class="spec-val">Sold to athletes</span>
+              </div>
+            </div>
+            <div class="specs-card">
+              <div class="specs-card-title">Technologies</div>
+              <div class="pill-row" style="flex-direction:column; gap:8px;">
+                <span class="pill" style="width:fit-content;">3D Scanning</span>
+                <span class="pill" style="width:fit-content;">Fusion 360</span>
+                <span class="pill" style="width:fit-content;">FDM Printing</span>
+                <span class="pill" style="width:fit-content;">PETG</span>
+                <span class="pill" style="width:fit-content;">Product Iteration</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== LIGHTBOX ==================== -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close">ESC / CLOSE ×</button>
+    <button class="lightbox-arrow lightbox-prev" id="lightbox-prev">&#8592;</button>
+    <img id="lightbox-img" src="" alt="">
+    <button class="lightbox-arrow lightbox-next" id="lightbox-next">&#8594;</button>
+  </div>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Thomas Hung · Built from scratch with HTML, CSS &amp; JS</p>
+    </div>
+  </footer>
+
+  <!-- ==================== JAVASCRIPT ==================== -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.dots.min.js"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      /* ============================================================
+         1. VANTA.JS INTERACTIVE BACKGROUND
+         ============================================================ */
+      if (window.VANTA) {
+        var effects = ['GLOBE', 'NET', 'DOTS'];
+        var randomEffect = effects[Math.floor(Math.random() * effects.length)];
+        var baseConfig = {
+          el: "#bg-canvas",
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 200.00,
+          minWidth: 200.00,
+          scale: 1.00,
+          scaleMobile: 1.00
+        };
+
+        if (randomEffect === 'GLOBE') {
+          window.VANTA.GLOBE(Object.assign(baseConfig, { color: 0x4e8fff, color2: 0x224488, backgroundColor: 0x07080f }));
+        } else if (randomEffect === 'NET') {
+          window.VANTA.NET(Object.assign(baseConfig, { color: 0x4e8fff, backgroundColor: 0x07080f }));
+        } else if (randomEffect === 'DOTS') {
+          window.VANTA.DOTS(Object.assign(baseConfig, { color: 0x4e8fff, color2: 0x224488, backgroundColor: 0x07080f, size: 4, spacing: 35 }));
+        }
+      }
+
+
+      /* ============================================================
+         3. MAGNETIC BUTTONS
+         ============================================================ */
+      document.querySelectorAll('.magnetic-btn').forEach(function (btn) {
+        btn.addEventListener('mousemove', function (e) {
+          const rect = btn.getBoundingClientRect();
+          const cx = rect.left + rect.width / 2;
+          const cy = rect.top + rect.height / 2;
+          const dx = e.clientX - cx;
+          const dy = e.clientY - cy;
+          const strength = 0.3;
+          btn.style.transform = 'translate(' + (dx * strength) + 'px, ' + (dy * strength) + 'px)';
+        });
+        btn.addEventListener('mouseleave', function () {
+          btn.style.transform = '';
+        });
+      });
+
+      /* ============================================================
+         4. 3D CARD TILT
+         ============================================================ */
+      document.querySelectorAll('.project-card').forEach(function (card) {
+        card.addEventListener('mousemove', function (e) {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const cx = rect.width / 2;
+          const cy = rect.height / 2;
+          const rotY = ((x - cx) / cx) * 7;  // max 7deg
+          const rotX = -((y - cy) / cy) * 5;  // max 5deg
+          card.style.transform =
+            'perspective(900px) rotateX(' + rotX + 'deg) rotateY(' + rotY + 'deg)';
+        });
+        card.addEventListener('mouseleave', function () {
+          card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg)';
+        });
+      });
+
+      /* ============================================================
+         5. SCROLL REVEAL — IntersectionObserver
+         ============================================================ */
+      var revealSelectors = '.reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-fade';
+      var revealObserver = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              e.target.classList.add('visible');
+              // Fire count-up on stat values when hero stats become visible
+              if (e.target.classList.contains('hero-stats') || e.target.closest('.hero-stats')) {
+                startCountUps();
+              }
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+      );
+
+      document.querySelectorAll(revealSelectors).forEach(function (el) {
+        revealObserver.observe(el);
+      });
+
+      // Observe hero-stats specifically for count-up trigger
+      var heroStats = document.querySelector('.hero-stats');
+      if (heroStats) {
+        var statsObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              startCountUps();
+              statsObserver.disconnect();
+            }
+          });
+        }, { threshold: 0.5 });
+        statsObserver.observe(heroStats);
+      }
+
+      /* ============================================================
+         6. COUNT-UP STATS
+         ============================================================ */
+      var countsDone = false;
+
+      function startCountUps() {
+        if (countsDone) return;
+        countsDone = true;
+
+        document.querySelectorAll('.stat-val[data-count]').forEach(function (el) {
+          var target = parseFloat(el.dataset.count);
+          var decimals = parseInt(el.dataset.decimals || '0', 10);
+          var suffix = el.dataset.suffix || '';
+          var duration = 1400;
+          var start = null;
+
+          function step(ts) {
+            if (!start) start = ts;
+            var progress = Math.min((ts - start) / duration, 1);
+            // ease out cubic
+            var ease = 1 - Math.pow(1 - progress, 3);
+            var value = target * ease;
+            el.textContent = value.toFixed(decimals) + suffix;
+            if (progress < 1) requestAnimationFrame(step);
+            else el.textContent = target.toFixed(decimals) + suffix;
+          }
+
+          requestAnimationFrame(step);
+        });
+      }
+
+      /* ============================================================
+         7. TIMELINE DRAW-DOWN (scroll-driven clip)
+         ============================================================ */
+      var timelineEl = document.getElementById('timeline');
+
+      function updateTimeline() {
+        if (!timelineEl) return;
+        var rect = timelineEl.getBoundingClientRect();
+        var winH = window.innerHeight;
+        var total = rect.height;
+        var scrolled = Math.max(0, winH * 0.6 - rect.top);
+        var progress = Math.min(100, Math.max(0, (scrolled / total) * 100));
+        timelineEl.style.setProperty('--timeline-progress', progress + '%');
+      }
+
+      window.addEventListener('scroll', updateTimeline, { passive: true });
+      updateTimeline();
+
+      /* ============================================================
+         8. LIGHTBOX — marquee images + arrow nav + keyboard
+         ============================================================ */
+      var lightbox = document.getElementById('lightbox');
+      var lightboxImg = document.getElementById('lightbox-img');
+      // Collect unique images (only first set of marquee items to avoid dupe indices)
+      var marqueeImgs = Array.from(
+        document.querySelectorAll('.hero-marquee-track .hero-marquee-item:nth-child(-n+6) img')
+      );
+      // Randomize marquee scroll direction
+      if (Math.random() > 0.5) {
+        document.querySelector('.hero-marquee-track').style.animationDirection = 'reverse';
+      }
+      var current = 0;
+      var activeLightboxGroup = 'marquee';
+
+      function openLightbox(index) {
+        activeLightboxGroup = 'marquee';
+        var prevBtn = document.getElementById('lightbox-prev');
+        var nextBtn = document.getElementById('lightbox-next');
+        if (prevBtn) prevBtn.style.display = 'flex';
+        if (nextBtn) nextBtn.style.display = 'flex';
+
+        current = index;
+        if (marqueeImgs[current]) {
+          lightboxImg.src = marqueeImgs[current].src;
+          lightbox.classList.add('open');
+        }
+      }
+      function closeLightbox() {
+        lightbox.classList.remove('open');
+      }
+      function navigate(dir) {
+        if (activeLightboxGroup !== 'marquee') return;
+        current = (current + dir + marqueeImgs.length) % marqueeImgs.length;
+        lightboxImg.src = marqueeImgs[current].src;
+      }
+
+      marqueeImgs.forEach(function (img, i) {
+        img.style.cursor = 'zoom-in';
+        img.addEventListener('click', function () { openLightbox(i); });
+      });
+
+      var closeBtn = document.getElementById('lightbox-close');
+      var prevBtn = document.getElementById('lightbox-prev');
+      var nextBtn = document.getElementById('lightbox-next');
+
+      if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+      if (prevBtn) prevBtn.addEventListener('click', function (e) { e.stopPropagation(); navigate(-1); });
+      if (nextBtn) nextBtn.addEventListener('click', function (e) { e.stopPropagation(); navigate(1); });
+
+      lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) closeLightbox();
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (!lightbox.classList.contains('open')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') navigate(-1);
+        if (e.key === 'ArrowRight') navigate(1);
+      });
+
+      /* ============================================================
+         9. MOBILE NAV — close on link click
+         ============================================================ */
+      document.querySelectorAll('.nav-links a').forEach(function (link) {
+        link.addEventListener('click', function () {
+          document.querySelector('.nav-links').classList.remove('show');
+        });
+      });
+
+      /* ============================================================
+         10. PROJECT MODALS
+         ============================================================ */
+      window.openModal = function (id) {
+        document.getElementById(id).classList.add('open');
+        document.body.style.overflow = 'hidden';
+      };
+      window.closeModal = function () {
+        document.querySelectorAll('.project-modal').forEach(function (m) {
+          m.classList.remove('open');
+        });
+        document.body.style.overflow = '';
+      };
+
+      // Attach zoom explicitly to gallery items inside modals
+      document.querySelectorAll('.photo-gallery-item img').forEach(function (img) {
+        img.style.cursor = 'zoom-in';
+        img.addEventListener('click', function (e) {
+          e.stopPropagation();
+          activeLightboxGroup = 'gallery';
+          var prevBtn = document.getElementById('lightbox-prev');
+          var nextBtn = document.getElementById('lightbox-next');
+          if (prevBtn) prevBtn.style.display = 'none';
+          if (nextBtn) nextBtn.style.display = 'none';
+
+          var lightboxImg = document.getElementById('lightbox-img');
+          var lightbox = document.getElementById('lightbox');
+          lightboxImg.src = img.src;
+          lightbox.classList.add('open');
+        });
+      });
+
+    }());
+  </script>
+
+</body>
+
+</html>
