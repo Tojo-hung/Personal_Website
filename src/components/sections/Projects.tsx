@@ -28,49 +28,58 @@ const projectsData = [
       { src: "/images/hero-1.jpg", caption: "Foil design" },
       { src: "/images/hero-2.JPG", caption: "Hull rendering" }
     ],
-    pills: ["Leadership", "CFD", "Composites"]
+    pills: ["Leadership", "CFD", "Composites"],
+    githubUrl: "https://github.com/Tojo-hung/Hull_Design",
+    liveUrl: "https://www.aquafoil.ca/"
   },
   {
     id: "aquatonomous",
     title: "aQuatonomous",
     subtitle: "RoboBoat 2026",
     tag: "Autonomous Systems · Team Lead",
-    year: "2024 — Present",
+    year: "2024 — 2026",
     role: "Mechanical Director",
-    tools: "SolidWorks · FDM · Fiberglass",
-    summary: "Mechanical team lead for the Queen's autonomous surface vehicle. Designed and manufactured fiberglass hulls.",
-    description: "As Mechanical Team Lead for Queen's University's autonomous surface vehicle (ASV) team, I managed the full mechanical lifecycle for the RoboBoat challenge—from parametric CAD in SolidWorks to on-water testing.\n\nI developed a unique fabrication process utilizing FDM-printed mold segments bolted together for a full-scale mold. This allowed rapid fiberglass layups, cutting mold lead time by 60% compared to traditional methods.",
+    tools: "SolidWorks · FDM 3D Printing · Fiberglass Composites · Project Management",
+    summary: "Mechanical team director for the Queen's autonomous surface vehicle (ASV) team. Designed and manufactured fiberglass hulls.",
+    description: "As the Mechanical Team Director for Queen's University's autonomous surface vehicle (ASV) team, I manage the full mechanical lifecycle for the RoboBoat challenge—from parametric CAD in SolidWorks to on-water testing.\n\nI developed a unique fabrication process utilizing FDM 3D printed mold segments glued together for a full-scale mold.",
     bullets: [
-      "Designed an optimized, segmented FDM hull mold strategy.",
+      "Designed an optimized, segmented 3D printed hull mold strategy.",
       "Manufactured a modular aluminum crossbeam platform for sensitive IMU, electronics, and propulsion hardware.",
       "Coordinated a multi-disciplinary team to integrate electrical interfaces securely."
     ],
     color: "from-blue-900 to-indigo-900",
     image: "/images/aquatonomous-hero.jpg",
     gallery: [
-      { src: "/images/hero-3.jpg", caption: "Build" },
-      { src: "/images/hero-4.jpg", caption: "Testing" }
+      { src: "/images/aq-layup.jpg", caption: "Build" },
+      { src: "/images/aq-water.jpg", caption: "Testing" },
+      { src: "/images/aq-assembly.png", caption: "CAD" },
+      { src: "/images/aq-mold.jpg", caption: "Mold" }
     ],
-    pills: ["SolidWorks", "FDM", "Fiberglass"]
+    pills: ["SolidWorks", "FDM 3D Printing", "Fiberglass Composites", "Project Management"],
+    githubUrl: "https://github.com/aQuatonomous",
+    liveUrl: "https://aquatonomous.vercel.app/"
   },
   {
     id: "csa-arm",
     title: "CSA Robotic Arm",
     subtitle: "End-Effector",
-    tag: "Space · Robotics",
+    tag: "Space · Robotics · Design",
     year: "Winter 2025",
     role: "Designer",
     tools: "SolidWorks · FEA · TPU",
     summary: "Designed a robotic arm end-effector prototype in collaboration with the Canadian Space Agency.",
-    description: "Partnering directly with the Canadian Space Agency, I helped design a robotic arm end-effector prototype capable of handling irregular payloads. The CSA provided strict constraints regarding grip force, mass budget, and 3D printability.\n\nWe translated mission objectives into parametric models utilizing SolidWorks, combining rigid PLA+ structural components with flexible TPU grip pads.",
+    description: "Partnering with the Canadian Space Agency, I designed a robotic arm end-effector prototype capable of handling irregular payloads. The CSA provided strict constraints regarding size, mass budget, and payload retention.\n\nWe translated mission objectives into parametric models utilizing SolidWorks, combining rigid PLA+ structural components with flexible TPU grip pads.",
     bullets: [
-      "Conducted extensive FEA simulation to optimize topology, reducing the jaw assembly mass by 23% while yielding a 3.0 safety factor.",
+      "Conducted FEA simulations to find a geometry that allowed for a Fin Ray inspired compliant mechanism built with PLA and TPU using a FDM 3D printer.",
       "Tuned print layout for precise slip-fit joints, requiring zero post-processing.",
       "Tested and successfully validated payload retention and grip force against CSA client acceptance criteria."
     ],
     color: "from-zinc-800 to-zinc-950",
     image: "/images/csa-arm-hero.jpg",
-    gallery: [],
+    gallery: [
+      { src: "/images/csa-fea.png", caption: "FEA" },
+      { src: "/images/csa-assembly.png", caption: "CAD" }
+    ],
     pills: ["SolidWorks", "FEA", "TPU"]
   },
   {
@@ -174,17 +183,21 @@ export default function Projects() {
                       </span>
                     ))}
                   </div>
-                  
+
                   {/* Card Links */}
-                  <div className="flex items-center gap-4 pt-4 border-t border-white/5">
-                    <button onClick={(e) => e.stopPropagation()} className="p-2 bg-white/5 hover:bg-white/10 rounded-full transition-colors text-muted hover:text-primary">
-                      <span className="sr-only">GitHub</span>
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                    </button>
-                    <button onClick={(e) => e.stopPropagation()} className="p-2 bg-white/5 hover:bg-white/10 rounded-full transition-colors text-muted hover:text-primary">
-                      <span className="sr-only">Live Site</span>
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                    </button>
+                  <div className="flex items-center gap-4 pt-4 border-t border-white/5 min-h-[4rem]">
+                    {(project as any).githubUrl && (
+                      <a href={(project as any).githubUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="p-2 bg-white/5 hover:bg-white/10 rounded-full transition-colors text-muted hover:text-primary">
+                        <span className="sr-only">GitHub</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                      </a>
+                    )}
+                    {(project as any).liveUrl && (
+                      <a href={(project as any).liveUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="p-2 bg-white/5 hover:bg-white/10 rounded-full transition-colors text-muted hover:text-primary">
+                        <span className="sr-only">Live Site</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
@@ -198,7 +211,7 @@ export default function Projects() {
         <AnimatePresence>
           {selectedId && selectedProject && (
             <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10 pointer-events-none">
-              
+
               {/* Backdrop */}
               <motion.div
                 initial={{ opacity: 0 }}
@@ -208,7 +221,7 @@ export default function Projects() {
                 onClick={closeModal}
                 className="absolute inset-0 bg-black/80 backdrop-blur-sm pointer-events-auto"
               />
-              
+
               {/* Modal Container */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -228,7 +241,7 @@ export default function Projects() {
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-surface to-transparent opacity-90" />
                   </div>
-                  
+
                   <button
                     onClick={closeModal}
                     className="fixed top-6 right-6 p-2 bg-black/40 backdrop-blur-md rounded-full text-white hover:bg-white hover:text-black transition-colors border border-white/10 z-[110]"
@@ -263,7 +276,7 @@ export default function Projects() {
                           </li>
                         ))}
                       </ul>
-                      
+
                       {selectedProject.gallery.length > 0 && (
                         <>
                           <h4 className="text-xl font-bold mt-10 mb-6 border-b border-white/10 pb-2">Gallery</h4>
@@ -285,7 +298,7 @@ export default function Projects() {
                     <div className="flex-1 md:w-1/3">
                       <div className="bg-background rounded-2xl p-6 border border-white/5 sticky top-6">
                         <h4 className="text-lg font-bold mb-6 font-sans">Project Specs</h4>
-                        
+
                         <div className="space-y-4 font-mono text-sm">
                           <div>
                             <div className="text-muted/60 mb-1">Role</div>

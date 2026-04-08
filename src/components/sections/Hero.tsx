@@ -9,14 +9,17 @@ export default function Hero() {
     "Engineering Physics Student",
     "Problem Solver & Builder",
     "Passionate About Material Science",
-    "Loves the Outdoor",
-    "Future Industry Leader"
+    "Loves the Outdoors",
+    "Future Industry Leader",
+    "Curious Everyday",
+    "Always Learning",
+    "Avid Sailor"
   ];
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center pt-20 overflow-hidden">
       <div className="max-w-6xl w-full mx-auto px-6 z-10 flex flex-col items-center justify-center text-center">
-        
+
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -54,7 +57,7 @@ export default function Hero() {
             Get In Touch
           </a>
         </motion.div>
-        
+
       </div>
 
       {/* Scroll indicator */}

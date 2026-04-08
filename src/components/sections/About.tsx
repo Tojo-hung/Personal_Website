@@ -23,9 +23,9 @@ export default function About() {
           >
             <div className="relative w-full max-w-sm mx-auto md:mr-auto md:ml-0 aspect-[4/5] rounded-3xl overflow-hidden shadow-[0_0_40px_rgba(139,92,246,0.2)]">
               {/* Fallback mock image since we don't have sanity connected yet */}
-              <div className="absolute inset-0 bg-zinc-900 border-2 border-primary/50 relative group">
+              <div className="absolute inset-0 bg-zinc-900 border-2 border-primary/50 group">
                 <Image 
-                  src="/images/hero-1.jpg" 
+                  src="/images/Profile_Photo.jpg" 
                   alt="Thomas Hung" 
                   fill 
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
