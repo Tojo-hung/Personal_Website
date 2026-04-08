@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import Image from "next/image";
 import Typewriter from "@/components/Typewriter";
 
 export default function Hero() {
@@ -18,6 +19,21 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center pt-20 overflow-hidden">
+      {/* Background Image Layer */}
+      <div className="absolute inset-0 z-0 select-none pointer-events-none">
+        <Image
+          src="/images/background.jpg"
+          alt="Engineering Background"
+          fill
+          className="object-cover opacity-70"
+          priority
+          sizes="100vw"
+          quality={90}
+        />
+        {/* Softer Overlays for more "light" */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/10 to-black/90" />
+        <div className="absolute inset-0 bg-black/20" />
+      </div>
       <div className="max-w-6xl w-full mx-auto px-6 z-10 flex flex-col items-center justify-center text-center">
 
         <motion.h1
@@ -46,7 +62,7 @@ export default function Hero() {
         >
           <a
             href="#projects"
-            className="px-8 py-4 bg-primary text-white font-medium rounded-full hover:bg-primary-hover hover:scale-105 transition-all shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:shadow-[0_0_30px_rgba(167,139,250,0.5)]"
+            className="px-8 py-4 bg-primary text-white font-medium rounded-full hover:bg-primary-hover hover:scale-105 transition-all shadow-[0_0_20px_rgba(86,130,177,0.3)] hover:shadow-[0_0_30px_rgba(115,158,201,0.5)]"
           >
             View Projects
           </a>

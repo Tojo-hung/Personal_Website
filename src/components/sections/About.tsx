@@ -21,7 +21,7 @@ export default function About() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="relative order-2 md:order-1"
           >
-            <div className="relative w-full max-w-sm mx-auto md:mr-auto md:ml-0 aspect-[4/5] rounded-3xl overflow-hidden shadow-[0_0_40px_rgba(139,92,246,0.2)]">
+            <div className="relative w-full max-w-sm mx-auto md:mr-auto md:ml-0 aspect-[4/5] rounded-3xl overflow-hidden shadow-[0_0_40px_rgba(86,130,177,0.2)]">
               {/* Fallback mock image since we don't have sanity connected yet */}
               <div className="absolute inset-0 bg-zinc-900 border-2 border-primary/50 group">
                 <Image 

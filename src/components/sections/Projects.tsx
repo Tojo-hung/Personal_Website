@@ -96,10 +96,6 @@ const projectsData: ProjectRecord[] = [
       cameraOrbit: "35deg 68deg 130%",
       cameraTarget: "auto auto auto",
       fieldOfView: "28deg",
-      notes: [
-        "Use this slot for the polished hull assembly export you want visitors to orbit and inspect.",
-        "The poster uses the existing CAD render, so the section still looks intentional while you prepare the GLB.",
-      ],
     },
   },
   {

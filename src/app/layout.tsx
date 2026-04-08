@@ -1,14 +1,9 @@
 import type { Metadata } from "next";
-import { Outfit, Space_Mono } from "next/font/google";
+import { Space_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import AnimatedBackground from "@/components/AnimatedBackground";
-
-const outfit = Outfit({
-  variable: "--font-outfit",
-  subsets: ["latin"],
-});
 
 const spaceMono = Space_Mono({
   variable: "--font-space-mono",
@@ -51,7 +46,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${outfit.variable} ${spaceMono.variable} h-full antialiased`}
+      className={`${spaceMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col selection:bg-primary selection:text-white relative">
         <div 

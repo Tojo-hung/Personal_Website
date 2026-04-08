@@ -70,7 +70,7 @@ export default function Experience() {
                 <div key={index} className="relative flex flex-col md:flex-row items-center justify-between w-full">
                   
                   {/* Center Dot */}
-                  <div className="absolute left-8 md:left-1/2 w-5 h-5 bg-[#111] border-2 border-primary rounded-full md:-translate-x-1/2 shadow-[0_0_10px_rgba(139,92,246,0.8)] z-10 mt-1 md:mt-0" />
+                  <div className="absolute left-8 md:left-1/2 w-5 h-5 bg-[#111] border-2 border-primary rounded-full md:-translate-x-1/2 shadow-[0_0_10px_rgba(86,130,177,0.8)] z-10 mt-1 md:mt-0" />
 
                   {/* Left Side Content (Empty if odd) */}
                   <div className={`w-full md:w-5/12 pl-20 md:pl-0 ${isEven ? "md:pr-16 md:text-right" : "md:order-2"}`}>

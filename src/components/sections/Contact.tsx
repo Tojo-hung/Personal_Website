@@ -33,7 +33,7 @@ export default function Contact() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 relative">
             <Link
               href="mailto:23rfs3@queensu.ca"
-              className="group/btn flex items-center gap-3 px-8 py-4 bg-primary text-white rounded-full hover:bg-primary-hover hover:scale-105 transition-all shadow-[0_0_20px_rgba(139,92,246,0.2)] hover:shadow-[0_0_30px_rgba(167,139,250,0.4)] font-medium text-lg"
+              className="group/btn flex items-center gap-3 px-8 py-4 bg-primary text-white rounded-full hover:bg-primary-hover hover:scale-105 transition-all shadow-[0_0_20px_rgba(86,130,177,0.2)] hover:shadow-[0_0_30px_rgba(115,158,201,0.4)] font-medium text-lg"
             >
               <Mail className="w-5 h-5" />
               Send an Email
