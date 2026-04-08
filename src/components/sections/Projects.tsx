@@ -1,51 +1,77 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+
+import { AnimatePresence, motion } from "framer-motion";
+import { ChevronLeft, ChevronRight, ExternalLink, X } from "lucide-react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 
-const projectsData = [
+import type { ProjectRecord } from "@/types/projects";
+
+const LazyModelViewer = dynamic(() => import("@/components/cad/ModelViewer"), {
+  ssr: false,
+  loading: () => (
+    <div className="mt-10 overflow-hidden rounded-[1.75rem] border border-white/10 bg-background/60 p-4 shadow-[0_20px_80px_rgba(0,0,0,0.25)]">
+      <div className="flex h-[22rem] w-full items-center justify-center rounded-[1.25rem] border border-white/8 bg-gradient-to-br from-white/[0.06] via-transparent to-primary/10 md:h-[28rem]">
+        <div className="rounded-2xl border border-white/10 bg-black/40 px-5 py-4 text-center backdrop-blur-md">
+          <p className="text-xs font-mono uppercase tracking-[0.3em] text-primary/90">
+            Loading Viewer
+          </p>
+          <p className="mt-2 text-sm text-white/70">
+            Preparing the interactive CAD preview...
+          </p>
+        </div>
+      </div>
+    </div>
+  ),
+});
+
+const projectsData: ProjectRecord[] = [
   {
     id: "aquafoil",
     title: "aQuaFoil",
     subtitle: "Sustainable Performance",
     tag: "Leadership · Composites",
-    year: "2026 — 2027",
+    year: "2026 - 2027",
     role: "Co-Founder",
     tools: "OpenFOAM · Composites · FEA",
-    summary: "Co-founded a design team building a competition-grade foiling Moth for the SuMoth Challenge 2027.",
-    description: "I co-founded aQuaFoil, operating at the intersection of environmental responsibility and elite performance. We treat sustainability not as a constraint, but as the design brief. Our goal is to demonstrate that engineering excellence and environmental responsibility are the same pursuit.\n\nWe are building a foiling Moth — one of sailing's most technically unforgiving vessels — utilizing bio-composite construction. This involves sustainable reinforcement fibres and bio-based epoxy resin systems.",
+    summary:
+      "Co-founded a design team building a competition-grade foiling Moth for the SuMoth Challenge 2027.",
+    description:
+      "I co-founded aQuaFoil, operating at the intersection of environmental responsibility and elite performance. We treat sustainability not as a constraint, but as the design brief. Our goal is to demonstrate that engineering excellence and environmental responsibility are the same pursuit.\n\nWe are building a foiling Moth, one of sailing's most technically unforgiving vessels, utilizing bio-composite construction. This involves sustainable reinforcement fibres and bio-based epoxy resin systems.",
     bullets: [
       "Leading a team of 30+ engineers across materials science, structures, hydrodynamics, and fabrication.",
       "Implementing a CFD-optimized OpenFOAM simulation pipeline for hydrofoil lift, drag, and cavitation analysis.",
-      "Integrating full lifecycle material assessments and FEA structural validation into the core manufacturing plan."
+      "Integrating full lifecycle material assessments and FEA structural validation into the core manufacturing plan.",
     ],
     color: "from-[#0f152a] to-[#1a2544]",
     image: null,
     gallery: [
       { src: "/images/hero-1.jpg", caption: "Foil design" },
-      { src: "/images/hero-2.JPG", caption: "Hull rendering" }
+      { src: "/images/hero-2.JPG", caption: "Hull rendering" },
     ],
     pills: ["Leadership", "CFD", "Composites"],
     githubUrl: "https://github.com/Tojo-hung/Hull_Design",
-    liveUrl: "https://www.aquafoil.ca/"
+    liveUrl: "https://www.aquafoil.ca/",
   },
   {
     id: "aquatonomous",
     title: "aQuatonomous",
     subtitle: "RoboBoat 2026",
     tag: "Autonomous Systems · Team Lead",
-    year: "2024 — 2026",
+    year: "2024 - 2026",
     role: "Mechanical Director",
     tools: "SolidWorks · FDM 3D Printing · Fiberglass Composites · Project Management",
-    summary: "Mechanical team director for the Queen's autonomous surface vehicle (ASV) team. Designed and manufactured fiberglass hulls.",
-    description: "As the Mechanical Team Director for Queen's University's autonomous surface vehicle (ASV) team, I manage the full mechanical lifecycle for the RoboBoat challenge—from parametric CAD in SolidWorks to on-water testing.\n\nI developed a unique fabrication process utilizing FDM 3D printed mold segments glued together for a full-scale mold.",
+    summary:
+      "Mechanical team director for the Queen's autonomous surface vehicle team. Designed and manufactured fiberglass hulls.",
+    description:
+      "As the Mechanical Team Director for Queen's University's autonomous surface vehicle team, I manage the full mechanical lifecycle for the RoboBoat challenge, from parametric CAD in SolidWorks to on-water testing.\n\nI developed a unique fabrication process utilizing FDM 3D printed mold segments glued together for a full-scale mold.",
     bullets: [
       "Designed an optimized, segmented 3D printed hull mold strategy.",
       "Manufactured a modular aluminum crossbeam platform for sensitive IMU, electronics, and propulsion hardware.",
-      "Coordinated a multi-disciplinary team to integrate electrical interfaces securely."
+      "Coordinated a multi-disciplinary team to integrate electrical interfaces securely.",
     ],
     color: "from-blue-900 to-indigo-900",
     image: "/images/aquatonomous-hero.jpg",
@@ -53,11 +79,28 @@ const projectsData = [
       { src: "/images/aq-layup.jpg", caption: "Build" },
       { src: "/images/aq-water.jpg", caption: "Testing" },
       { src: "/images/aq-assembly.png", caption: "CAD" },
-      { src: "/images/aq-mold.jpg", caption: "Mold" }
+      { src: "/images/aq-mold.jpg", caption: "Mold" },
     ],
-    pills: ["SolidWorks", "FDM 3D Printing", "Fiberglass Composites", "Project Management"],
+    pills: [
+      "SolidWorks",
+      "FDM 3D Printing",
+      "Fiberglass Composites",
+      "Project Management",
+    ],
     githubUrl: "https://github.com/aQuatonomous",
-    liveUrl: "https://aquatonomous.vercel.app/"
+    liveUrl: "https://aquatonomous.vercel.app/",
+    model3d: {
+      src: "/models/Frontenac_Assembly.glb",
+      poster: "/images/aq-assembly.png",
+      alt: "Interactive CAD preview of the aQuatonomous RoboBoat hull assembly.",
+      cameraOrbit: "35deg 68deg 130%",
+      cameraTarget: "auto auto auto",
+      fieldOfView: "28deg",
+      notes: [
+        "Use this slot for the polished hull assembly export you want visitors to orbit and inspect.",
+        "The poster uses the existing CAD render, so the section still looks intentional while you prepare the GLB.",
+      ],
+    },
   },
   {
     id: "csa-arm",
@@ -67,20 +110,22 @@ const projectsData = [
     year: "Winter 2025",
     role: "Designer",
     tools: "SolidWorks · FEA · TPU",
-    summary: "Designed a robotic arm end-effector prototype in collaboration with the Canadian Space Agency.",
-    description: "Partnering with the Canadian Space Agency, I designed a robotic arm end-effector prototype capable of handling irregular payloads. The CSA provided strict constraints regarding size, mass budget, and payload retention.\n\nWe translated mission objectives into parametric models utilizing SolidWorks, combining rigid PLA+ structural components with flexible TPU grip pads.",
+    summary:
+      "Designed a robotic arm end-effector prototype in collaboration with the Canadian Space Agency.",
+    description:
+      "Partnering with the Canadian Space Agency, I designed a robotic arm end-effector prototype capable of handling irregular payloads. The CSA provided strict constraints regarding size, mass budget, and payload retention.\n\nWe translated mission objectives into parametric models utilizing SolidWorks, combining rigid PLA+ structural components with flexible TPU grip pads.",
     bullets: [
-      "Conducted FEA simulations to find a geometry that allowed for a Fin Ray inspired compliant mechanism built with PLA and TPU using a FDM 3D printer.",
+      "Conducted FEA simulations to find a geometry that allowed for a Fin Ray inspired compliant mechanism built with PLA and TPU using an FDM 3D printer.",
       "Tuned print layout for precise slip-fit joints, requiring zero post-processing.",
-      "Tested and successfully validated payload retention and grip force against CSA client acceptance criteria."
+      "Tested and successfully validated payload retention and grip force against CSA client acceptance criteria.",
     ],
     color: "from-zinc-800 to-zinc-950",
     image: "/images/csa-arm-hero.jpg",
     gallery: [
       { src: "/images/csa-fea.png", caption: "FEA" },
-      { src: "/images/csa-assembly.png", caption: "CAD" }
+      { src: "/images/csa-assembly.png", caption: "CAD" },
     ],
-    pills: ["SolidWorks", "FEA", "TPU"]
+    pills: ["SolidWorks", "FEA", "TPU"],
   },
   {
     id: "foil-gauge",
@@ -90,63 +135,112 @@ const projectsData = [
     year: "2023",
     role: "Creator",
     tools: "3D Scanning · CAD · FDM",
-    summary: "Designed, prototyped, and sold an FDM-printed gauge to measure wing angle of attack for Olympic windsurfing.",
-    description: "In Olympic iQFOiL windsurfing, wing angle of attack is critical for tuning hydrofoil lift. Having competed internationally, I realized athletes lacked a reliable tool for this, so I designed a purpose-built precision gauge.\n\nI captured the exact mast base geometry using 3D scanning, designing a bespoke PETG two-part gauge via Fusion 360 that mounts automatically without user calibration.",
+    summary:
+      "Designed, prototyped, and sold an FDM-printed gauge to measure wing angle of attack for Olympic windsurfing.",
+    description:
+      "In Olympic iQFOiL windsurfing, wing angle of attack is critical for tuning hydrofoil lift. Having competed internationally, I realized athletes lacked a reliable tool for this, so I designed a purpose-built precision gauge.\n\nI captured the exact mast base geometry using 3D scanning, designing a bespoke PETG two-part gauge via Fusion 360 that mounts automatically without user calibration.",
     bullets: [
       "Integrated an embedded bubble level and laser-engraved angular scale, reducing setup time to under 30 seconds.",
-      "Iterated prototype geometries using athlete feedback to ensure weather resistance, tight slip-fit joint tolerances.",
-      "Manufactured and sold commercial units to international fleets on the World Championship circuit."
+      "Iterated prototype geometries using athlete feedback to ensure weather resistance and tight slip-fit tolerances.",
+      "Manufactured and sold commercial units to international fleets on the World Championship circuit.",
     ],
     color: "from-purple-900/40 to-black",
-    image: null,
+    image: "/images/iqfoil-start.jpg",
     gallery: [],
-    pills: ["3D Scanning", "CAD", "FDM"]
-  }
+    pills: ["3D Scanning", "CAD", "FDM"],
+    model3d: {
+      src: "/models/foil-gauge.glb",
+      poster: "/images/hero-4.jpg",
+      alt: "Interactive CAD preview of the windsurf foil gauge.",
+      cameraOrbit: "20deg 70deg 120%",
+      cameraTarget: "auto auto auto",
+      fieldOfView: "22deg",
+    },
+  },
 ];
+
+function ProjectLink({
+  href,
+  label,
+  icon,
+}: {
+  href: string;
+  label: string;
+  icon: React.ReactNode;
+}) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={(event) => event.stopPropagation()}
+      className="rounded-full bg-white/5 p-2 text-muted transition-colors hover:bg-white/10 hover:text-primary"
+    >
+      <span className="sr-only">{label}</span>
+      {icon}
+    </a>
+  );
+}
 
 export default function Projects() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
-  const [mounted, setMounted] = useState(false);
+  const mounted = typeof document !== "undefined";
+
+  const selectedProject = projectsData.find((project) => project.id === selectedId);
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    if (!mounted) {
+      return;
+    }
 
-  const selectedProject = projectsData.find((p) => p.id === selectedId);
+    document.body.style.overflow = selectedId ? "hidden" : "auto";
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [mounted, selectedId]);
 
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
+    const handleKeyDown = (event: KeyboardEvent) => {
       if (selectedImageIndex === null || !selectedProject) {
-        if (e.key === "Escape" && selectedId) {
-          document.body.style.overflow = "auto";
+        if (event.key === "Escape" && selectedId) {
           setSelectedId(null);
         }
         return;
       }
-      
+
       const totalImages = selectedProject.gallery.length;
-      if (e.key === "ArrowRight") {
-        setSelectedImageIndex((prev) => prev !== null ? (prev + 1) % totalImages : 0);
-      } else if (e.key === "ArrowLeft") {
-        setSelectedImageIndex((prev) => prev !== null ? (prev - 1 + totalImages) % totalImages : 0);
-      } else if (e.key === "Escape") {
+
+      if (event.key === "ArrowRight") {
+        setSelectedImageIndex((current) =>
+          current !== null ? (current + 1) % totalImages : 0,
+        );
+      } else if (event.key === "ArrowLeft") {
+        setSelectedImageIndex((current) =>
+          current !== null ? (current - 1 + totalImages) % totalImages : 0,
+        );
+      } else if (event.key === "Escape") {
         setSelectedImageIndex(null);
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedImageIndex, selectedProject, selectedId]);
+  }, [selectedId, selectedImageIndex, selectedProject]);
+
+  const openModal = (projectId: string) => {
+    setSelectedId(projectId);
+  };
 
   const closeModal = () => {
-    document.body.style.overflow = "auto";
+    setSelectedImageIndex(null);
     setSelectedId(null);
   };
 
   return (
-    <section id="projects" className="py-24 relative">
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
+    <section id="projects" className="relative py-24">
+      <div className="relative z-10 mx-auto max-w-6xl px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -154,299 +248,365 @@ export default function Projects() {
           transition={{ duration: 0.8 }}
           className="mb-16"
         >
-          <div className="text-sm uppercase tracking-widest text-primary mb-2 font-mono">Selected Work</div>
-          <h2 className="text-4xl md:text-5xl font-bold font-sans tracking-tight">
-            Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-hover">Projects</span>
+          <div className="mb-2 font-mono text-sm uppercase tracking-widest text-primary">
+            Selected Work
+          </div>
+          <h2 className="text-4xl font-bold tracking-tight md:text-5xl">
+            Featured{" "}
+            <span className="bg-gradient-to-r from-primary to-primary-hover bg-clip-text text-transparent">
+              Projects
+            </span>
           </h2>
         </motion.div>
 
-        {/* Project Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           {projectsData.map((project, index) => (
-            <motion.div
+            <motion.article
               key={project.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.5, delay: index * 0.08, ease: "easeOut" }}
-              onClick={() => {
-                document.body.style.overflow = "hidden";
-                setSelectedId(project.id);
+              transition={{
+                duration: 0.5,
+                delay: index * 0.08,
+                ease: "easeOut",
               }}
-              className="group cursor-pointer bg-surface border border-white/10 rounded-3xl overflow-hidden hover:border-primary/50 hover:-translate-y-1 transition-all duration-300 shadow-lg relative flex flex-col"
+              onClick={() => openModal(project.id)}
+              className="group relative flex cursor-pointer flex-col overflow-hidden rounded-3xl border border-white/10 bg-surface shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-primary/50"
             >
-              {/* Subtle hover glow layer */}
-              <div className="absolute -inset-0.5 bg-primary/20 blur-xl opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-3xl pointer-events-none z-0" />
+              <div className="pointer-events-none absolute -inset-0.5 z-0 rounded-3xl bg-primary/20 opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-100" />
 
-              <div className={`w-full h-64 relative bg-gradient-to-br ${project.color} flex items-center justify-center overflow-hidden z-10`}>
+              <div
+                className={`relative z-10 flex h-64 w-full items-center justify-center overflow-hidden bg-gradient-to-br ${project.color}`}
+              >
                 {project.image ? (
-                  <Image src={project.image} alt={project.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" unoptimized />
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    unoptimized
+                  />
                 ) : (
-                  <span className="font-mono text-primary font-bold tracking-widest uppercase opacity-70 group-hover:opacity-100 transition-opacity drop-shadow-md">
+                  <span className="font-mono font-bold uppercase tracking-widest text-primary opacity-70 drop-shadow-md transition-opacity group-hover:opacity-100">
                     {project.title}
                   </span>
                 )}
-                {/* Overlay gradient */}
+
+                {project.model3d && (
+                  <div className="absolute left-5 top-5 rounded-full border border-primary/30 bg-black/45 px-3 py-1 text-[0.65rem] font-mono uppercase tracking-[0.25em] text-primary backdrop-blur-md">
+                    3D Ready
+                  </div>
+                )}
+
                 <div className="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent opacity-80" />
               </div>
 
-              <div className="p-8 flex flex-col flex-grow relative z-10 bg-surface">
-                <div className="text-xs font-mono text-primary mb-3">
-                  {project.tag}
-                </div>
-                <h3 className="text-2xl font-bold font-sans tracking-tight mb-3">
-                  {project.title}
-                </h3>
-                <p className="text-muted font-light mb-6 flex-grow">
-                  {project.summary}
-                </p>
-                <div className="flex flex-col gap-4 mt-auto">
+              <div className="relative z-10 flex flex-grow flex-col bg-surface p-8">
+                <div className="mb-3 text-xs font-mono text-primary">{project.tag}</div>
+                <h3 className="mb-3 text-2xl font-bold tracking-tight">{project.title}</h3>
+                <p className="mb-6 flex-grow font-light text-muted">{project.summary}</p>
+
+                <div className="mt-auto flex flex-col gap-4">
                   <div className="flex flex-wrap gap-2">
-                    {project.pills.map(pill => (
-                      <span key={pill} className="text-xs px-3 py-1 bg-white/5 border border-white/10 rounded-full text-muted">
+                    {project.pills.map((pill) => (
+                      <span
+                        key={pill}
+                        className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-muted"
+                      >
                         {pill}
                       </span>
                     ))}
                   </div>
 
-                  {/* Card Links */}
-                  <div className="flex items-center gap-4 pt-4 border-t border-white/5 min-h-[4rem]">
-                    {(project as any).githubUrl && (
-                      <a href={(project as any).githubUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="p-2 bg-white/5 hover:bg-white/10 rounded-full transition-colors text-muted hover:text-primary">
-                        <span className="sr-only">GitHub</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                      </a>
+                  <div className="flex min-h-[4rem] items-center gap-4 border-t border-white/5 pt-4">
+                    {project.githubUrl && (
+                      <ProjectLink
+                        href={project.githubUrl}
+                        label="GitHub"
+                        icon={
+                          <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            className="h-5 w-5"
+                          >
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                          </svg>
+                        }
+                      />
                     )}
-                    {(project as any).liveUrl && (
-                      <a href={(project as any).liveUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="p-2 bg-white/5 hover:bg-white/10 rounded-full transition-colors text-muted hover:text-primary">
-                        <span className="sr-only">Live Site</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                      </a>
+                    {project.liveUrl && (
+                      <ProjectLink
+                        href={project.liveUrl}
+                        label="Live Site"
+                        icon={<ExternalLink className="h-5 w-5" />}
+                      />
                     )}
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </motion.article>
           ))}
         </div>
       </div>
 
-      {/* Portal out the Lightbox to document.body so z-index / overflow isn't clipped by layout.tsx */}
-      {mounted && createPortal(
-        <AnimatePresence>
-          {selectedId && selectedProject && (
-            <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10 pointer-events-none">
+      {mounted &&
+        createPortal(
+          <AnimatePresence>
+            {selectedId && selectedProject && (
+              <div className="pointer-events-none fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10">
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  onClick={closeModal}
+                  className="pointer-events-auto absolute inset-0 bg-black/80 backdrop-blur-sm"
+                />
 
-              {/* Backdrop */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
-                onClick={closeModal}
-                className="absolute inset-0 bg-black/80 backdrop-blur-sm pointer-events-auto"
-              />
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  className="pointer-events-auto relative flex max-h-[90vh] w-full max-w-5xl flex-col overflow-y-auto rounded-3xl border border-white/10 bg-surface shadow-[0_0_50px_rgba(0,0,0,0.5)]"
+                >
+                  <div className="relative">
+                    <div
+                      className={`relative flex h-64 w-full items-center justify-center bg-gradient-to-br ${selectedProject.color} md:h-96`}
+                    >
+                      {selectedProject.image ? (
+                        <Image
+                          src={selectedProject.image}
+                          alt={selectedProject.title}
+                          fill
+                          className="object-cover"
+                          unoptimized
+                        />
+                      ) : (
+                        <span className="font-mono text-2xl font-bold uppercase tracking-widest text-primary shadow-sm">
+                          {selectedProject.title}
+                        </span>
+                      )}
 
-              {/* Modal Container */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
-                className="relative bg-surface border border-white/10 w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-3xl flex flex-col shadow-[0_0_50px_rgba(0,0,0,0.5)] custom-scrollbar pointer-events-auto"
-              >
-                <div className="relative">
-                  <div className={`w-full h-64 md:h-96 relative bg-gradient-to-br ${selectedProject.color} flex items-center justify-center`}>
-                    {selectedProject.image ? (
-                      <Image src={selectedProject.image} alt={selectedProject.title} fill className="object-cover" unoptimized />
-                    ) : (
-                      <span className="font-mono text-primary font-bold tracking-widest text-2xl uppercase shadow-sm">
-                        {selectedProject.title}
-                      </span>
-                    )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-surface to-transparent opacity-90" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-surface to-transparent opacity-90" />
+                    </div>
+
+                    <button
+                      onClick={closeModal}
+                      className="fixed right-6 top-6 z-[110] rounded-full border border-white/10 bg-black/40 p-2 text-white backdrop-blur-md transition-colors hover:bg-white hover:text-black"
+                    >
+                      <X size={24} />
+                    </button>
                   </div>
 
+                  <div className="relative p-8 md:p-12">
+                    <div className="flex flex-col gap-12 md:flex-row">
+                      <div className="md:w-2/3">
+                        <h3 className="mb-2 text-4xl font-bold tracking-tight md:text-5xl">
+                          {selectedProject.title}
+                        </h3>
+                        <div className="mb-8 text-xl font-light italic text-primary">
+                          {selectedProject.subtitle}
+                        </div>
+
+                        <div className="max-w-none">
+                          {selectedProject.description.split("\n").map((paragraph, index) => (
+                            <p
+                              key={`${selectedProject.id}-paragraph-${index}`}
+                              className="mb-4 font-light leading-relaxed text-muted"
+                            >
+                              {paragraph}
+                            </p>
+                          ))}
+                        </div>
+
+                        {selectedProject.model3d && (
+                          <LazyModelViewer model={selectedProject.model3d} />
+                        )}
+
+                        <h4 className="mt-10 mb-4 border-b border-white/10 pb-2 text-xl font-bold">
+                          Key Engineering Scope
+                        </h4>
+                        <ul className="mb-8 space-y-3 font-light text-muted">
+                          {selectedProject.bullets.map((bullet, index) => (
+                            <li key={`${selectedProject.id}-bullet-${index}`} className="flex gap-3">
+                              <span className="mt-1 text-primary">▹</span>
+                              <span>{bullet}</span>
+                            </li>
+                          ))}
+                        </ul>
+
+                        {selectedProject.gallery.length > 0 && (
+                          <>
+                            <h4 className="mt-10 mb-6 border-b border-white/10 pb-2 text-xl font-bold">
+                              Gallery
+                            </h4>
+                            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                              {selectedProject.gallery.map((image, index) => (
+                                <button
+                                  key={`${selectedProject.id}-gallery-${index}`}
+                                  type="button"
+                                  onClick={() => setSelectedImageIndex(index)}
+                                  className="group relative aspect-video overflow-hidden rounded-xl border border-white/5 bg-background/50 text-left"
+                                >
+                                  <Image
+                                    src={image.src}
+                                    alt={image.caption}
+                                    fill
+                                    className="object-cover transition-transform group-hover:scale-105"
+                                    unoptimized
+                                  />
+                                  <div className="absolute inset-0 z-10 hidden bg-black/0 transition-colors group-hover:bg-black/20 md:block" />
+                                  <div className="absolute inset-x-0 bottom-0 z-20 bg-black/60 p-2 text-center font-mono text-xs text-white backdrop-blur-sm">
+                                    {image.caption}
+                                  </div>
+                                </button>
+                              ))}
+                            </div>
+                          </>
+                        )}
+                      </div>
+
+                      <div className="md:w-1/3">
+                        <div className="sticky top-6 rounded-2xl border border-white/5 bg-background p-6">
+                          <h4 className="mb-6 text-lg font-bold">Project Specs</h4>
+
+                          <div className="space-y-4 font-mono text-sm">
+                            <div>
+                              <div className="mb-1 text-muted/60">Role</div>
+                              <div className="text-foreground">{selectedProject.role}</div>
+                            </div>
+                            <div>
+                              <div className="mb-1 text-muted/60">Timeline</div>
+                              <div className="text-foreground">{selectedProject.year}</div>
+                            </div>
+                            <div>
+                              <div className="mb-1 text-muted/60">Tools</div>
+                              <div className="text-primary">{selectedProject.tools}</div>
+                            </div>
+                            {selectedProject.model3d && (
+                              <div>
+                                <div className="mb-1 text-muted/60">3D Asset</div>
+                                <div className="break-all text-foreground">
+                                  {selectedProject.model3d.src}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+
+                          <div className="mt-8 border-t border-white/5 pt-8">
+                            <h4 className="mb-4 text-lg font-bold">Tags</h4>
+                            <div className="flex flex-wrap gap-2">
+                              {selectedProject.pills.map((pill) => (
+                                <span
+                                  key={`${selectedProject.id}-${pill}`}
+                                  className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary"
+                                >
+                                  {pill}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            )}
+          </AnimatePresence>,
+          document.body,
+        )}
+
+      {mounted &&
+        createPortal(
+          <AnimatePresence>
+            {selectedImageIndex !== null && selectedProject && (
+              <div className="pointer-events-none fixed inset-0 z-[200] flex items-center justify-center">
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  onClick={() => setSelectedImageIndex(null)}
+                  className="pointer-events-auto absolute inset-0 cursor-pointer bg-black/95 backdrop-blur-md"
+                />
+
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.2, ease: "easeOut" }}
+                  className="pointer-events-auto relative flex max-h-screen w-full max-w-7xl flex-col items-center justify-center p-4"
+                >
                   <button
-                    onClick={closeModal}
-                    className="fixed top-6 right-6 p-2 bg-black/40 backdrop-blur-md rounded-full text-white hover:bg-white hover:text-black transition-colors border border-white/10 z-[110]"
+                    onClick={() => setSelectedImageIndex(null)}
+                    className="absolute right-4 top-4 z-50 rounded-full border border-white/10 bg-black/50 p-3 text-white transition-colors hover:bg-white hover:text-black md:right-8 md:top-8"
                   >
                     <X size={24} />
                   </button>
-                </div>
 
-                <div className="p-8 md:p-12 relative">
-                  <div className="flex flex-col md:flex-row gap-12">
-                    {/* Main Content */}
-                    <div className="flex-2 md:w-2/3">
-                      <h3 className="text-4xl md:text-5xl font-bold font-sans tracking-tight mb-2">
-                        {selectedProject.title}
-                      </h3>
-                      <div className="text-xl text-primary font-light mb-8 italic">
-                        {selectedProject.subtitle}
-                      </div>
+                  {selectedProject.gallery.length > 1 && (
+                    <>
+                      <button
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          setSelectedImageIndex(
+                            (selectedImageIndex - 1 + selectedProject.gallery.length) %
+                            selectedProject.gallery.length,
+                          );
+                        }}
+                        className="absolute left-4 z-50 hidden rounded-full border border-white/10 bg-black/50 p-3 text-white transition-colors hover:bg-white hover:text-black sm:block md:left-8"
+                      >
+                        <ChevronLeft size={32} />
+                      </button>
+                      <button
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          setSelectedImageIndex(
+                            (selectedImageIndex + 1) % selectedProject.gallery.length,
+                          );
+                        }}
+                        className="absolute right-4 z-50 hidden rounded-full border border-white/10 bg-black/50 p-3 text-white transition-colors hover:bg-white hover:text-black sm:block md:right-8"
+                      >
+                        <ChevronRight size={32} />
+                      </button>
+                    </>
+                  )}
 
-                      <div className="prose prose-invert prose-p:text-muted prose-p:font-light prose-p:leading-relaxed max-w-none">
-                        {selectedProject.description.split('\n').map((paragraph, idx) => (
-                          <p key={idx} className="mb-4">{paragraph}</p>
-                        ))}
-                      </div>
-
-                      <h4 className="text-xl font-bold mt-10 mb-4 border-b border-white/10 pb-2">Key Engineering Scope</h4>
-                      <ul className="space-y-3 mb-8 text-muted font-light">
-                        {selectedProject.bullets.map((bullet, idx) => (
-                          <li key={idx} className="flex gap-3">
-                            <span className="text-primary mt-1">▹</span>
-                            {bullet}
-                          </li>
-                        ))}
-                      </ul>
-
-                      {selectedProject.gallery.length > 0 && (
-                        <>
-                          <h4 className="text-xl font-bold mt-10 mb-6 border-b border-white/10 pb-2">Gallery</h4>
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            {selectedProject.gallery.map((img, idx) => (
-                              <div 
-                                key={idx} 
-                                onClick={() => setSelectedImageIndex(idx)}
-                                className="relative aspect-video rounded-xl overflow-hidden bg-background/50 border border-white/5 cursor-pointer group"
-                              >
-                                <Image src={img.src} alt={img.caption} fill className="object-cover group-hover:scale-105 transition-transform" unoptimized />
-                                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors z-10 hidden md:block" />
-                                <div className="absolute bottom-0 left-0 right-0 bg-black/60 backdrop-blur-sm p-2 text-xs text-center text-white font-mono z-20">
-                                  {img.caption}
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </>
-                      )}
-                    </div>
-
-                    {/* Sidebar Specs */}
-                    <div className="flex-1 md:w-1/3">
-                      <div className="bg-background rounded-2xl p-6 border border-white/5 sticky top-6">
-                        <h4 className="text-lg font-bold mb-6 font-sans">Project Specs</h4>
-
-                        <div className="space-y-4 font-mono text-sm">
-                          <div>
-                            <div className="text-muted/60 mb-1">Role</div>
-                            <div className="text-foreground">{selectedProject.role}</div>
-                          </div>
-                          <div>
-                            <div className="text-muted/60 mb-1">Timeline</div>
-                            <div className="text-foreground">{selectedProject.year}</div>
-                          </div>
-                          <div>
-                            <div className="text-muted/60 mb-1">Tools</div>
-                            <div className="text-primary">{selectedProject.tools}</div>
-                          </div>
-                        </div>
-
-                        <div className="mt-8 pt-8 border-t border-white/5">
-                          <h4 className="text-lg font-bold mb-4 font-sans">Tags</h4>
-                          <div className="flex flex-wrap gap-2">
-                            {selectedProject.pills.map(pill => (
-                              <span key={pill} className="text-xs px-3 py-1.5 bg-primary/10 border border-primary/20 rounded-full text-primary font-medium">
-                                {pill}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
+                  <div
+                    className="relative h-[75vh] w-full cursor-pointer md:h-[85vh]"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      setSelectedImageIndex(
+                        (selectedImageIndex + 1) % selectedProject.gallery.length,
+                      );
+                    }}
+                  >
+                    <Image
+                      src={selectedProject.gallery[selectedImageIndex].src}
+                      alt={selectedProject.gallery[selectedImageIndex].caption}
+                      fill
+                      className="object-contain drop-shadow-2xl"
+                      unoptimized
+                    />
                   </div>
-                </div>
-              </motion.div>
-            </div>
-          )}
-        </AnimatePresence>,
-        document.body
-      )}
 
-      {/* Nested Portal for Fullscreen Image Viewer */}
-      {mounted && createPortal(
-        <AnimatePresence>
-          {selectedImageIndex !== null && selectedProject && (
-            <div className="fixed inset-0 z-[200] flex items-center justify-center pointer-events-none">
-              {/* Backdrop */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
-                onClick={() => setSelectedImageIndex(null)}
-                className="absolute inset-0 bg-black/95 backdrop-blur-md pointer-events-auto cursor-pointer"
-              />
-              
-              {/* Lightbox Container */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.2, ease: "easeOut" }}
-                className="relative w-full max-w-7xl max-h-screen p-4 flex flex-col items-center justify-center pointer-events-auto"
-              >
-                <button
-                  onClick={() => setSelectedImageIndex(null)}
-                  className="absolute top-4 right-4 md:top-8 md:right-8 p-3 bg-black/50 hover:bg-white hover:text-black transition-colors rounded-full text-white z-50 border border-white/10"
-                >
-                  <X size={24} />
-                </button>
-
-                {selectedProject.gallery.length > 1 && (
-                  <>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setSelectedImageIndex((selectedImageIndex - 1 + selectedProject.gallery.length) % selectedProject.gallery.length);
-                      }}
-                      className="absolute left-4 md:left-8 p-3 bg-black/50 hover:bg-white hover:text-black transition-colors rounded-full text-white z-50 border border-white/10 hidden sm:block"
-                    >
-                      <ChevronLeft size={32} />
-                    </button>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setSelectedImageIndex((selectedImageIndex + 1) % selectedProject.gallery.length);
-                      }}
-                      className="absolute right-4 md:right-8 p-3 bg-black/50 hover:bg-white hover:text-black transition-colors rounded-full text-white z-50 border border-white/10 hidden sm:block"
-                    >
-                      <ChevronRight size={32} />
-                    </button>
-                  </>
-                )}
-                
-                <div 
-                  className="relative w-full h-[75vh] md:h-[85vh] cursor-pointer"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setSelectedImageIndex((selectedImageIndex + 1) % selectedProject.gallery.length);
-                  }}
-                >
-                  <Image 
-                    src={selectedProject.gallery[selectedImageIndex].src}
-                    alt={selectedProject.gallery[selectedImageIndex].caption}
-                    fill
-                    className="object-contain drop-shadow-2xl"
-                    unoptimized
-                  />
-                </div>
-                
-                <div className="text-white/70 mt-6 font-mono tracking-wider font-medium text-center">
-                  {selectedProject.gallery[selectedImageIndex].caption} 
-                  <span className="opacity-50 ml-3">
-                    ({selectedImageIndex + 1} / {selectedProject.gallery.length})
-                  </span>
-                </div>
-              </motion.div>
-            </div>
-          )}
-        </AnimatePresence>,
-        document.body
-      )}
+                  <div className="mt-6 text-center font-mono font-medium tracking-wider text-white/70">
+                    {selectedProject.gallery[selectedImageIndex].caption}
+                    <span className="ml-3 opacity-50">
+                      ({selectedImageIndex + 1} / {selectedProject.gallery.length})
+                    </span>
+                  </div>
+                </motion.div>
+              </div>
+            )}
+          </AnimatePresence>,
+          document.body,
+        )}
     </section>
   );
 }
