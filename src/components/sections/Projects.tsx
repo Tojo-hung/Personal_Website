@@ -145,7 +145,7 @@ const projectsData: ProjectRecord[] = [
       "Manufactured and sold commercial units to international fleets on the World Championship circuit.",
     ],
     color: "from-purple-900/40 to-black",
-    image: "/images/iqfoil-start.jpg",
+    image: "/images/iqfoil-start.JPG",
     gallery: [],
     pills: ["3D Scanning", "CAD", "FDM"],
     model3d: {
