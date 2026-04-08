@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 
 const projectsData = [
@@ -106,6 +106,7 @@ const projectsData = [
 
 export default function Projects() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -113,6 +114,30 @@ export default function Projects() {
   }, []);
 
   const selectedProject = projectsData.find((p) => p.id === selectedId);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (selectedImageIndex === null || !selectedProject) {
+        if (e.key === "Escape" && selectedId) {
+          document.body.style.overflow = "auto";
+          setSelectedId(null);
+        }
+        return;
+      }
+      
+      const totalImages = selectedProject.gallery.length;
+      if (e.key === "ArrowRight") {
+        setSelectedImageIndex((prev) => prev !== null ? (prev + 1) % totalImages : 0);
+      } else if (e.key === "ArrowLeft") {
+        setSelectedImageIndex((prev) => prev !== null ? (prev - 1 + totalImages) % totalImages : 0);
+      } else if (e.key === "Escape") {
+        setSelectedImageIndex(null);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectedImageIndex, selectedProject, selectedId]);
 
   const closeModal = () => {
     document.body.style.overflow = "auto";
@@ -282,9 +307,14 @@ export default function Projects() {
                           <h4 className="text-xl font-bold mt-10 mb-6 border-b border-white/10 pb-2">Gallery</h4>
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             {selectedProject.gallery.map((img, idx) => (
-                              <div key={idx} className="relative aspect-video rounded-xl overflow-hidden bg-background/50 border border-white/5">
-                                <Image src={img.src} alt={img.caption} fill className="object-cover hover:scale-105 transition-transform" unoptimized />
-                                <div className="absolute bottom-0 left-0 right-0 bg-black/60 backdrop-blur-sm p-2 text-xs text-center text-white font-mono">
+                              <div 
+                                key={idx} 
+                                onClick={() => setSelectedImageIndex(idx)}
+                                className="relative aspect-video rounded-xl overflow-hidden bg-background/50 border border-white/5 cursor-pointer group"
+                              >
+                                <Image src={img.src} alt={img.caption} fill className="object-cover group-hover:scale-105 transition-transform" unoptimized />
+                                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors z-10 hidden md:block" />
+                                <div className="absolute bottom-0 left-0 right-0 bg-black/60 backdrop-blur-sm p-2 text-xs text-center text-white font-mono z-20">
                                   {img.caption}
                                 </div>
                               </div>
@@ -328,6 +358,88 @@ export default function Projects() {
                     </div>
 
                   </div>
+                </div>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
+
+      {/* Nested Portal for Fullscreen Image Viewer */}
+      {mounted && createPortal(
+        <AnimatePresence>
+          {selectedImageIndex !== null && selectedProject && (
+            <div className="fixed inset-0 z-[200] flex items-center justify-center pointer-events-none">
+              {/* Backdrop */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                onClick={() => setSelectedImageIndex(null)}
+                className="absolute inset-0 bg-black/95 backdrop-blur-md pointer-events-auto cursor-pointer"
+              />
+              
+              {/* Lightbox Container */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+                className="relative w-full max-w-7xl max-h-screen p-4 flex flex-col items-center justify-center pointer-events-auto"
+              >
+                <button
+                  onClick={() => setSelectedImageIndex(null)}
+                  className="absolute top-4 right-4 md:top-8 md:right-8 p-3 bg-black/50 hover:bg-white hover:text-black transition-colors rounded-full text-white z-50 border border-white/10"
+                >
+                  <X size={24} />
+                </button>
+
+                {selectedProject.gallery.length > 1 && (
+                  <>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedImageIndex((selectedImageIndex - 1 + selectedProject.gallery.length) % selectedProject.gallery.length);
+                      }}
+                      className="absolute left-4 md:left-8 p-3 bg-black/50 hover:bg-white hover:text-black transition-colors rounded-full text-white z-50 border border-white/10 hidden sm:block"
+                    >
+                      <ChevronLeft size={32} />
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedImageIndex((selectedImageIndex + 1) % selectedProject.gallery.length);
+                      }}
+                      className="absolute right-4 md:right-8 p-3 bg-black/50 hover:bg-white hover:text-black transition-colors rounded-full text-white z-50 border border-white/10 hidden sm:block"
+                    >
+                      <ChevronRight size={32} />
+                    </button>
+                  </>
+                )}
+                
+                <div 
+                  className="relative w-full h-[75vh] md:h-[85vh] cursor-pointer"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedImageIndex((selectedImageIndex + 1) % selectedProject.gallery.length);
+                  }}
+                >
+                  <Image 
+                    src={selectedProject.gallery[selectedImageIndex].src}
+                    alt={selectedProject.gallery[selectedImageIndex].caption}
+                    fill
+                    className="object-contain drop-shadow-2xl"
+                    unoptimized
+                  />
+                </div>
+                
+                <div className="text-white/70 mt-6 font-mono tracking-wider font-medium text-center">
+                  {selectedProject.gallery[selectedImageIndex].caption} 
+                  <span className="opacity-50 ml-3">
+                    ({selectedImageIndex + 1} / {selectedProject.gallery.length})
+                  </span>
                 </div>
               </motion.div>
             </div>
