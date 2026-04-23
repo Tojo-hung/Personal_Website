@@ -281,7 +281,6 @@ export default function Projects() {
                     alt={project.title}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    unoptimized
                   />
                 ) : (
                   <span className="font-mono font-bold uppercase tracking-widest text-primary opacity-70 drop-shadow-md transition-opacity group-hover:opacity-100">
@@ -379,7 +378,6 @@ export default function Projects() {
                           alt={selectedProject.title}
                           fill
                           className="object-cover"
-                          unoptimized
                         />
                       ) : (
                         <span className="font-mono text-2xl font-bold uppercase tracking-widest text-primary shadow-sm">
@@ -453,7 +451,6 @@ export default function Projects() {
                                     alt={image.caption}
                                     fill
                                     className="object-cover transition-transform group-hover:scale-105"
-                                    unoptimized
                                   />
                                   <div className="absolute inset-0 z-10 hidden bg-black/0 transition-colors group-hover:bg-black/20 md:block" />
                                   <div className="absolute inset-x-0 bottom-0 z-20 bg-black/60 p-2 text-center font-mono text-xs text-white backdrop-blur-sm">
@@ -587,7 +584,6 @@ export default function Projects() {
                       alt={selectedProject.gallery[selectedImageIndex].caption}
                       fill
                       className="object-contain drop-shadow-2xl"
-                      unoptimized
                     />
                   </div>
 

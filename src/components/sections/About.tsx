@@ -29,7 +29,6 @@ export default function About() {
                   alt="Thomas Hung" 
                   fill 
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  unoptimized
                 />
                 {/* Purple Overlay Glow */}
                 <div className="absolute inset-0 bg-primary/10 mix-blend-overlay pointer-events-none" />

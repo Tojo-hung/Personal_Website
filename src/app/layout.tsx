@@ -3,7 +3,9 @@ import { Space_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import AnimatedBackground from "@/components/AnimatedBackground";
+import dynamic from "next/dynamic";
+
+const AnimatedBackground = dynamic(() => import("@/components/AnimatedBackground"));
 
 const spaceMono = Space_Mono({
   variable: "--font-space-mono",

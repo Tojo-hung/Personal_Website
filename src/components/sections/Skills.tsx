@@ -52,7 +52,7 @@ export default function Skills() {
               
               <div className="relative z-10 text-muted group-hover:text-primary transition-colors duration-300 mb-4 flex items-center justify-center h-10 w-10">
                 {skill.imgSrc ? (
-                  <Image src={skill.imgSrc} alt={`${skill.title} logo`} width={32} height={32} className="object-contain opacity-80 group-hover:opacity-100 transition-opacity drop-shadow-sm" unoptimized />
+                  <Image src={skill.imgSrc} alt={`${skill.title} logo`} width={32} height={32} className="object-contain opacity-80 group-hover:opacity-100 transition-opacity drop-shadow-sm" />
                 ) : (
                   skill.icon
                 )}
