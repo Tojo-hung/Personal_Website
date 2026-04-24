@@ -27,7 +27,8 @@ export default function About() {
                 <Image 
                   src="/images/Profile_Photo.jpg" 
                   alt="Thomas Hung" 
-                  fill 
+                  fill
+                  sizes="(min-width: 768px) 40vw, 100vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 {/* Purple Overlay Glow */}

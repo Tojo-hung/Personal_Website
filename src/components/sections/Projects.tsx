@@ -33,18 +33,18 @@ const projectsData: ProjectRecord[] = [
     id: "aquafoil",
     title: "aQuaFoil",
     subtitle: "Sustainable Performance",
-    tag: "Leadership · Composites",
+    tag: "Leadership · Project Management",
     year: "2026 - 2027",
     role: "Co-Founder",
-    tools: "OpenFOAM · Composites · FEA",
+    tools: "OpenFOAM · Ansys · Rhino · Python",
     summary:
       "Co-founded a design team building a competition-grade foiling Moth for the SuMoth Challenge 2027.",
     description:
       "I co-founded aQuaFoil, operating at the intersection of environmental responsibility and elite performance. We treat sustainability not as a constraint, but as the design brief. Our goal is to demonstrate that engineering excellence and environmental responsibility are the same pursuit.\n\nWe are building a foiling Moth, one of sailing's most technically unforgiving vessels, utilizing bio-composite construction. This involves sustainable reinforcement fibres and bio-based epoxy resin systems.",
     bullets: [
-      "Leading a team of 30+ engineers across materials science, structures, hydrodynamics, and fabrication.",
-      "Implementing a CFD-optimized OpenFOAM simulation pipeline for hydrofoil lift, drag, and cavitation analysis.",
-      "Integrating full lifecycle material assessments and FEA structural validation into the core manufacturing plan.",
+      "Leading a team of 20+ student from several programs at Queen's University",
+      "Implementing a CFD-optimized OpenFOAM simulation pipeline for drag optimization.",
+      "Utilised Ansys to presict strudtural behavior of composite materials under up to 400 kg of load.",
     ],
     color: "from-[#0f152a] to-[#1a2544]",
     image: null,
