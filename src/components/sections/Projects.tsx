@@ -40,7 +40,7 @@ const projectsData: ProjectRecord[] = [
     summary:
       "Co-founded a design team building a competition-grade foiling Moth for the SuMoth Challenge 2027.",
     description:
-      "I co-founded aQuaFoil, operating at the intersection of environmental responsibility and elite performance. We treat sustainability not as a constraint, but as the design brief. Our goal is to demonstrate that engineering excellence and environmental responsibility are the same pursuit.\n\nWe are building a foiling Moth, one of sailing's most technically unforgiving vessels, utilizing bio-composite construction. This involves sustainable reinforcement fibres and bio-based epoxy resin systems.",
+      "I co-founded aQuaFoil, a student design team at Queen's University that builds a foiling Moth sailboat. Our goal is to demonstrate that engineering can be both high performance and environmentally responsible.\n\nWe are building a foiling Moth, one of the fastest and most technically demanding sailboats in the world, utilizing more environmentally friendly materials.",
     bullets: [
       "Leading a team of 20+ student from several programs at Queen's University",
       "Implementing a CFD-optimized OpenFOAM simulation pipeline for drag optimization.",
@@ -52,7 +52,7 @@ const projectsData: ProjectRecord[] = [
       { src: "/images/hero-1.jpg", caption: "Foil design" },
       { src: "/images/hero-2.JPG", caption: "Hull rendering" },
     ],
-    pills: ["Leadership", "CFD", "Composites"],
+    pills: ["Leadership", "Project Management", "Engineering Communication"],
     githubUrl: "https://github.com/Tojo-hung/Hull_Design",
     liveUrl: "https://www.aquafoil.ca/",
   },
@@ -105,15 +105,15 @@ const projectsData: ProjectRecord[] = [
     tag: "Space · Robotics · Design",
     year: "Winter 2025",
     role: "Designer",
-    tools: "SolidWorks · FEA · TPU",
+    tools: "SolidWorks · FEA · FDM 3D Printing",
     summary:
       "Designed a robotic arm end-effector prototype in collaboration with the Canadian Space Agency.",
     description:
       "Partnering with the Canadian Space Agency, I designed a robotic arm end-effector prototype capable of handling irregular payloads. The CSA provided strict constraints regarding size, mass budget, and payload retention.\n\nWe translated mission objectives into parametric models utilizing SolidWorks, combining rigid PLA+ structural components with flexible TPU grip pads.",
     bullets: [
       "Conducted FEA simulations to find a geometry that allowed for a Fin Ray inspired compliant mechanism built with PLA and TPU using an FDM 3D printer.",
-      "Tuned print layout for precise slip-fit joints, requiring zero post-processing.",
-      "Tested and successfully validated payload retention and grip force against CSA client acceptance criteria.",
+      "Iterated on the design to optimize weight and size constraints",
+      "Tested and successfully validated payload retention and grip force",
     ],
     color: "from-zinc-800 to-zinc-950",
     image: "/images/csa-arm-hero.jpg",
@@ -121,7 +121,7 @@ const projectsData: ProjectRecord[] = [
       { src: "/images/csa-fea.png", caption: "FEA" },
       { src: "/images/csa-assembly.png", caption: "CAD" },
     ],
-    pills: ["SolidWorks", "FEA", "TPU"],
+    pills: ["SolidWorks", "FEA", "Teamwork"],
   },
   {
     id: "foil-gauge",
@@ -134,16 +134,16 @@ const projectsData: ProjectRecord[] = [
     summary:
       "Designed, prototyped, and sold an FDM-printed gauge to measure wing angle of attack for Olympic windsurfing.",
     description:
-      "In Olympic iQFOiL windsurfing, wing angle of attack is critical for tuning hydrofoil lift. Having competed internationally, I realized athletes lacked a reliable tool for this, so I designed a purpose-built precision gauge.\n\nI captured the exact mast base geometry using 3D scanning, designing a bespoke PETG two-part gauge via Fusion 360 that mounts automatically without user calibration.",
+      "In Olympic iQFOiL windsurfing, wing angle of attack is critical for tuning hydrofoil lift. Having competed internationally, I realized athletes lacked a reliable tool for this, so I designed a purpose-built precision gauge.\n\nI captured the foil geometry using 3D scanning, designing a two-part gauge via Fusion 360 that mounts without the need for user calibration.",
     bullets: [
-      "Integrated an embedded bubble level and laser-engraved angular scale, reducing setup time to under 30 seconds.",
-      "Iterated prototype geometries using athlete feedback to ensure weather resistance and tight slip-fit tolerances.",
-      "Manufactured and sold commercial units to international fleets on the World Championship circuit.",
+      "Integrated a digital angle gauge into the design, reducing setup time to under 30 seconds",
+      "Iterated prototype geometry for maximum user friendliness",
+      "Manufactured and sold units to international sailors",
     ],
     color: "from-purple-900/40 to-black",
     image: "/images/iqfoil-start.JPG",
     gallery: [],
-    pills: ["3D Scanning", "CAD", "FDM"],
+    pills: ["Product Design", "Business", "Entrepreneurship"],
     model3d: {
       src: "/models/foil-gauge.glb",
       poster: "/images/hero-4.jpg",
