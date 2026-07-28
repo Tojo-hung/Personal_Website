@@ -3,13 +3,17 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import Link from "next/link";
+
+const MotionLink = motion.create(Link);
 
 const navLinks = [
-  { name: "About", href: "#about" },
-  { name: "Skills", href: "#skills" },
-  { name: "Experience", href: "#experience" },
-  { name: "Projects", href: "#projects" },
-  { name: "Contact", href: "#contact" },
+  { name: "About", href: "/#about" },
+  { name: "Skills", href: "/#skills" },
+  { name: "Experience", href: "/#experience" },
+  { name: "Projects", href: "/#projects" },
+  { name: "Tools", href: "/tools" },
+  { name: "Contact", href: "/#contact" },
 ];
 
 export default function Header() {
@@ -47,7 +51,7 @@ export default function Header() {
         {/* Center: Desktop Nav */}
         <nav className="hidden md:flex items-center justify-center gap-8 w-2/4">
           {navLinks.map((link) => (
-            <motion.a
+            <MotionLink
               key={link.name}
               href={link.href}
               whileHover={{ y: -2 }}
@@ -56,7 +60,7 @@ export default function Header() {
             >
               {link.name}
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
-            </motion.a>
+            </MotionLink>
           ))}
         </nav>
 
@@ -106,14 +110,14 @@ export default function Header() {
         >
           <div className="flex flex-col px-6 py-6 gap-6">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.name}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
                 className="text-lg font-medium text-foreground hover:text-primary transition-colors"
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
             <div className="flex items-center gap-6 mt-4 pt-4 border-t border-white/10">
               <a href="https://github.com/tojo-hung" target="_blank" className="text-muted hover:text-primary">

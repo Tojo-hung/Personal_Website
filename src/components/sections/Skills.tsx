@@ -7,14 +7,14 @@ import { PenTool, Code2, Wrench, Languages, Box, Cpu, Database, Droplet, Boxes }
 
 // Mock data acting as if fetched from Sanity
 const skillsData = [
-  { title: "SolidWorks", icon: <Box className="w-8 h-8" />, imgSrc: "https://icon.horse/icon/solidworks.com", proficiency: 85 },
-  { title: "Fusion 360", icon: <PenTool className="w-8 h-8" />, imgSrc: "https://icon.horse/icon/autodesk.com", proficiency: 85 },
-  { title: "OpenFOAM CFD", icon: <Droplet className="w-8 h-8" />, imgSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaK9NB9jD4-F9Rb2cyTRq3Q2QapLJXevleHA&s", proficiency: 55 },
-  { title: "Ansys", icon: <Code2 className="w-8 h-8" />, imgSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0WS77jbQmdQGpxTj46JAeRwMnjJG1ufTphg&s", proficiency: 50 },
-  { title: "Python", icon: <Database className="w-8 h-8" />, imgSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1280px-Python-logo-notext.svg.png", proficiency: 80 },
-  { title: "Arduino", icon: <Cpu className="w-8 h-8" />, imgSrc: "https://icon.horse/icon/arduino.cc", proficiency: 85 },
+  { title: "SolidWorks", icon: <Box className="w-8 h-8" />, imgSrc: "https://icon.horse/icon/solidworks.com", proficiency: 85, url: "https://www.solidworks.com" },
+  { title: "Fusion 360", icon: <PenTool className="w-8 h-8" />, imgSrc: "https://upload.wikimedia.org/wikipedia/commons/d/db/Fusion360_Logo.svg", proficiency: 85, url: "https://www.autodesk.com/products/fusion-360" },
+  { title: "OpenFOAM CFD", icon: <Droplet className="w-8 h-8" />, imgSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaK9NB9jD4-F9Rb2cyTRq3Q2QapLJXevleHA&s", proficiency: 55, url: "https://www.openfoam.com" },
+  { title: "Ansys", icon: <Code2 className="w-8 h-8" />, imgSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0WS77jbQmdQGpxTj46JAeRwMnjJG1ufTphg&s", proficiency: 50, url: "https://www.ansys.com" },
+  { title: "Python", icon: <Database className="w-8 h-8" />, imgSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1280px-Python-logo-notext.svg.png", proficiency: 80, url: "https://www.python.org" },
+  { title: "Arduino", icon: <Cpu className="w-8 h-8" />, imgSrc: "https://icon.horse/icon/arduino.cc", proficiency: 85, url: "https://www.arduino.cc" },
   { title: "3D Printing", icon: <Boxes className="w-8 h-8" />, proficiency: 90 },
-  { title: "French (Bilingual)", icon: <Languages className="w-8 h-8" />, proficiency: 95 },
+  { title: "French (Bilingual)", icon: <Languages className="w-8 h-8" />, proficiency: 95, url: "https://julesverne.csf.bc.ca/" },
 ];
 
 export default function Skills() {
@@ -58,7 +58,18 @@ export default function Skills() {
                 )}
               </div>
               <h3 className="relative z-10 text-lg font-bold font-sans tracking-tight text-foreground mb-3">
-                {skill.title}
+                {(skill as any).url ? (
+                  <a
+                    href={(skill as any).url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-primary transition-colors duration-300 decoration-primary/30 hover:underline underline-offset-4"
+                  >
+                    {skill.title}
+                  </a>
+                ) : (
+                  skill.title
+                )}
               </h3>
 
               {/* Proficiency Bar */}

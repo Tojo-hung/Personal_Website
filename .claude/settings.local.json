@@ -6,7 +6,10 @@
       "Bash(do)",
       "Bash(sed -i '/fonts.googleapis.com\\\\|fonts.gstatic.com/d' \"$f\")",
       "Bash(done)",
-      "WebFetch(domain:elements.envato.com)"
+      "WebFetch(domain:elements.envato.com)",
+      "Bash(npm run *)",
+      "Bash(python3 -c ' *)",
+      "Bash(cp \"/Users/thomashung/Desktop/MarjanPF/ASRECRPT/ASRECRPT.PLF\" /Users/thomashung/Documents/GitHub/Personal_Website/public/_test_ASRECRPT.PLF && ls -la /Users/thomashung/Documents/GitHub/Personal_Website/public/ | head)"
     ]
   }
 }
