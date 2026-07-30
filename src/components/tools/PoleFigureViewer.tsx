@@ -9,7 +9,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Upload, Download, FileText, FlaskConical, X } from "lucide-react";
 import {
-  PoleFigure, PFStats, Centre, Projection, Mode, Cmap,
+  PoleFigure, PFStats, Centre, Projection, Cmap,
   parsePLF, getSampler, contourLevels, makeCmap, radius,
   makeDemoPoleFigures, COLORMAPS,
 } from "@/lib/polefigure";
@@ -187,21 +187,20 @@ function drawPanel(cv: HTMLCanvasElement, spec: PanelSpec, k = 1, grid = GRID) {
   ctx.font = font(10);
   ctx.textAlign = "center";
   ctx.textBaseline = "top";
-  const step = levels.length > 14 ? 2 : 1; // skip alternate labels if crowded
+  // skip labels as the bar gets crowded, but always label the last level
+  const step = levels.length > 24 ? 3 : levels.length > 14 ? 2 : 1;
   for (let i = 0; i < levels.length; i += step) {
+    if (step > 1 && i > levels.length - step && i < levels.length - 1) continue;
     ctx.fillText(fmtLevel(levels[i]), bx0 + i * bw, by0 + bh + 5 * k);
+  }
+  if (step > 1) {
+    ctx.fillText(fmtLevel(levels[levels.length - 1]), bx1, by0 + bh + 5 * k);
   }
   ctx.font = font(11);
   ctx.fillText("m.r.d.", cx, by0 + bh + 24 * k);
 }
 
 // ------------------------------------------------------------- component
-interface RowSpec {
-  key: string;
-  pfIndex: number;
-  smooth: boolean;
-}
-
 export default function PoleFigureViewer() {
   const [pfs, setPfs] = useState<PoleFigure[] | null>(null);
   const [fileName, setFileName] = useState<string>("");
@@ -209,9 +208,8 @@ export default function PoleFigureViewer() {
   const [error, setError] = useState<string | null>(null);
   const [dragOver, setDragOver] = useState(false);
 
-  const [mode, setMode] = useState<Mode>("both");
-  const [sigma, setSigma] = useState(3.0);
   const [cmapName, setCmapName] = useState("texture");
+  const [nLevels, setNLevels] = useState(16);
   const [log, setLog] = useState(false);
   const [vmaxStr, setVmaxStr] = useState("auto");
   const [projection, setProjection] = useState<Projection>("stereographic");
@@ -227,20 +225,6 @@ export default function PoleFigureViewer() {
   const canvases = useRef(new Map<string, HTMLCanvasElement>());
   const zoomCanvas = useRef<HTMLCanvasElement>(null);
   const fileInput = useRef<HTMLInputElement>(null);
-
-  // ---- rows to render (one canvas per pole figure per raw/smoothed row)
-  const rows = useMemo<RowSpec[]>(() => {
-    if (!pfs) return [];
-    const out: RowSpec[] = [];
-    pfs.forEach((_, i) => {
-      if (!selected[i]) return;
-      if (mode === "both" || mode === "raw")
-        out.push({ key: `${i}-raw`, pfIndex: i, smooth: false });
-      if (mode === "both" || mode === "smoothed")
-        out.push({ key: `${i}-smooth`, pfIndex: i, smooth: true });
-    });
-    return out;
-  }, [pfs, selected, mode]);
 
   const selectedIdx = useMemo(
     () => (pfs ? pfs.map((_, i) => i).filter((i) => selected[i]) : []),
@@ -258,63 +242,51 @@ export default function PoleFigureViewer() {
 
       for (const i of selectedIdx) {
         const pf = pfs[i];
-        info.push({ hkl: pf.hkl, s: pf.stats(sigma, centre) });
+        info.push({ hkl: pf.hkl, s: pf.stats(centre) });
+        const cv = canvases.current.get(`${i}`);
+        if (!cv) continue;
         const sampler = getSampler(pf.alpha, pf.beta, projection, GRID, betaOffset, flip);
-        for (const smooth of [false, true]) {
-          const cv = canvases.current.get(`${i}-${smooth ? "smooth" : "raw"}`);
-          if (!cv) continue;
-          const D = smooth ? pf.smoothed(sigma, centre) : pf.normalised(centre);
-          const { Z, max } = sampler.apply(D);
-          const top = useVmax ?? max;
-          drawPanel(cv, {
-            pf, Z, zmax: max,
-            levels: contourLevels(top, 11, log),
-            cmap, projection,
-            title: smooth && mode === "both"
-              ? null
-              : `(${pf.hkl})   2θ = ${pf.twoTheta.toFixed(2)}°`,
-            caption: smooth
-              ? `smoothed  σ = ${sigma.toFixed(1)}°    max = ${max.toFixed(1)} m.r.d.`
-              : `as measured    max = ${max.toFixed(1)} m.r.d.`,
-          });
-        }
+        const { Z, max } = sampler.apply(pf.normalised(centre));
+        const top = useVmax ?? max;
+        drawPanel(cv, {
+          pf, Z, zmax: max,
+          levels: contourLevels(top, nLevels, log),
+          cmap, projection,
+          title: `(${pf.hkl})   2θ = ${pf.twoTheta.toFixed(2)}°`,
+          caption: `as measured    max = ${max.toFixed(1)} m.r.d.`,
+        });
       }
       setStats(info);
     }, 60);
     return () => clearTimeout(t);
-  }, [pfs, selectedIdx, mode, sigma, cmapName, log, vmaxStr, projection,
-    betaOffset, flip, centre]);
+  }, [pfs, selectedIdx, cmapName, nLevels, log, vmaxStr,
+    projection, betaOffset, flip, centre]);
 
   // ---- zoom view: same panel redrawn at 2x geometry / higher grid
   useEffect(() => {
     if (!zoomKey || !pfs) return;
     const cv = zoomCanvas.current;
     if (!cv) return;
-    const [idxStr, kind] = zoomKey.split("-");
-    const pf = pfs[parseInt(idxStr, 10)];
+    const pf = pfs[parseInt(zoomKey, 10)];
     if (!pf) return;
-    const smooth = kind === "smooth";
     const t = setTimeout(() => {
       const zoomGrid = 800;
       const sampler = getSampler(pf.alpha, pf.beta, projection, zoomGrid,
         betaOffset, flip);
-      const D = smooth ? pf.smoothed(sigma, centre) : pf.normalised(centre);
-      const { Z, max } = sampler.apply(D);
+      const { Z, max } = sampler.apply(pf.normalised(centre));
       const vmax = parseFloat(vmaxStr);
       const top = Number.isFinite(vmax) && vmax > 0 ? vmax : max;
       drawPanel(cv, {
         pf, Z, zmax: max,
-        levels: contourLevels(top, 11, log),
+        levels: contourLevels(top, nLevels, log),
         cmap: makeCmap(cmapName), projection,
         title: `(${pf.hkl.trim()})   2θ = ${pf.twoTheta.toFixed(2)}°`,
-        caption: smooth
-          ? `smoothed  σ = ${sigma.toFixed(1)}°    max = ${max.toFixed(1)} m.r.d.`
-          : `as measured    max = ${max.toFixed(1)} m.r.d.`,
+        caption: `as measured    max = ${max.toFixed(1)} m.r.d.`,
       }, 2, zoomGrid);
     }, 60);
     return () => clearTimeout(t);
-  }, [zoomKey, pfs, sigma, cmapName, log, vmaxStr, projection, betaOffset,
-    flip, centre]);
+  }, [zoomKey, pfs, cmapName, nLevels, log, vmaxStr, projection,
+    betaOffset, flip, centre]);
 
   useEffect(() => {
     if (!zoomKey) return;
@@ -357,18 +329,14 @@ export default function PoleFigureViewer() {
   const exportPNG = useCallback(() => {
     if (!pfs || selectedIdx.length === 0) return;
     const cols = selectedIdx.length;
-    const rowKinds = mode === "both" ? ["raw", "smooth"] : [mode === "raw" ? "raw" : "smooth"];
-    const first = canvases.current.get(`${selectedIdx[0]}-${rowKinds[0]}`);
+    const first = canvases.current.get(`${selectedIdx[0]}`);
     if (!first) return;
     const pad = 20;
     const headH = 70;
     const cw = first.width;
     const out = document.createElement("canvas");
     out.width = pad * 2 + cols * cw;
-    // panel heights differ (title row vs not), measure per row kind
-    const rowH = rowKinds.map((rk) =>
-      canvases.current.get(`${selectedIdx[0]}-${rk}`)?.height ?? 0);
-    out.height = headH + rowH.reduce((a, b) => a + b, 0) + pad;
+    out.height = headH + first.height + pad;
     const ctx = out.getContext("2d");
     if (!ctx) return;
     ctx.fillStyle = "#ffffff";
@@ -386,13 +354,9 @@ export default function PoleFigureViewer() {
       `${projName} projection · normalised to m.r.d. · measured to α = ` +
       `${pfs[selectedIdx[0]].alphaMax.toFixed(0)}° (dashed)`,
       out.width / 2, 44);
-    let y = headH;
-    rowKinds.forEach((rk, r) => {
-      selectedIdx.forEach((i, c) => {
-        const cv = canvases.current.get(`${i}-${rk}`);
-        if (cv) ctx.drawImage(cv, pad + c * cw, y);
-      });
-      y += rowH[r];
+    selectedIdx.forEach((i, c) => {
+      const cv = canvases.current.get(`${i}`);
+      if (cv) ctx.drawImage(cv, pad + c * cw, headH);
     });
     out.toBlob((blob) => {
       if (!blob) return;
@@ -402,21 +366,19 @@ export default function PoleFigureViewer() {
       a.click();
       URL.revokeObjectURL(a.href);
     }, "image/png");
-  }, [pfs, selectedIdx, mode, projection, baseName]);
+  }, [pfs, selectedIdx, projection, baseName]);
 
   const exportCSV = useCallback(() => {
     if (!pfs || selectedIdx.length === 0) return;
-    const lines = ["hkl,two_theta,alpha_deg,beta_deg,mrd,mrd_smoothed"];
+    const lines = ["hkl,two_theta,alpha_deg,beta_deg,mrd"];
     for (const i of selectedIdx) {
       const pf = pfs[i];
       const N = pf.normalised(centre);
-      const S = pf.smoothed(sigma, centre);
       for (let a = 0; a < pf.na; a++) {
         for (let b = 0; b < pf.nb; b++) {
           lines.push(
             `${pf.hkl.trim()},${pf.twoTheta.toFixed(2)},${pf.alpha[a].toFixed(1)},` +
-            `${pf.beta[b].toFixed(1)},${N[a * pf.nb + b].toFixed(4)},` +
-            `${S[a * pf.nb + b].toFixed(4)}`);
+            `${pf.beta[b].toFixed(1)},${N[a * pf.nb + b].toFixed(4)}`);
         }
       }
     }
@@ -426,7 +388,7 @@ export default function PoleFigureViewer() {
     a.download = `${baseName}_grid.csv`;
     a.click();
     URL.revokeObjectURL(a.href);
-  }, [pfs, selectedIdx, sigma, centre, baseName]);
+  }, [pfs, selectedIdx, centre, baseName]);
 
   // ------------------------------------------------------------ UI bits
   const labelCls = "text-xs uppercase tracking-wider text-muted";
@@ -438,7 +400,6 @@ export default function PoleFigureViewer() {
         : "border-border text-muted hover:text-foreground hover:border-primary/50"
     }`;
 
-  const rawOnly = mode === "raw";
   const projName = projection === "equal-area"
     ? "equal-area (Schmidt)" : "stereographic (Wulff)";
 
@@ -517,30 +478,7 @@ export default function PoleFigureViewer() {
             </div>
 
             <div className={boxCls}>
-              <span className={labelCls}>Show</span>
-              <div className="flex gap-2 flex-wrap">
-                {(["raw", "smoothed", "both"] as Mode[]).map((m) => (
-                  <button key={m} className={segBtn(mode === m)} onClick={() => setMode(m)}>
-                    {m === "raw" ? "as measured" : m}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className={boxCls}>
               <span className={labelCls}>Display</span>
-              <div className={rawOnly ? "opacity-40 pointer-events-none" : ""}>
-                <div className="flex justify-between text-sm mb-1">
-                  <span>Smoothing σ</span>
-                  <span className="text-muted">{sigma.toFixed(1)}°</span>
-                </div>
-                <input
-                  type="range" min={0} max={10} step={0.1} value={sigma}
-                  disabled={rawOnly}
-                  onChange={(e) => setSigma(parseFloat(e.target.value))}
-                  className="w-full accent-primary"
-                />
-              </div>
               <label className="flex flex-col gap-1 text-sm">
                 <span>Colour map</span>
                 <select
@@ -552,6 +490,17 @@ export default function PoleFigureViewer() {
                   {COLORMAPS.map((c) => <option key={c} value={c}>{c}</option>)}
                 </select>
               </label>
+              <div>
+                <div className="flex justify-between text-sm mb-1">
+                  <span>Contour levels</span>
+                  <span className="text-muted">{nLevels}</span>
+                </div>
+                <input
+                  type="range" min={4} max={32} step={1} value={nLevels}
+                  onChange={(e) => setNLevels(parseInt(e.target.value, 10))}
+                  className="w-full accent-primary"
+                />
+              </div>
               <label className="flex items-center gap-2 text-sm cursor-pointer">
                 <input
                   type="checkbox" checked={log}
@@ -665,14 +614,8 @@ export default function PoleFigureViewer() {
                     `  max        ${s.rawMax.toFixed(2).padStart(8)}  m.r.d.\n` +
                     `  min        ${s.rawMin.toFixed(2).padStart(8)}\n` +
                     `  median     ${s.median.toFixed(2).padStart(8)}\n` +
-                    `  smoothed   ${s.smoothMax.toFixed(2).padStart(8)}  max\n` +
                     `  PF index   ${s.pfIndex.toFixed(2).padStart(8)}  (1 = random)\n` +
-                    `  >5 m.r.d.  ${(100 * s.fracGt5).toFixed(1).padStart(7)} %\n` +
-                    (s.grainy
-                      ? `  !! peaks collapse ${s.spikiness.toFixed(0)}x under 3° ` +
-                        `smoothing\n     -> coarse grain / poor grain statistics,` +
-                        ` not resolvable texture\n`
-                      : "")
+                    `  >5 m.r.d.  ${(100 * s.fracGt5).toFixed(1).padStart(7)} %\n`
                   ).join("\n")}
                 </pre>
               </div>
@@ -720,18 +663,15 @@ export default function PoleFigureViewer() {
                 {selectedIdx.map((i) => (
                   <div key={i} className="bg-white rounded-xl overflow-hidden
                     border border-border flex flex-col">
-                    {rows.filter((r) => r.pfIndex === i).map((r) => (
-                      <canvas
-                        key={r.key}
-                        ref={(el) => {
-                          if (el) canvases.current.set(r.key, el);
-                          else canvases.current.delete(r.key);
-                        }}
-                        onClick={() => setZoomKey(r.key)}
-                        title="Click to enlarge"
-                        className="w-full h-auto cursor-zoom-in"
-                      />
-                    ))}
+                    <canvas
+                      ref={(el) => {
+                        if (el) canvases.current.set(`${i}`, el);
+                        else canvases.current.delete(`${i}`);
+                      }}
+                      onClick={() => setZoomKey(`${i}`)}
+                      title="Click to enlarge"
+                      className="w-full h-auto cursor-zoom-in"
+                    />
                   </div>
                 ))}
               </div>

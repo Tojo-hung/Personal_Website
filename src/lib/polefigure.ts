@@ -16,19 +16,14 @@ export const FWIDTH = 8; // fixed-width field, characters
 
 export type Centre = "auto" | "first" | "last";
 export type Projection = "stereographic" | "equal-area";
-export type Mode = "both" | "raw" | "smoothed";
 
 export interface PFStats {
   rawMax: number;
   rawMin: number;
   median: number;
   mean: number;
-  smoothMax: number;
-  smoothMin: number;
   pfIndex: number;
   fracGt5: number;
-  spikiness: number;
-  grainy: boolean;
 }
 
 const DEG = Math.PI / 180;
@@ -46,9 +41,6 @@ export class PoleFigure {
   readonly na: number;
   readonly nb: number;
   readonly Iraw: Float64Array;  // row-major [na][nb]
-
-  private dist: Float32Array | null = null; // cached angular-distance matrix
-  private smoothCache = new Map<string, Float64Array>();
 
   /**
    * File-level centre orientation, stamped by parsePLF: every block in a
@@ -178,82 +170,8 @@ export class PoleFigure {
     return out;
   }
 
-  private distanceMatrix(): Float32Array {
-    if (this.dist === null) {
-      const { na, nb } = this;
-      const N = na * nb;
-      const vx = new Float64Array(N);
-      const vy = new Float64Array(N);
-      const vz = new Float64Array(N);
-      for (let i = 0; i < na; i++) {
-        const A = this.alpha[i] * DEG;
-        const sA = Math.sin(A);
-        const cA = Math.cos(A);
-        for (let j = 0; j < nb; j++) {
-          const B = this.beta[j] * DEG;
-          const k = i * nb + j;
-          vx[k] = sA * Math.cos(B);
-          vy[k] = sA * Math.sin(B);
-          vz[k] = cA;
-        }
-      }
-      const d = new Float32Array(N * N);
-      for (let p = 0; p < N; p++) {
-        for (let q = p + 1; q < N; q++) {
-          let dot = vx[p] * vx[q] + vy[p] * vy[q] + vz[p] * vz[q];
-          if (dot > 1) dot = 1;
-          else if (dot < -1) dot = -1;
-          const dd = Math.acos(dot);
-          d[p * N + q] = dd;
-          d[q * N + p] = dd;
-        }
-      }
-      this.dist = d;
-    }
-    return this.dist;
-  }
-
-  /** Gaussian convolution over true angular distance on the sphere. */
-  smoothed(sigmaDeg: number, centre: Centre = "auto"): Float64Array {
-    const key = `${(Math.round(sigmaDeg * 1000) / 1000).toFixed(3)}|${centre}`;
-    const hit = this.smoothCache.get(key);
-    if (hit) return hit;
-
+  stats(centre: Centre = "auto"): PFStats {
     const I = this.normalised(centre);
-    let out: Float64Array;
-    if (sigmaDeg <= 0) {
-      out = I;
-    } else {
-      const { na, nb } = this;
-      const N = na * nb;
-      const d = this.distanceMatrix();
-      const rw = this.ringWeights();
-      const w = new Float64Array(N);
-      for (let i = 0; i < na; i++)
-        for (let j = 0; j < nb; j++) w[i * nb + j] = rw[i] / nb;
-      const inv2s2 = 1 / (2 * (sigmaDeg * DEG) ** 2);
-      out = new Float64Array(N);
-      for (let p = 0; p < N; p++) {
-        let num = 0;
-        let den = 0;
-        const row = p * N;
-        for (let q = 0; q < N; q++) {
-          const dd = d[row + q];
-          const e = Math.exp(-dd * dd * inv2s2) * w[q];
-          num += e * I[q];
-          den += e;
-        }
-        out[p] = num / den;
-      }
-    }
-    if (this.smoothCache.size > 24) this.smoothCache.clear();
-    this.smoothCache.set(key, out);
-    return out;
-  }
-
-  stats(sigmaDeg = 3.0, centre: Centre = "auto"): PFStats {
-    const I = this.normalised(centre);
-    const S = this.smoothed(sigmaDeg, centre);
     const { na, nb } = this;
     const rw = this.ringWeights();
     let wsum = 0;
@@ -264,8 +182,6 @@ export class PoleFigure {
     let rawMin = Infinity;
     let mean = 0;
     let gt5 = 0;
-    let smoothMax = -Infinity;
-    let smoothMin = Infinity;
     for (let i = 0; i < na; i++) {
       const w = rw[i] / nb / wsum;
       for (let j = 0; j < nb; j++) {
@@ -275,9 +191,6 @@ export class PoleFigure {
         if (v < rawMin) rawMin = v;
         if (v > 5) gt5++;
         mean += v;
-        const s = S[i * nb + j];
-        if (s > smoothMax) smoothMax = s;
-        if (s < smoothMin) smoothMin = s;
       }
     }
     mean /= na * nb;
@@ -286,17 +199,10 @@ export class PoleFigure {
     const mid = sorted.length >> 1;
     const median = sorted.length % 2 ? sorted[mid] : 0.5 * (sorted[mid - 1] + sorted[mid]);
 
-    const s3 = this.smoothed(3.0, centre);
-    let s3max = -Infinity;
-    for (let k = 0; k < s3.length; k++) if (s3[k] > s3max) s3max = s3[k];
-    const spike = rawMax / Math.max(s3max, 1e-9); // peak collapse under 3 deg
-
     return {
-      rawMax, rawMin, median, mean, smoothMax, smoothMin,
+      rawMax, rawMin, median, mean,
       pfIndex,
       fracGt5: gt5 / (na * nb),
-      spikiness: spike,
-      grainy: spike > 2.5 && median < 0.75,
     };
   }
 }
@@ -510,24 +416,31 @@ export function getSampler(
   return s;
 }
 
-/** Nice contour levels from 0 to vmax. */
-export function contourLevels(vmax: number, n = 11, log = false, vmin = 0.25): number[] {
+/** Round to 3 significant figures, for readable contour labels. */
+function roundSig(v: number): number {
+  if (v === 0) return 0;
+  const m = Math.pow(10, 2 - Math.floor(Math.log10(Math.abs(v))));
+  return Math.round(v * m) / m;
+}
+
+/**
+ * Contour levels from 0 to vmax. The requested count `n` is honoured
+ * exactly: uniform spacing when linear, a geometric ladder from vmin when
+ * log (the classic .7 / 1 / 1.4 / 2 / 2.8 ... report style).
+ */
+export function contourLevels(vmax: number, n = 16, log = false, vmin = 0.25): number[] {
   vmax = Math.max(vmax, vmin * 2);
-  let lv: number[];
+  n = Math.max(3, Math.round(n));
+  const lv: number[] = [];
   if (log) {
-    lv = [0];
-    for (let i = 0; i < n; i++) lv.push(vmin * Math.pow(vmax / vmin, i / (n - 1)));
+    lv.push(0);
+    for (let i = 0; i < n; i++)
+      lv.push(roundSig(vmin * Math.pow(vmax / vmin, i / (n - 1))));
   } else {
-    const nice = [0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10,
-      12, 15, 20, 25, 30, 40, 50];
-    lv = nice.filter((v) => v < vmax).concat([vmax]);
-    if (lv.length < 4) {
-      lv = [];
-      for (let i = 0; i < n; i++) lv.push((vmax * i) / (n - 1));
-    }
+    for (let i = 0; i < n; i++) lv.push(roundSig((vmax * i) / (n - 1)));
   }
-  const rounded = lv.map((v) => Math.round(v * 1e4) / 1e4);
-  return Array.from(new Set(rounded)).sort((a, b) => a - b);
+  lv[lv.length - 1] = Math.round(vmax * 1e4) / 1e4; // keep the true maximum
+  return Array.from(new Set(lv)).sort((a, b) => a - b);
 }
 
 // ---------------------------------------------------------------- colours

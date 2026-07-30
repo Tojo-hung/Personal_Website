@@ -27,9 +27,8 @@ export default function ToolsPage() {
         <p className="text-muted text-sm max-w-3xl mb-6 leading-relaxed">
           View Philips / PANalytical <span className="text-foreground">.PLF</span>{" "}
           X-ray pole-figure files: intensities are normalised to multiples of a
-          random distribution (m.r.d.), optionally smoothed with a Gaussian over
-          true angular distance on the sphere, and projected stereographically
-          or equal-area. Includes texture metrics and PNG / CSV export.
+          random distribution (m.r.d.) and projected stereographically or
+          equal-area. Includes texture metrics and PNG / CSV export.
         </p>
         <PoleFigureViewer />
       </section>
