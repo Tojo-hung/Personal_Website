@@ -4,7 +4,8 @@ import { useEffect, useRef, useState } from "react";
 
 import type { ProjectModel3D } from "@/types/projects";
 
-type LoadState = "loading" | "ready" | "error";
+const SCRIPT_ID = "model-viewer-script";
+const SCRIPT_SRC = "https://ajax.googleapis.com/ajax/libs/model-viewer/4.2.0/model-viewer.min.js";
 
 interface ModelViewerProps {
   model: ProjectModel3D;
@@ -12,145 +13,66 @@ interface ModelViewerProps {
 
 export default function ModelViewer({ model }: ModelViewerProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const [loadState, setLoadState] = useState<LoadState>("loading");
-  const [progress, setProgress] = useState(0);
+  const [failed, setFailed] = useState(false);
 
   useEffect(() => {
-    // 1. Ensure the CDN script is loaded
-    if (!document.getElementById("model-viewer-script")) {
+    if (!document.getElementById(SCRIPT_ID)) {
       const script = document.createElement("script");
-      script.id = "model-viewer-script";
+      script.id = SCRIPT_ID;
       script.type = "module";
-      script.src = "https://ajax.googleapis.com/ajax/libs/model-viewer/4.2.0/model-viewer.min.js";
+      script.src = SCRIPT_SRC;
       document.head.appendChild(script);
     }
 
-    if (!containerRef.current) return;
-    
-    // Clear any previous instances immediately
-    containerRef.current.innerHTML = "";
+    const container = containerRef.current;
+    if (!container) return;
+    container.innerHTML = "";
 
-    // Delay mounting by 400ms to allow Framer Motion scale animations to finish
-    // and debounce React StrictMode double-invocations which crash WebGL context
-    let viewer: any = null;
-    let handleLoad: any;
-    let handleError: any;
-    let handleProgress: any;
+    const handleError = () => setFailed(true);
+    let viewer: HTMLElement | null = null;
 
+    // Mount a beat later so React StrictMode's double effect never creates
+    // two WebGL contexts at once.
     const mountTimer = setTimeout(() => {
-      if (!containerRef.current) return;
-
-      // 2. Create the element using Vanilla JS
       viewer = document.createElement("model-viewer");
-      
-      // Configure properties
-      viewer.src = model.src;
-      viewer.loading = "lazy";
-      viewer.reveal = "auto";
-      viewer.exposure = 1;
-      viewer.shadowIntensity = 1;
-      viewer.interactionPrompt = "auto";
-      viewer.interactionPromptThreshold = 1500;
-      viewer.setAttribute("camera-controls", "true");
+      viewer.setAttribute("src", model.src);
+      viewer.setAttribute("poster", model.poster);
+      viewer.setAttribute("alt", model.alt);
+      viewer.setAttribute("camera-controls", "");
       viewer.setAttribute("touch-action", "pan-y");
-      
-      if (model.poster) viewer.poster = model.poster;
-      if (model.alt) viewer.alt = model.alt;
-      if (model.cameraOrbit) viewer.cameraOrbit = model.cameraOrbit;
-      if (model.cameraTarget) viewer.cameraTarget = model.cameraTarget;
-      if (model.fieldOfView) viewer.fieldOfView = model.fieldOfView;
-
-      // Apply tailwind styling directly
-      viewer.className = "block w-full h-[22rem] md:h-[28rem] bg-transparent";
-
-      // 3. Setup Events
-      handleLoad = () => {
-        setLoadState("ready");
-        setProgress(100);
-      };
-
-      handleError = (event: any) => {
-        console.error("ModelViewer error:", event);
-        setLoadState("error");
-        setProgress(0);
-      };
-
-      handleProgress = (event: any) => {
-        const detail = event.detail;
-        const nextProgress = detail?.totalProgress ?? 0;
-        setProgress(Math.round(nextProgress * 100));
-      };
-
-      viewer.addEventListener("load", handleLoad);
+      viewer.setAttribute("shadow-intensity", "1");
+      viewer.setAttribute("exposure", "1");
+      viewer.setAttribute("loading", "lazy");
+      if (model.cameraOrbit) viewer.setAttribute("camera-orbit", model.cameraOrbit);
+      if (model.cameraTarget) viewer.setAttribute("camera-target", model.cameraTarget);
+      if (model.fieldOfView) viewer.setAttribute("field-of-view", model.fieldOfView);
+      viewer.style.cssText = "display:block;width:100%;height:100%;background:var(--paper-sunk)";
       viewer.addEventListener("error", handleError);
-      viewer.addEventListener("progress", handleProgress);
-
-      // Mount to the DOM
-      containerRef.current.appendChild(viewer);
-    }, 400);
+      container.appendChild(viewer);
+    }, 100);
 
     return () => {
       clearTimeout(mountTimer);
-      if (viewer) {
-        viewer.removeEventListener("load", handleLoad);
-        viewer.removeEventListener("error", handleError);
-        viewer.removeEventListener("progress", handleProgress);
-      }
-      if (containerRef.current) {
-        containerRef.current.innerHTML = "";
-      }
+      viewer?.removeEventListener("error", handleError);
+      container.innerHTML = "";
     };
   }, [model]);
 
   return (
-    <div className="mt-10 rounded-[1.75rem] border border-white/10 bg-background/60 p-4 shadow-[0_20px_80px_rgba(0,0,0,0.25)]">
-      <div className="relative overflow-hidden rounded-[1.25rem] border border-white/8 bg-gradient-to-br from-white/[0.06] via-transparent to-primary/10">
-        <div ref={containerRef} className="block w-full h-[22rem] md:h-[28rem]" />
-
-        <div className="pointer-events-none absolute inset-x-4 bottom-4 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-md rounded-2xl border border-white/10 bg-black/50 px-4 py-3 backdrop-blur-md">
-            <p className="text-[0.7rem] font-mono uppercase tracking-[0.3em] text-primary/90">
-              Interactive CAD View
-            </p>
-            <p className="mt-2 text-sm text-white/80">
-              Drag to rotate. Scroll to zoom. Pinch and drag on mobile.
-            </p>
-          </div>
-
-          {loadState === "loading" && (
-            <div className="rounded-2xl border border-white/10 bg-black/50 px-4 py-3 text-sm text-white/75 backdrop-blur-md">
-              Loading model{progress > 0 ? `... ${progress}%` : "..."}
-            </div>
-          )}
-        </div>
-
-        {loadState === "error" && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/55 p-6 backdrop-blur-sm">
-            <div className="max-w-md rounded-3xl border border-amber-400/20 bg-surface/95 p-6 text-center shadow-xl">
-              <p className="text-xs font-mono uppercase tracking-[0.25em] text-amber-300">
-                3D Model Not Available Yet
-              </p>
-              <p className="mt-3 text-sm leading-relaxed text-white/75">
-                Add the exported GLB at <code>{model.src}</code> to activate this
-                viewer. The poster image stays in place until the asset is ready.
-              </p>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {model.notes && model.notes.length > 0 && (
-        <div className="mt-4 grid gap-3 md:grid-cols-2">
-          {model.notes.map((note) => (
-            <div
-              key={note}
-              className="rounded-2xl border border-white/8 bg-white/[0.03] px-4 py-3 text-sm leading-relaxed text-muted"
-            >
-              {note}
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
+    <figure className="m-0 flex flex-col gap-2">
+      <div
+        ref={containerRef}
+        className="h-[360px] w-full border border-line bg-paper-sunk bg-contain bg-center bg-no-repeat md:h-[440px]"
+        style={{ backgroundImage: `url(${model.poster})` }}
+      />
+      <figcaption className="t-caption flex justify-between gap-3 text-ink-muted">
+        <span>
+          {failed
+            ? "Model not available yet"
+            : "The actual CAD. Drag to turn it, scroll to zoom, pinch on a phone."}
+        </span>
+        <span className="text-right">{model.label}</span>
+      </figcaption>
+    </figure>
   );
 }

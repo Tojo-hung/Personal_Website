@@ -10,21 +10,21 @@ export const metadata: Metadata = {
 
 export default function ToolsPage() {
   return (
-    <div className="max-w-7xl mx-auto px-6 pt-32 pb-24">
-      <p className="text-primary text-sm uppercase tracking-[0.3em] mb-3">
+    <div className="mx-auto max-w-[1200px] px-6 pt-16 pb-24">
+      <p className="t-label text-ink-muted mb-3">
         Tools
       </p>
-      <h1 className="text-3xl md:text-4xl font-bold mb-4">
-        Material Science Tools
+      <h1 className="mb-4 text-[40px] leading-[52px] font-normal tracking-[0.02em]">
+        Material science tools
       </h1>
-      <p className="text-muted max-w-2xl mb-12 text-sm leading-relaxed">
+      <p className="text-ink-muted max-w-[640px] mb-12">
         Interactive utilities from my materials research work. Everything runs
-        locally in your browser — no data is uploaded anywhere.
+        locally in your browser, so nothing you open here is uploaded anywhere.
       </p>
 
       <section>
-        <h2 className="text-xl font-bold mb-1">Pole Figure Viewer</h2>
-        <p className="text-muted text-sm max-w-3xl mb-6 leading-relaxed">
+        <h2 className="t-h2 mb-2">Pole figure viewer</h2>
+        <p className="text-ink-muted max-w-[640px] mb-6">
           View Philips / PANalytical <span className="text-foreground">.PLF</span>{" "}
           X-ray pole-figure files: intensities are normalised to multiples of a
           random distribution (m.r.d.) and projected stereographically or
