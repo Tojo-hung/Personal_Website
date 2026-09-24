@@ -392,11 +392,11 @@ export default function PoleFigureViewer() {
 
   // ------------------------------------------------------------ UI bits
   const labelCls = "text-xs uppercase tracking-wider text-muted";
-  const boxCls = "bg-surface border border-border rounded-xl p-4 flex flex-col gap-3";
+  const boxCls = "bg-surface border border-border rounded-[2px] p-4 flex flex-col gap-3";
   const segBtn = (active: boolean) =>
-    `px-3 py-1.5 text-xs rounded-lg border transition-colors ${
+    `px-3 py-1.5 text-xs rounded-[2px] border transition-colors ${
       active
-        ? "bg-primary text-white border-primary"
+        ? "bg-primary text-on-primary border-primary"
         : "border-border text-muted hover:text-foreground hover:border-primary/50"
     }`;
 
@@ -419,7 +419,7 @@ export default function PoleFigureViewer() {
               if (f) loadFile(f);
             }}
             onClick={() => fileInput.current?.click()}
-            className={`border-2 border-dashed rounded-lg p-4 text-center cursor-pointer
+            className={`border-2 border-dashed rounded-[2px] p-4 text-center cursor-pointer
               transition-colors text-sm ${
               dragOver ? "border-primary bg-primary/10" : "border-border hover:border-primary/50"
             }`}
@@ -443,7 +443,7 @@ export default function PoleFigureViewer() {
           <button
             onClick={loadDemo}
             className="flex items-center justify-center gap-2 text-sm border border-border
-              rounded-lg py-2 text-muted hover:text-foreground hover:border-primary/50
+              rounded-[2px] py-2 text-muted hover:text-foreground hover:border-primary/50
               transition-colors"
           >
             <FlaskConical className="w-4 h-4" /> Load demo data
@@ -453,7 +453,7 @@ export default function PoleFigureViewer() {
               <FileText className="w-3.5 h-3.5 shrink-0" /> {fileName}
             </p>
           )}
-          {error && <p className="text-xs text-red-400">{error}</p>}
+          {error && <p className="text-xs text-bengara">{error}</p>}
         </div>
 
         {pfs && (
@@ -484,7 +484,7 @@ export default function PoleFigureViewer() {
                 <select
                   value={cmapName}
                   onChange={(e) => setCmapName(e.target.value)}
-                  className="bg-background border border-border rounded-lg px-2 py-1.5
+                  className="bg-background border border-border rounded-[2px] px-2 py-1.5
                     text-sm focus:border-primary outline-none"
                 >
                   {COLORMAPS.map((c) => <option key={c} value={c}>{c}</option>)}
@@ -514,7 +514,7 @@ export default function PoleFigureViewer() {
                 <input
                   value={vmaxStr}
                   onChange={(e) => setVmaxStr(e.target.value)}
-                  className="w-20 bg-background border border-border rounded-lg px-2 py-1
+                  className="w-20 bg-background border border-border rounded-[2px] px-2 py-1
                     text-sm text-right focus:border-primary outline-none"
                 />
               </label>
@@ -547,7 +547,7 @@ export default function PoleFigureViewer() {
                         if (Number.isFinite(v))
                           setBetaOffset(Math.min(Math.max(v, -180), 180));
                       }}
-                      className="w-20 bg-background border border-border rounded-lg px-2 py-1
+                      className="w-20 bg-background border border-border rounded-[2px] px-2 py-1
                         text-sm text-right focus:border-primary outline-none"
                     />
                     <span className="text-muted">°</span>
@@ -572,7 +572,7 @@ export default function PoleFigureViewer() {
                 <select
                   value={centre}
                   onChange={(e) => setCentre(e.target.value as Centre)}
-                  className="bg-background border border-border rounded-lg px-2 py-1.5
+                  className="bg-background border border-border rounded-[2px] px-2 py-1.5
                     text-sm focus:border-primary outline-none"
                 >
                   <option value="first">file order</option>
@@ -588,7 +588,7 @@ export default function PoleFigureViewer() {
                 <button
                   onClick={exportPNG}
                   className="flex-1 flex items-center justify-center gap-2 text-sm border
-                    border-border rounded-lg py-2 text-muted hover:text-foreground
+                    border-border rounded-[2px] py-2 text-muted hover:text-foreground
                     hover:border-primary/50 transition-colors"
                 >
                   <Download className="w-4 h-4" /> PNG
@@ -596,7 +596,7 @@ export default function PoleFigureViewer() {
                 <button
                   onClick={exportCSV}
                   className="flex-1 flex items-center justify-center gap-2 text-sm border
-                    border-border rounded-lg py-2 text-muted hover:text-foreground
+                    border-border rounded-[2px] py-2 text-muted hover:text-foreground
                     hover:border-primary/50 transition-colors"
                 >
                   <Download className="w-4 h-4" /> CSV
@@ -627,7 +627,7 @@ export default function PoleFigureViewer() {
       {/* ------------------------------------------------ figures */}
       <div className="flex-1 min-w-0">
         {!pfs ? (
-          <div className="h-full min-h-[320px] border border-border rounded-xl
+          <div className="h-full min-h-[320px] border border-border rounded-[2px]
             flex flex-col items-center justify-center gap-3 text-muted text-sm p-8
             text-center">
             <FlaskConical className="w-8 h-8" />
@@ -642,7 +642,7 @@ export default function PoleFigureViewer() {
         ) : (
           <div className="flex flex-col gap-4">
             <div className="text-center">
-              <h3 className="font-bold text-lg">{pfs[0].sample}</h3>
+              <h3 className="font-medium text-lg">{pfs[0].sample}</h3>
               <p className="text-xs text-muted mt-1">
                 {projName} projection · normalised to multiples of a random
                 distribution · measured to α = {pfs[0].alphaMax.toFixed(0)}° (dashed)
@@ -661,7 +661,7 @@ export default function PoleFigureViewer() {
                 }}
               >
                 {selectedIdx.map((i) => (
-                  <div key={i} className="bg-white rounded-xl overflow-hidden
+                  <div key={i} className="bg-white rounded-[2px] overflow-hidden
                     border border-border flex flex-col">
                     <canvas
                       ref={(el) => {
@@ -684,7 +684,7 @@ export default function PoleFigureViewer() {
       {zoomKey && (
         <div
           onClick={() => setZoomKey(null)}
-          className="fixed inset-0 z-[100] bg-black/85 backdrop-blur-sm
+          className="fixed inset-0 z-[100] bg-black/85
             flex items-center justify-center p-4 md:p-10 cursor-zoom-out"
         >
           <button
@@ -697,7 +697,7 @@ export default function PoleFigureViewer() {
           </button>
           <div
             onClick={(e) => e.stopPropagation()}
-            className="bg-white rounded-xl overflow-auto max-h-full cursor-default"
+            className="bg-white rounded-[2px] overflow-auto max-h-full cursor-default"
           >
             <canvas
               ref={zoomCanvas}

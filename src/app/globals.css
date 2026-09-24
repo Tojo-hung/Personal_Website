@@ -1,20 +1,77 @@
 @import "tailwindcss";
 
-@theme {
-  --color-background: #000000;
-  --color-foreground: #FFE8DB;
-  
-  --color-primary: #5682B1; /* Blue */
-  --color-primary-hover: #739EC9; /* Light Blue */
-  
-  --color-surface: #090d13;
-  --color-surface-hover: #0c1219;
+/*
+ * Mokume theme tokens. Kinari (light) on :root, Yakisugi (dark) on
+ * [data-theme="dark"]. The site ships dark: <html data-theme="dark">.
+ */
+:root {
+  --paper: #f7f4ee;
+  --paper-raised: #fdfcf9;
+  --paper-sunk: #efe9df;
+  --line: #ddd4c6;
+  --line-strong: #8f8272;
+  --ink: #2a2622;
+  --ink-muted: #675e55;
+  --ink-disabled: #aaa092;
+  --primary: var(--ink);
+  --primary-hover: #4a433c;
+  --on-primary: var(--paper);
+  --hinoki: #e6d6b8;
+  --bamboo-ink: #545a2e;
+  --bengara: #8e3a2f;
+  --ai: #34546e;
+  --focus: var(--ai);
 
-  --color-muted: #739EC9;
-  --color-border: #131c26;
+  --content-max: 1200px;
+  --measure: 640px;
+  --control-height: 44px;
+  --duration-color: 120ms;
+}
 
-  --font-sans: var(--font-space-mono), sans-serif;
-  --font-mono: var(--font-space-mono), monospace;
+[data-theme="dark"] {
+  --paper: #1c1a17;
+  --paper-raised: #25221e;
+  --paper-sunk: #161412;
+  --line: #3a352f;
+  --line-strong: #7a6f62;
+  --ink: #eee8de;
+  --ink-muted: #b3a999;
+  --ink-disabled: #5f574e;
+  --primary: var(--ink);
+  --primary-hover: #d6cec1;
+  --on-primary: var(--paper);
+  --hinoki: #4d4030;
+  --bamboo-ink: #c4c89a;
+  --bengara: #e28f7d;
+  --ai: #9dbad3;
+  --focus: var(--ai);
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-raised: var(--paper-raised);
+  --color-paper-sunk: var(--paper-sunk);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-hinoki: var(--hinoki);
+  --color-bamboo-ink: var(--bamboo-ink);
+  --color-bengara: var(--bengara);
+  --color-ai: var(--ai);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-on-primary: var(--on-primary);
+
+  /* Older names, still used by the tools page */
+  --color-background: var(--paper);
+  --color-foreground: var(--ink);
+  --color-surface: var(--paper-raised);
+  --color-surface-hover: var(--paper-sunk);
+  --color-muted: var(--ink-muted);
+  --color-border: var(--line);
+
+  --font-sans: var(--font-zen-kaku), "Hiragino Kaku Gothic ProN", "Noto Sans JP", system-ui, sans-serif;
 }
 
 html {
@@ -22,24 +79,104 @@ html {
 }
 
 body {
-  background-color: var(--color-background);
-  color: var(--color-foreground);
+  background: var(--paper);
+  color: var(--ink);
   font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 26px;
+  letter-spacing: 0.01em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom scrollbar for webkit */
-::-webkit-scrollbar {
-  width: 8px;
+a {
+  color: inherit;
 }
-::-webkit-scrollbar-track {
-  background: var(--color-background);
+
+a,
+button {
+  transition:
+    color var(--duration-color) ease-out,
+    background-color var(--duration-color) ease-out,
+    border-color var(--duration-color) ease-out;
 }
-::-webkit-scrollbar-thumb {
-  background: var(--color-surface-hover);
-  border-radius: 4px;
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
 }
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-primary);
+
+::selection {
+  background: var(--ink);
+  color: var(--paper);
 }
+
+/* Type styles */
+.t-label {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.t-small {
+  font-size: 13px;
+  line-height: 22px;
+  letter-spacing: 0.02em;
+}
+.t-caption {
+  font-size: 11px;
+  line-height: 16px;
+  letter-spacing: 0.04em;
+}
+.t-h2 {
+  font-size: 26px;
+  line-height: 36px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.t-h3 {
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  height: var(--control-height);
+  padding: 0 24px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  border-radius: 2px;
+}
+.btn-primary {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+.btn-primary:hover {
+  background: var(--primary-hover);
+}
+.btn-secondary {
+  background: var(--paper-raised);
+  color: var(--ink);
+  border: 1px solid var(--line-strong);
+}
+.btn-secondary:hover {
+  background: var(--paper-sunk);
+  border-color: var(--ink);
+}
+
+/* Text links */
+.text-link {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: var(--line-strong);
+}
+.text-link:hover {
+  text-decoration-color: var(--ink);
+}
+

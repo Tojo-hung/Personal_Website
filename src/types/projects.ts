@@ -2,33 +2,35 @@ export interface ProjectModel3D {
   src: string;
   poster: string;
   alt: string;
+  label: string;
   cameraOrbit?: string;
   cameraTarget?: string;
   fieldOfView?: string;
-  notes?: string[];
 }
 
-export interface ProjectGalleryImage {
-  src: string;
-  caption: string;
+export interface ProjectLink {
+  label: string;
+  href: string;
 }
 
 export interface ProjectRecord {
   id: string;
   title: string;
-  subtitle: string;
-  tag: string;
-  year: string;
+  when: string;
   role: string;
-  tools: string;
-  summary: string;
-  description: string;
-  bullets: string[];
-  color: string;
   image: string | null;
-  gallery: ProjectGalleryImage[];
-  pills: string[];
-  githubUrl?: string;
-  liveUrl?: string;
+  summary: string;
+  bullets: string[];
+  gallery: string[];
+  tools: string;
+  links: ProjectLink[];
   model3d?: ProjectModel3D;
+}
+
+export interface TimelineEntry {
+  when: string;
+  role: string;
+  place: string;
+  image: string;
+  line: string;
 }

@@ -1,96 +1,125 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ChevronDown } from "lucide-react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+
 import Typewriter from "@/components/Typewriter";
+import { useReducedMotion } from "@/lib/useReducedMotion";
+
+const WORDS = [
+  "boats.",
+  "hydrofoils.",
+  "hull molds out of 3D printed plastic.",
+  "grippers for the Canadian Space Agency.",
+  "the odd tool for my friends.",
+];
+
+const BLINK_MS = 530;
+
+function kingstonNow(now: Date) {
+  const hour = Number(
+    new Intl.DateTimeFormat("en-US", {
+      timeZone: "America/Toronto",
+      hour: "numeric",
+      hourCycle: "h23",
+    }).format(now),
+  );
+  const clock = now
+    .toLocaleTimeString("en-US", {
+      timeZone: "America/Toronto",
+      hour: "numeric",
+      minute: "2-digit",
+    })
+    .toLowerCase();
+  const doing =
+    hour < 7
+      ? "asleep"
+      : hour < 9
+        ? "looking for coffee"
+        : hour < 12
+          ? "in class"
+          : hour < 13
+            ? "eating lunch at my desk"
+            : hour < 18
+              ? "in the workshop, covered in fibreglass dust"
+              : hour < 21
+                ? "on the water, or wishing I were"
+                : "answering email";
+  return { clock, doing };
+}
 
 export default function Hero() {
-  const words = [
-    "Engineering Physics Student",
-    "Problem Solver & Builder",
-    "Passionate About Material Science",
-    "Loves the Outdoors",
-    "Future Industry Leader",
-    "Curious Everyday",
-    "Always Learning",
-    "Avid Sailor"
-  ];
+  const still = useReducedMotion();
+  const [caretOn, setCaretOn] = useState(true);
+  // Client only: the time is unknown during server rendering.
+  const [now, setNow] = useState<Date | null>(null);
+
+  useEffect(() => {
+    const first = setTimeout(() => setNow(new Date()), 0);
+    const id = setInterval(() => {
+      setCaretOn((on) => !on);
+      setNow(new Date());
+    }, BLINK_MS);
+    return () => {
+      clearTimeout(first);
+      clearInterval(id);
+    };
+  }, []);
+
+  const blinkOn = still || caretOn;
+  const kingston = now ? kingstonNow(now) : null;
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center pt-20 overflow-hidden">
-      {/* Background Image Layer */}
-      <div className="absolute inset-0 z-0 select-none pointer-events-none">
+    <section className="grid grid-cols-[repeat(auto-fit,minmax(min(320px,100%),1fr))] items-end gap-12">
+      <div className="flex max-w-[560px] flex-col gap-6">
+        <span className="t-label text-ink-muted">Engineering physics · Queen&apos;s University</span>
+        <h1 className="m-0 min-h-[208px] text-[40px] leading-[52px] font-normal tracking-[0.02em] md:min-h-[216px] md:text-[64px] md:leading-[72px]">
+          Hi, I&apos;m Thomas. I build{" "}
+          <Typewriter
+            words={WORDS}
+            stillText="boats, foils and the odd tool."
+            still={still}
+            caretOn={caretOn}
+          />
+        </h1>
+        <p className="m-0 text-ink-muted text-pretty">
+          I&apos;m curious about most things, but especially what materials do under load, and how
+          to make something fast that doesn&apos;t cost the lake. Have a look around.
+        </p>
+        <p
+          className="m-0 flex items-baseline gap-2 text-[13px] leading-[22px] text-ink-muted"
+          style={{ visibility: kingston ? "visible" : "hidden" }}
+        >
+          <span
+            aria-hidden="true"
+            className="h-2 w-2 flex-none rounded-full bg-ai"
+            style={{ opacity: blinkOn ? 1 : 0.35 }}
+          />
+          <span>
+            Right now it&apos;s{" "}
+            <span className="text-ink tabular-nums">{kingston?.clock ?? "12:00 pm"}</span>{" "}
+            in Kingston, so I&apos;m probably {kingston?.doing ?? "in class"}.
+          </span>
+        </p>
+        <div className="flex flex-wrap gap-3">
+          <a href="#work" className="btn btn-primary">
+            See what I&apos;m making
+          </a>
+          <a href="#hello" className="btn btn-secondary">
+            Say hello
+          </a>
+        </div>
+      </div>
+      <div className="relative aspect-[4/5] w-full max-w-[440px] justify-self-end bg-hinoki">
         <Image
-          src="/images/background.jpg"
-          alt="Engineering Background"
+          src="/images/Profile_Photo.jpg"
+          alt="Thomas, smiling, outdoors"
           fill
-          className="object-cover opacity-70"
           priority
-          sizes="100vw"
-          quality={90}
+          sizes="(min-width: 768px) 440px, 100vw"
+          className="object-cover"
         />
-        {/* Softer Overlays for more "light" */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/10 to-black/90" />
-        <div className="absolute inset-0 bg-black/20" />
       </div>
-      <div className="max-w-6xl w-full mx-auto px-6 z-10 flex flex-col items-center justify-center text-center">
-
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-5xl md:text-7xl font-bold font-sans tracking-tight mb-6"
-        >
-          Thomas <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-hover">Hung</span>
-        </motion.h1>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-          className="text-2xl md:text-3xl text-foreground font-light mb-12 h-10"
-        >
-          <Typewriter words={words} />
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-6"
-        >
-          <a
-            href="#projects"
-            className="px-8 py-4 bg-primary text-white font-medium rounded-full hover:bg-primary-hover hover:scale-105 transition-all shadow-[0_0_20px_rgba(86,130,177,0.3)] hover:shadow-[0_0_30px_rgba(115,158,201,0.5)]"
-          >
-            View Projects
-          </a>
-          <a
-            href="#contact"
-            className="px-8 py-4 bg-transparent border border-white/20 text-white font-medium rounded-full hover:bg-white/5 hover:border-white/40 transition-colors"
-          >
-            Get In Touch
-          </a>
-        </motion.div>
-
-      </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted"
-      >
-        <span className="text-xs uppercase tracking-widest font-mono">Scroll</span>
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-        >
-          <ChevronDown className="w-6 h-6 text-primary" />
-        </motion.div>
-      </motion.div>
     </section>
   );
 }

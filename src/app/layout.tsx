@@ -1,24 +1,21 @@
 import type { Metadata } from "next";
-import { Space_Mono } from "next/font/google";
+import { Zen_Kaku_Gothic_New } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import dynamic from "next/dynamic";
 
-const AnimatedBackground = dynamic(() => import("@/components/AnimatedBackground"));
-
-const spaceMono = Space_Mono({
-  variable: "--font-space-mono",
-  weight: ["400", "700"],
+const zenKaku = Zen_Kaku_Gothic_New({
+  variable: "--font-zen-kaku",
+  weight: ["400", "500"],
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
   title: "Thomas Hung — Engineering Portfolio",
-  description: "Curiosity everyday. Engineering Physics student specializing in mechanical design, prototyping, and material science.",
+  description: "Hi, I'm Thomas. An engineering physics student at Queen's who builds boats, hydrofoils and the odd tool.",
   openGraph: {
     title: "Thomas Hung — Engineering Portfolio",
-    description: "Curiosity everyday. Engineering Physics student specializing in mechanical design, prototyping, and material science.",
+    description: "Hi, I'm Thomas. An engineering physics student at Queen's who builds boats, hydrofoils and the odd tool.",
     url: "https://thomashung.dev",
     siteName: "Thomas Hung Portfolio",
     images: [
@@ -35,7 +32,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Thomas Hung — Engineering Portfolio",
-    description: "Curiosity everyday. Engineering Physics student specializing in mechanical design, prototyping, and material science.",
+    description: "Hi, I'm Thomas. An engineering physics student at Queen's who builds boats, hydrofoils and the odd tool.",
     images: ["/images/hero-1.jpg"],
   },
 };
@@ -46,18 +43,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${spaceMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col selection:bg-primary selection:text-white relative">
-        <div 
-          className="pointer-events-none fixed inset-0 z-50 opacity-[0.03]"
-          style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }}
-        />
-        <AnimatedBackground />
+    <html lang="en" data-theme="dark" className={zenKaku.variable}>
+      <body className="flex min-h-screen flex-col">
         <Header />
-        <main className="flex-1 relative z-10 w-full overflow-hidden">
+        <main className="w-full flex-1">
           {children}
         </main>
         <Footer />
