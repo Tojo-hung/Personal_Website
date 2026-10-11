@@ -14,12 +14,13 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Thomas Hung — Engineering Portfolio",
+  metadataBase: new URL("https://www.thomashung.space"),
+  title: "Thomas Hung | Engineering Portfolio",
   description: "Curiosity everyday. Engineering Physics student specializing in mechanical design, prototyping, and material science.",
   openGraph: {
-    title: "Thomas Hung — Engineering Portfolio",
+    title: "Thomas Hung | Engineering Portfolio",
     description: "Curiosity everyday. Engineering Physics student specializing in mechanical design, prototyping, and material science.",
-    url: "https://thomashung.dev",
+    url: "https://www.thomashung.space",
     siteName: "Thomas Hung Portfolio",
     images: [
       {
@@ -34,7 +35,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Thomas Hung — Engineering Portfolio",
+    title: "Thomas Hung | Engineering Portfolio",
     description: "Curiosity everyday. Engineering Physics student specializing in mechanical design, prototyping, and material science.",
     images: ["/images/hero-1.jpg"],
   },

@@ -636,7 +636,7 @@ export default function PoleFigureViewer() {
               pole-figure file, or load the demo data to explore the viewer.
             </p>
             <p className="text-xs text-muted/70">
-              Everything runs in your browser — files never leave your machine.
+              Everything runs in your browser, so files never leave your machine.
             </p>
           </div>
         ) : (

@@ -3,6 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import Image from "next/image";
+import { Award, ExternalLink } from "lucide-react";
 
 export default function About() {
   const ref = useRef(null);
@@ -63,6 +64,16 @@ export default function About() {
                 I'm actively working to build a future where rigorous physics and beautiful design principles create scalable, high-performance systems.
               </p>
             </div>
+            <a
+              href="https://credentials.engineering.queensu.ca/8896a72a-a39c-4f73-b5e0-b6a883c36f2c#acc.hEbUqXyG"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-8 inline-flex items-center gap-3 rounded-full border border-primary/30 bg-primary/10 px-5 py-2.5 font-mono text-sm uppercase tracking-[0.2em] text-primary transition-colors hover:border-primary/60 hover:bg-primary/20"
+            >
+              <Award className="h-4 w-4" />
+              Dean&apos;s Scholar
+              <ExternalLink className="h-4 w-4 opacity-70" />
+            </a>
           </motion.div>
 
         </div>

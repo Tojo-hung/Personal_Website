@@ -2,9 +2,10 @@
 
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
-import { useRef, ReactNode } from "react";
+import { Fragment, useRef, ReactNode } from "react";
 
 type ExperienceEntry = {
+  group: "experience" | "athletics";
   step: string;
   title: string;
   subtitle: string;
@@ -15,6 +16,27 @@ type ExperienceEntry = {
 
 const experienceItems: ExperienceEntry[] = [
   {
+    group: "experience",
+    step: "Smith Engineering, Queen's University",
+    title: "Dean's Scholar",
+    subtitle: "Academic Distinction",
+    description: (
+      <>
+        Recognized as a Dean&apos;s Scholar by Smith Engineering at Queen&apos;s University.{" "}
+        <a
+          href="https://credentials.engineering.queensu.ca/8896a72a-a39c-4f73-b5e0-b6a883c36f2c#acc.hEbUqXyG"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-primary underline hover:text-primary-hover"
+        >
+          View credential
+        </a>
+      </>
+    ),
+    imageAlt: "Dean's Scholar credential",
+  },
+  {
+    group: "experience",
     step: "May - September 2026",
     title: "USRA Grant Holder",
     subtitle: "Summer Student Research Assistant",
@@ -29,13 +51,14 @@ const experienceItems: ExperienceEntry[] = [
         >
           Dr. Brad Diak
         </a>
-        {" "}researching the crystallographic texture and the role of stacking fault energy effects on texture in high purity Ytterbium (YB).
+        {" "}researching the crystallographic texture and the role of stacking fault energy effects on texture in high purity ytterbium (Yb).
       </>
     ),
     imageSrc: "/images/NSERC.jpg",
     imageAlt: "USRA Grant Holder - Research Assistant",
   },
   {
+    group: "experience",
     step: "Summer 2024 / Summer 2025",
     title: "Sailing Instructor",
     subtitle: "Sailing Instructor at the Royal Vancouver Yacht Club",
@@ -57,15 +80,17 @@ const experienceItems: ExperienceEntry[] = [
     imageAlt: "Sailing Instructor at the Royal Vancouver Yacht Club",
   },
   {
+    group: "athletics",
     step: "December 2023 / July 2024",
-    title: "ISAF Youth Sailing World Championships",
+    title: "Youth Sailing World Championships",
     subtitle: "Team Canada Representative",
     description:
       "Represented Canada in youth iQFOiL windsurfing at an international level, competing in Brazil (2023) and Italy (2024) while managing elite training plans and performance goals.",
     imageSrc: "/images/ISAF.jpg",
-    imageAlt: "ISAF Youth Sailing World Championships",
+    imageAlt: "Youth Sailing World Championships",
   },
   {
+    group: "athletics",
     step: "2022-2024",
     title: "FIS Alpine Ski Racing",
     subtitle: "Member of the Vancouver Ski Team",
@@ -216,10 +241,20 @@ export default function Experience() {
             {experienceItems.map((item, index) => {
               const textAlign = index % 2 === 0 ? "left" : "right";
               const mediaAlign = textAlign === "left" ? "right" : "left";
+              const startsAthletics =
+                item.group === "athletics" &&
+                (index === 0 || experienceItems[index - 1].group !== "athletics");
 
               return (
+                <Fragment key={item.step}>
+                {startsAthletics && (
+                  <div className="relative z-30 pt-6 text-center md:pt-10">
+                    <span className="inline-block rounded-full border border-primary/25 bg-background/90 px-5 py-2 font-mono text-sm uppercase tracking-[0.34em] text-primary backdrop-blur-sm">
+                      Athletics
+                    </span>
+                  </div>
+                )}
                 <div
-                  key={item.step}
                   className="relative grid grid-cols-1 gap-6 md:grid-cols-[minmax(0,1fr)_5rem_minmax(0,1fr)] md:items-center"
                 >
                   <motion.div
@@ -247,13 +282,16 @@ export default function Experience() {
                     index={index}
                     align={textAlign}
                   />
-                  <ExperienceMedia
-                    item={item}
-                    isInView={isInView}
-                    index={index}
-                    align={mediaAlign}
-                  />
+                  {item.imageSrc && (
+                    <ExperienceMedia
+                      item={item}
+                      isInView={isInView}
+                      index={index}
+                      align={mediaAlign}
+                    />
+                  )}
                 </div>
+                </Fragment>
               );
             })}
           </div>

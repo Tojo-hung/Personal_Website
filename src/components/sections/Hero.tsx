@@ -10,8 +10,7 @@ export default function Hero() {
     "Engineering Physics Student",
     "Problem Solver & Builder",
     "Passionate About Material Science",
-    "Loves the Outdoors",
-    "Future Industry Leader",
+    "Materials & Semiconductor Physics",
     "Curious Everyday",
     "Always Learning",
     "Avid Sailor"
@@ -71,6 +70,14 @@ export default function Hero() {
             className="px-8 py-4 bg-transparent border border-white/20 text-white font-medium rounded-full hover:bg-white/5 hover:border-white/40 transition-colors"
           >
             Get In Touch
+          </a>
+          <a
+            href="/Thomas_Hung_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-8 py-4 bg-transparent border border-white/20 text-white font-medium rounded-full hover:bg-white/5 hover:border-white/40 transition-colors"
+          >
+            Resume
           </a>
         </motion.div>
 

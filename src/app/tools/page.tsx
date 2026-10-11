@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import PoleFigureViewer from "@/components/tools/PoleFigureViewer";
 
 export const metadata: Metadata = {
-  title: "Material Science Tools — Thomas Hung",
+  title: "Material Science Tools | Thomas Hung",
   description:
     "Browser-based material science tools: an interactive X-ray pole figure " +
     "viewer for Philips / PANalytical .PLF texture measurements.",
@@ -19,7 +19,7 @@ export default function ToolsPage() {
       </h1>
       <p className="text-muted max-w-2xl mb-12 text-sm leading-relaxed">
         Interactive utilities from my materials research work. Everything runs
-        locally in your browser — no data is uploaded anywhere.
+        locally in your browser, so no data is uploaded anywhere.
       </p>
 
       <section>

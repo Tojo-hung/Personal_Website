@@ -40,11 +40,11 @@ const projectsData: ProjectRecord[] = [
     summary:
       "Co-founded a design team building a competition-grade foiling Moth for the SuMoth Challenge 2027.",
     description:
-      "I co-founded aQuaFoil, a student design team at Queen's University that builds a foiling Moth sailboat. Our goal is to demonstrate that engineering can be both high performance and environmentally responsible.\n\nWe are building a foiling Moth, one of the fastest and most technically demanding sailboats in the world, utilizing more environmentally friendly materials.",
+      "I co-founded aQuaFoil, a student design team at Queen's University that builds a foiling Moth sailboat. Our goal is to demonstrate that engineering can be both high performance and environmentally responsible.\n\nWe are building a foiling Moth, one of the fastest and most technically demanding sailboats in the world, built from timber and natural fibre composites.",
     bullets: [
-      "Leading a team of 20+ student from several programs at Queen's University",
-      "Implementing a CFD-optimized OpenFOAM simulation pipeline for drag optimization.",
-      "Utilised Ansys to presict strudtural behavior of composite materials under up to 400 kg of load.",
+      "Leading a team of 30+ students from several programs at Queen's University.",
+      "Implementing an OpenFOAM CFD simulation pipeline for drag optimization.",
+      "Utilized Ansys to predict structural behavior of composite materials under up to 400 kg of load.",
     ],
     color: "from-[#0f152a] to-[#1a2544]",
     image: null,
@@ -57,12 +57,39 @@ const projectsData: ProjectRecord[] = [
     liveUrl: "https://www.aquafoil.ca/",
   },
   {
+    id: "pole-figure-viewer",
+    title: "Pole Figure Viewer",
+    subtitle: "Crystallographic Texture Tool",
+    tag: "Materials Science · Software",
+    year: "2026",
+    role: "Developer",
+    tools: "TypeScript · React · Python · X-ray Diffraction",
+    summary:
+      "Built a browser-based viewer for X-ray pole figure measurements, used to visualize crystallographic texture in metals.",
+    description:
+      "Crystallographic texture describes how the grains in a metal are oriented, and it is measured with X-ray pole figures. I built a viewer that reads Philips / PANalytical .PLF pole figure files directly in the browser, so measurements can be checked and shared without specialized software.\n\nThe figures below show a strong cube texture in a 4N aluminum foil sample, first from the lab's MTM-FHM analysis and then rendered in the viewer.",
+    bullets: [
+      "Normalizes measured intensities to multiples of a random distribution (m.r.d.).",
+      "Projects pole figures stereographically or equal-area, with adjustable contour levels and color maps.",
+      "Calculates texture metrics and exports figures and data as PNG / CSV.",
+      "Runs entirely in the browser, so no data is uploaded anywhere.",
+    ],
+    color: "from-[#14202b] to-[#0b1118]",
+    image: "/images/pole-figure-viewer.png",
+    gallery: [
+      { src: "/images/cube-texture-111-200.png", caption: "Cube texture: {111} and {200} pole figures" },
+      { src: "/images/pole-figure-viewer.png", caption: "Same foil in the Pole Figure Viewer" },
+    ],
+    pills: ["Materials Science", "X-ray Diffraction", "Software"],
+    liveUrl: "/tools",
+  },
+  {
     id: "aquatonomous",
     title: "aQuatonomous",
     subtitle: "RoboBoat 2026",
-    tag: "Autonomous Systems · Team Lead",
+    tag: "Autonomous Systems · Mechanical Team Director",
     year: "2024 - 2026",
-    role: "Mechanical Director",
+    role: "Mechanical Team Director",
     tools: "SolidWorks · FDM 3D Printing · Fiberglass Composites · Project Management",
     summary:
       "Mechanical team director for the Queen's autonomous surface vehicle team. Designed and manufactured fiberglass hulls.",
@@ -112,8 +139,8 @@ const projectsData: ProjectRecord[] = [
       "Partnering with the Canadian Space Agency, I designed a robotic arm end-effector prototype capable of handling irregular payloads. The CSA provided strict constraints regarding size, mass budget, and payload retention.\n\nWe translated mission objectives into parametric models utilizing SolidWorks, combining rigid PLA+ structural components with flexible TPU grip pads.",
     bullets: [
       "Conducted FEA simulations to find a geometry that allowed for a Fin Ray inspired compliant mechanism built with PLA and TPU using an FDM 3D printer.",
-      "Iterated on the design to optimize weight and size constraints",
-      "Tested and successfully validated payload retention and grip force",
+      "Iterated on the design to optimize weight and size constraints.",
+      "Tested and successfully validated payload retention and grip force.",
     ],
     color: "from-zinc-800 to-zinc-950",
     image: "/images/csa-arm-hero.jpg",
@@ -130,15 +157,15 @@ const projectsData: ProjectRecord[] = [
     tag: "Product Design · Business",
     year: "2023",
     role: "Creator",
-    tools: "3D Scanning · CAD · FDM",
+    tools: "3D Scanning · Fusion 360 · FDM",
     summary:
       "Designed, prototyped, and sold an FDM-printed gauge to measure wing angle of attack for Olympic windsurfing.",
     description:
       "In Olympic iQFOiL windsurfing, wing angle of attack is critical for tuning hydrofoil lift. Having competed internationally, I realized athletes lacked a reliable tool for this, so I designed a purpose-built precision gauge.\n\nI captured the foil geometry using 3D scanning, designing a two-part gauge via Fusion 360 that mounts without the need for user calibration.",
     bullets: [
-      "Integrated a digital angle gauge into the design, reducing setup time to under 30 seconds",
-      "Iterated prototype geometry for maximum user friendliness",
-      "Manufactured and sold units to international sailors",
+      "Integrated a digital angle gauge into the design, reducing setup time to under 30 seconds.",
+      "Iterated prototype geometry for maximum user friendliness.",
+      "Manufactured and sold over 25 units to international sailors.",
     ],
     color: "from-purple-900/40 to-black",
     image: "/images/iqfoil-start.JPG",
@@ -480,14 +507,6 @@ export default function Projects() {
                               <div className="mb-1 text-muted/60">Tools</div>
                               <div className="text-primary">{selectedProject.tools}</div>
                             </div>
-                            {selectedProject.model3d && (
-                              <div>
-                                <div className="mb-1 text-muted/60">3D Asset</div>
-                                <div className="break-all text-foreground">
-                                  {selectedProject.model3d.src}
-                                </div>
-                              </div>
-                            )}
                           </div>
 
                           <div className="mt-8 border-t border-white/5 pt-8">

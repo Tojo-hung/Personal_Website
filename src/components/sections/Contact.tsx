@@ -26,8 +26,8 @@ export default function Contact() {
           </h2>
           
           <p className="text-xl text-muted font-light mb-10 max-w-2xl mx-auto leading-relaxed relative">
-            I'm actively looking for internship opportunities starting in Summer 2027. 
-            If you're working on applied physics, mechanical design, or aerospace — I'd love to hear from you.
+            I'm actively looking for 4 month or 12 to 16 month internship opportunities starting in May or September 2027.
+            If you're working on semiconductors, materials, applied physics, or aerospace, I'd love to hear from you.
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 relative">
@@ -54,7 +54,7 @@ export default function Contact() {
               </svg>
             </a>
             <a
-              href="https://linkedin.com/in/thomas-hung-8a3082299"
+              href="https://www.linkedin.com/in/thomas-hung-materials/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted hover:text-primary hover:-translate-y-1 transition-transform"

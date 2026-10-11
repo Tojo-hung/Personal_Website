@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className="border-t border-white/10 py-12 mt-20">
       <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
         <p className="text-muted text-sm">
-          &copy; {new Date().getFullYear()} Thomas Hung. Built with Next.js & Sanity.
+          &copy; {new Date().getFullYear()} Thomas Hung. Built with Next.js.
         </p>
         <div className="flex items-center gap-4">
           <Link
@@ -19,7 +19,7 @@ export default function Footer() {
             </svg>
           </Link>
           <Link
-            href="https://linkedin.com/in/thomas-hung-8a3082299"
+            href="https://www.linkedin.com/in/thomas-hung-materials/"
             target="_blank"
             className="text-muted hover:text-primary transition-colors"
           >
