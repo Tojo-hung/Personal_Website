@@ -17,26 +17,6 @@ type ExperienceEntry = {
 const experienceItems: ExperienceEntry[] = [
   {
     group: "experience",
-    step: "Smith Engineering, Queen's University",
-    title: "Dean's Scholar",
-    subtitle: "Academic Distinction",
-    description: (
-      <>
-        Recognized as a Dean&apos;s Scholar by Smith Engineering at Queen&apos;s University.{" "}
-        <a
-          href="https://credentials.engineering.queensu.ca/8896a72a-a39c-4f73-b5e0-b6a883c36f2c#acc.hEbUqXyG"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-primary underline hover:text-primary-hover"
-        >
-          View credential
-        </a>
-      </>
-    ),
-    imageAlt: "Dean's Scholar credential",
-  },
-  {
-    group: "experience",
     step: "May - September 2026",
     title: "USRA Grant Holder",
     subtitle: "Summer Student Research Assistant",
